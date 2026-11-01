@@ -1,0 +1,14 @@
+{
+  "name": "Arctic Night",
+  "short_name": "Arctic Night",
+  "description": "Northern lights outlook, night by night, for the Viking In Search of Northern Lights voyage.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060b16",
+  "theme_color": "#060b16",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

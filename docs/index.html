@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arctic Night</title>
+<meta name="description" content="Northern lights outlook for the Viking In Search of Northern Lights voyage: aurora, clouds, moon and darkness, night by night.">
+<meta name="theme-color" content="#060b16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Arctic Night">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="page">
+  <header class="top">
+    <div>
+      <h1>Arctic Night</h1>
+      <p class="where" id="where">…</p>
+    </div>
+    <button class="redbtn" id="redBtn" aria-pressed="false" aria-label="Red night-vision mode">◐</button>
+  </header>
+
+  <section class="card tonight" id="tonight" aria-live="polite"></section>
+  <section class="card now" id="now" aria-live="polite"></section>
+
+  <h2 class="sec">The voyage, night by night</h2>
+  <p class="secsub" id="voyageSub"></p>
+  <section id="voyage"></section>
+
+  <h2 class="sec">Settings</h2>
+  <section class="card settings">
+    <div class="set">
+      <span class="lab">Where</span>
+      <div class="seg" role="group" aria-label="Where to forecast">
+        <button data-mode="auto">Auto</button><button data-mode="voyage">Voyage</button><button data-mode="here">My location</button>
+      </div>
+      <p class="note">Auto follows the ship during the cruise (January 30 – February 11, 2027) and uses your location the rest of the time.</p>
+    </div>
+    <div class="set" id="alertSet">
+      <span class="lab">Alerts</span>
+      <div id="alertBody"></div>
+    </div>
+    <div class="set">
+      <span class="lab">Red night-vision mode</span>
+      <div class="seg" role="group" aria-label="Red mode">
+        <button data-red="auto">After dark</button><button data-red="on">Always</button><button data-red="off">Off</button>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="sec">Tips for the deck</h2>
+  <section class="card tips">
+    <details><summary>Photographing the aurora with an iPhone</summary>
+      <ul>
+        <li>Turn the flash and Live Photo off. Night mode turns on by itself in the dark; tap its yellow icon and slide to the longest time (often 10–30 seconds).</li>
+        <li>Brace the phone on the ship's rail or a bench, or use a small tripod. On a moving ship, shorter times (3–5 seconds) are sharper.</li>
+        <li>Tap the screen on a distant light to focus, then lower exposure a little so the green doesn't wash out.</li>
+        <li>Faint aurora often looks grey to the eye but green to the camera. If you see a pale "cloud" that doesn't move with the wind, take a test shot.</li>
+      </ul></details>
+    <details><summary>Cold and batteries</summary>
+      <ul>
+        <li>iPhone batteries drain fast below freezing. Keep the phone in an inside pocket and bring it out for shots.</li>
+        <li>Start the night fully charged; a small battery pack in a warm pocket helps.</li>
+        <li>Thin liner gloves that work on touch screens, under warmer mittens.</li>
+      </ul></details>
+    <details><summary>Reading this app</summary>
+      <ul>
+        <li><b>Kp</b> is a 0–9 scale of how stirred up Earth's magnetic field is. Far north (Tromsø, Alta) even 1–2 can show aurora; Bergen needs about 4, Edinburgh 5.</li>
+        <li><b>Good / Fair / Poor</b> combines aurora activity, clouds, the moon and darkness. <b>Too early</b> means NOAA hasn't forecast that night yet: its Kp forecast covers 3 days and its rough outlook about 4 weeks; clouds are forecast 16 days ahead.</li>
+        <li><b>Chance nearby</b> is NOAA's live aurora map (the "OVATION" model) for the next half hour or so.</li>
+        <li>Port times come from a published itinerary and are approximate. Viking's daily program on board is the final word.</li>
+      </ul></details>
+  </section>
+
+  <p class="foot" id="foot"></p>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="arctic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

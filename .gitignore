@@ -1,0 +1,9 @@
+*.xcodeproj/
+ArcticNight/Info.plist
+build/
+Payload/
+*.ipa
+*.log
+*.xcresult
+shots/
+.DS_Store

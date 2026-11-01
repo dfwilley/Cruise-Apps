@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fjord Spotter</title>
+<meta name="description" content="Point your phone at the Norwegian coast and see the names of mountains, islands, fjords and lighthouses.">
+<meta name="theme-color" content="#071a26">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fjord Spotter">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<video id="cam" playsinline muted autoplay hidden></video>
+<main class="page" id="page">
+  <header class="top">
+    <div><h1>Fjord Spotter</h1><p class="where" id="where">Starting…</p></div>
+    <button class="round" id="redBtn" aria-pressed="false" aria-label="Red night-vision mode">◐</button>
+  </header>
+
+  <!-- LOOK -->
+  <section class="view" id="v-look">
+    <div class="hdg" id="hdg" aria-live="polite"></div>
+    <div class="row">
+      <button class="btn" id="compassBtn">Turn on compass</button>
+      <button class="btn" id="camBtn">Camera view</button>
+    </div>
+    <div id="manual" class="manual" hidden>
+      <label for="hdgSlider">No compass here — choose a direction</label>
+      <input type="range" id="hdgSlider" min="0" max="359" value="200">
+    </div>
+    <div class="overlay" id="overlay" hidden></div>
+    <div id="lookList"></div>
+  </section>
+
+  <!-- SIDES -->
+  <section class="view" id="v-sides" hidden>
+    <div class="shipline" id="shipline"></div>
+    <h2 class="side port">Port side <span>left, looking forward</span></h2><div id="portList"></div>
+    <h2 class="side stbd">Starboard side <span>right, looking forward</span></h2><div id="stbdList"></div>
+    <h2 class="side">Ahead</h2><div id="aheadList"></div>
+  </section>
+
+  <!-- LIGHTS -->
+  <section class="view" id="v-lights" hidden>
+    <p class="lead">Saw a light flashing in the dark? Describe it and Fjord Spotter finds which lighthouse it is.</p>
+    <div class="card">
+      <div class="lab">Colour</div>
+      <div class="chips" data-group="color"><button data-v="white">White</button><button data-v="red">Red</button><button data-v="green">Green</button><button data-v="any">Not sure</button></div>
+      <div class="lab">What it does</div>
+      <div class="chips" data-group="pattern"><button data-v="flash">Short flashes</button><button data-v="long">Long flash</button><button data-v="quick">Quick flashing</button><button data-v="eclipse">Mostly on, blinks off</button><button data-v="steady">Steady</button><button data-v="any">Not sure</button></div>
+      <div class="lab">Flashes in each group</div>
+      <div class="stepper"><button id="gMinus" aria-label="Fewer">−</button><output id="gOut">1</output><button id="gPlus" aria-label="More">+</button><span class="sub">Count the flashes before the longer dark pause.</span></div>
+      <div class="lab">Time it</div>
+      <button class="tap" id="tapBtn">Tap at the start of each flash (or group)</button>
+      <p class="sub" id="tapInfo">Tap 3 or more times for a good measurement.</p>
+      <label class="check"><input type="checkbox" id="useDir" checked> Use the direction I'm pointing the phone</label>
+      <div class="row"><button class="btn" id="clearLight">Start over</button></div>
+    </div>
+    <div id="lightList"></div>
+  </section>
+
+  <!-- MORE -->
+  <section class="view" id="v-more" hidden>
+    <div class="card">
+      <div class="lab">Position from</div>
+      <div class="seg" data-set="source"><button data-v="auto">Auto</button><button data-v="gps">GPS</button><button data-v="plan">Ship's plan</button></div>
+      <p class="sub">Auto uses the phone's GPS when it has a fix (it works at sea without Wi-Fi) and otherwise the ship's planned route. Before the cruise, Ship's plan lets you preview the voyage.</p>
+      <div id="previewBox">
+        <div class="lab">Preview the voyage at</div>
+        <input type="range" id="tSlider" min="0" max="1000" value="400" aria-label="Preview time along the voyage">
+        <p class="sub" id="tLabel"></p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="lab">Compass alignment</div>
+      <p class="sub">Ships are big chunks of steel, and phone compasses can be off by several degrees on deck. Point the phone at something you can identify for sure, choose it below, and tap Align.</p>
+      <select id="alignPick" aria-label="Landmark to align to"></select>
+      <div class="row"><button class="btn" id="alignBtn">Align to it</button><button class="btn" id="alignReset">Reset</button></div>
+      <p class="sub" id="alignInfo"></p>
+    </div>
+    <div class="card">
+      <div class="lab">Red night-vision mode</div>
+      <div class="seg" data-set="red"><button data-v="auto">After dark</button><button data-v="on">Always</button><button data-v="off">Off</button></div>
+    </div>
+    <div class="card">
+      <div class="lab">About the data</div>
+      <p class="sub" id="dataInfo"></p>
+    </div>
+  </section>
+</main>
+
+<nav class="tabs" aria-label="Sections">
+  <button data-v="look" aria-current="page"><span aria-hidden="true">◎</span>Look</button>
+  <button data-v="sides"><span aria-hidden="true">⇆</span>Port &amp; Stbd</button>
+  <button data-v="lights"><span aria-hidden="true">✺</span>Lights</button>
+  <button data-v="more"><span aria-hidden="true">⚙︎</span>Settings</button>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data/route.js"></script>
+<script src="data/landmarks.js"></script>
+<script src="fjord.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

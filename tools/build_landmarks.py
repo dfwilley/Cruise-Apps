@@ -1,62 +1,48 @@
 #!/usr/bin/env python3
-"""Downloads landmarks along the voyage track from OpenStreetMap (Overpass API) and writes
-fjord-spotter/data/landmarks.json. Run by the "Landmark data" GitHub workflow.
+"""Builds fjord-spotter/data/landmarks.json from OpenStreetMap extracts (Geofabrik) filtered by osmium,
+keeping what lies near the voyage track. Run by the "Landmark data" GitHub workflow:
+    python3 tools/build_landmarks.py norway.geojsonseq scotland.geojsonseq ...
 
 Data © OpenStreetMap contributors, available under the Open Database License (ODbL)."""
-import json, math, sys, time, urllib.request, urllib.parse, re, pathlib
+import json, math, sys, time, re, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 route = json.loads((ROOT / "fjord-spotter/data/route.json").read_text())
 track = [(p[0], p[1]) for p in route["track"]]
-SERVERS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]
-
-def legs():
-    """Split the track at open-sea stretches (no landmarks out there) into coastal pieces of ≤ 8 points."""
-    pieces, cur = [], [track[0]]
-    for a, b in zip(track, track[1:]):
-        dist = math.hypot(b[0] - a[0], (b[1] - a[1]) * math.cos(math.radians(a[0]))) * 111
-        if dist > 150:  # North Sea crossing: start a new piece
-            pieces.append(cur); cur = [b]; continue
-        cur.append(b)
-        if len(cur) >= 8: pieces.append(cur); cur = [b]
-    pieces.append(cur)
-    return [p for p in pieces if p]
-
-def around(r, pts):
-    return f"around:{r}," + ",".join(f"{la:.4f},{lo:.4f}" for la, lo in pts)
-
-def queries(pts):
-    """Small, separate requests per category (faster on the public Overpass servers)."""
-    a40, a25, a20 = around(40000, pts), around(25000, pts), around(20000, pts)
-    head = "[out:json][timeout:170];"
-    return {
-        "peaks": head + f'node["natural"="peak"]["name"]["ele"]({a40});out tags;',
-        "places": head + f'node["place"~"^(city|town|village)$"]["name"]({a20});out tags;',
-        "islands": head + f'(node["place"="island"]["name"]({a20});way["place"="island"]["name"]({a20}););out center tags;',
-        "water": head + f'(node["natural"~"^(bay|strait|cape)$"]["name"]({a20});way["natural"~"^(bay|strait)$"]["name"]({a20}););out center tags;',
-        "lights": head + f'(node["man_made"="lighthouse"]({a25});node["seamark:type"~"^(light_major|light_minor|lighthouse)$"]({a25}););out tags;',
-        "wrecks": head + f'(node["historic"="wreck"]["name"]({a20});node["seamark:type"="wreck"]["seamark:name"]({a20}););out tags;',
-    }
 
 def note(msg):
     print(f"::notice::{msg}", flush=True)
 
-def fetch(q, label):
-    data = urllib.parse.urlencode({"data": q}).encode()
-    for attempt in range(3):
-        for s in SERVERS:
-            t0 = time.time()
-            try:
-                req = urllib.request.Request(s, data=data, headers={"User-Agent": "FjordSpotter/1.0 (personal cruise app; github.com/dfwilley/Cruise-Apps)"})
-                with urllib.request.urlopen(req, timeout=200) as r:
-                    res = json.loads(r.read())
-                    print(f"  {label}: {len(res.get('elements', []))} from {s} in {time.time()-t0:.0f}s", flush=True)
-                    return res
-            except Exception as e:
-                print(f"::warning::{label} via {s} failed after {time.time()-t0:.0f}s: {e}", flush=True)
-        time.sleep(15 * (attempt + 1))
-    note(f"{label}: all servers failed; skipped")
-    return {"elements": []}
+# Distance from a point to the track, in km (flat-earth approximation per segment is fine at these scales).
+SEGS = list(zip(track, track[1:]))
+def dist_to_track(la, lo):
+    best = 1e9
+    for (a_la, a_lo), (b_la, b_lo) in SEGS:
+        k = math.cos(math.radians((a_la + b_la) / 2)) * 111.32
+        ax, ay, bx, by, px, py = a_lo * k, a_la * 110.57, b_lo * k, b_la * 110.57, lo * k, la * 110.57
+        dx, dy = bx - ax, by - ay
+        t = 0 if dx == dy == 0 else max(0, min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)))
+        d = math.hypot(px - ax - t * dx, py - ay - t * dy)
+        if d < best: best = d
+    return best
+
+# Sea legs across the open North Sea have no landmarks; skip their segments so towns far inland aren't picked up.
+def is_sea(a, b):
+    return math.hypot(b[0] - a[0], (b[1] - a[1]) * math.cos(math.radians(a[0]))) * 111 > 150
+SEGS = [s for s in SEGS if not is_sea(*s)]
+
+RADIUS = {"peak": 40, "glacier": 40, "lighthouse": 25, "light": 25, "city": 20, "town": 20, "village": 20, "island": 20, "fjord": 20, "bay": 20, "strait": 20, "cape": 20, "wreck": 20}
+
+def point_of(geom):
+    """A representative point: the point itself, or the average of a line/area's outline."""
+    t, c = geom["type"], geom["coordinates"]
+    if t == "Point": return c[1], c[0]
+    if t == "LineString": pts = c
+    elif t == "Polygon": pts = c[0]
+    elif t == "MultiPolygon": pts = max((p[0] for p in c), key=len)
+    elif t == "MultiLineString": pts = max(c, key=len)
+    else: return None
+    return sum(p[1] for p in pts) / len(pts), sum(p[0] for p in pts) / len(pts)
 
 def num(v):
     if v is None: return None
@@ -92,32 +78,30 @@ def kind(t):
     return None
 
 items, seen = [], set()
-T0 = time.time()
-def elements():
-    for i, pts in enumerate(legs()):
-        for label, q in queries(pts).items():
-            res = fetch(q, f"leg {i + 1} {label}")
-            yield from res.get("elements", [])
-            time.sleep(2)
-        print(f"Leg {i + 1} done ({time.time() - T0:.0f}s so far)", flush=True)
-for el in elements():
-    if True:
-        t = el.get("tags", {})
-        la = el.get("lat") or (el.get("center") or {}).get("lat"); lo = el.get("lon") or (el.get("center") or {}).get("lon")
-        if la is None: continue
+for path in sys.argv[1:]:   # GeoJSON-sequence files exported by osmium
+    for line in open(path, encoding="utf-8"):
+        line = line.strip().lstrip("\x1e")
+        if not line: continue
+        f = json.loads(line)
+        t = f.get("properties", {})
         k = kind(t)
         if not k: continue
+        p = point_of(f["geometry"])
+        if not p: continue
+        la, lo = p
+        if dist_to_track(la, lo) > RADIUS.get(k, 20): continue
         name = t.get("name") or t.get("seamark:name") or t.get("name:en")
         li = light_info(t) if k in ("lighthouse", "light") else None
         if k == "light" and not (name and li): continue        # skip unnamed small lights
         if k == "lighthouse" and not (name or li): continue
-        key = (el["type"], el["id"])
+        if k in ("peak", "city", "town", "village", "island", "fjord", "bay", "strait", "cape", "glacier", "wreck") and not name: continue
+        e = num(t.get("ele"))
+        if k == "peak" and (e is None or e < 300): continue      # small hills clutter the view
+        key = (k, name, round(la, 3), round(lo, 3))
         if key in seen: continue
         seen.add(key)
         it = {"k": k, "n": name or "Unnamed light", "la": round(la, 5), "lo": round(lo, 5)}
         if t.get("name:en") and t.get("name:en") != name: it["en"] = t["name:en"]
-        e = num(t.get("ele"))
-        if k == "peak" and (e is None or e < 300): continue        # small hills clutter the view
         if e is not None and k in ("peak", "glacier", "lighthouse"): it["e"] = round(e)
         if li: it["l"] = li
         if k == "wreck" and t.get("description"): it["d"] = t["description"][:200]

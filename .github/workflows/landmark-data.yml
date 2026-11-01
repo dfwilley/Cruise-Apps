@@ -3,7 +3,7 @@ name: Landmark data
 on:
   push:
     branches: [main]
-    paths: ["tools/build_landmarks.py", "fjord-spotter/data/route.json"]
+    paths: ["tools/build_landmarks.py", "fjord-spotter/data/route.json", ".github/workflows/landmark-data.yml"]
   workflow_dispatch:
 
 permissions:
@@ -14,8 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download landmarks from OpenStreetMap
-        run: python3 tools/build_landmarks.py
+      - name: Install osmium
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - name: Download OpenStreetMap extracts (Geofabrik)
+        run: |
+          mkdir -p osm && cd osm
+          for r in europe/norway europe/great-britain/scotland europe/great-britain/england/essex europe/great-britain/england/kent; do
+            f=$(basename $r)-latest.osm.pbf
+            curl -fsSL --retry 3 -o "$f" "https://download.geofabrik.de/$r-latest.osm.pbf"
+            echo "::notice::Downloaded $f ($(du -h "$f" | cut -f1))"
+          done
+      - name: Keep only landmarks and export them
+        run: |
+          cd osm
+          for f in *-latest.osm.pbf; do
+            b=${f%-latest.osm.pbf}
+            osmium tags-filter "$f" n/natural=peak,volcano n/place=city,town,village nwr/place=island nwr/natural=bay,strait,cape,glacier n/man_made=lighthouse n/seamark:type=light_major,light_minor,lighthouse n/historic=wreck n/seamark:type=wreck -o "$b-f.pbf" --overwrite
+            osmium export "$b-f.pbf" -f geojsonseq -o "$b.geojsonseq" --overwrite
+            echo "$b: $(wc -l < $b.geojsonseq) features"
+          done
+      - name: Build the landmark file
+        run: python3 tools/build_landmarks.py osm/*.geojsonseq
       - name: Save the data file to the repository
         run: |
           git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"

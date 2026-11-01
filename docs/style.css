@@ -72,3 +72,5 @@ html.red .seg button[aria-pressed=true]{color:#000}
 .check{display:flex;gap:10px;align-items:center;min-height:44px}
 .check input{width:24px;height:24px;accent-color:var(--accent)}
 select{font:inherit;background:var(--bg2);color:var(--ink);border:1px solid var(--rule);border-radius:8px;padding:6px}
+/* Solid strip behind the iPhone status bar so scrolled text doesn't run under the clock. */
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);background:var(--bg);z-index:20}

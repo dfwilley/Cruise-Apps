@@ -1,0 +1,24 @@
+name: Landmark data
+
+on:
+  push:
+    branches: [main]
+    paths: ["tools/build_landmarks.py", "fjord-spotter/data/route.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download landmarks from OpenStreetMap
+        run: python3 tools/build_landmarks.py
+      - name: Save the data file to the repository
+        run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add fjord-spotter/data/landmarks.json
+          git commit -m "Update landmark data from OpenStreetMap" || echo "No change"
+          git pull --rebase origin main && git push origin HEAD:main

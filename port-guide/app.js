@@ -483,24 +483,28 @@
       <h3>${d.editing ? "Edit " + esc(d.name) : "Add a cruise"}</h3>
       <div class="viking">
         <b>Get it from Viking</b>
-        ${native ? `<p>Opens Viking's website inside the app. Go to your cruise's <b>Itinerary</b>, then tap <b>Use this itinerary</b>.</p>
+        ${native ? `<p>Opens Viking's website inside the app. Go to your cruise's <b>Itinerary</b>, then tap <b>Use this itinerary</b> — no copying needed.</p>
           <div class="row"><button id="vsite" class="build slim">Viking.com</button><button id="vmvj" class="ghost">My Viking Journey</button></div>
           <p class="fine">My Viking Journey is your booking (sign in once): it shows your own dates and, for ocean voyages, the port times.</p>`
-        : `<p>Open your cruise on Viking's site, go to the <b>Itinerary</b>, select all of the page and copy it, then paste it in the box below. (The iPhone app reads the page for you.)</p>
-          <div class="row"><a class="ghost" href="${VIKING}" target="_blank" rel="noopener">Viking.com</a><a class="ghost" href="${MVJ}" target="_blank" rel="noopener">My Viking Journey</a></div>`}
+        : `<ol class="steps">
+            <li>Open <a href="${VIKING}" target="_blank" rel="noopener">Viking.com</a> or <a href="${MVJ}" target="_blank" rel="noopener">My Viking Journey</a> and go to your cruise's day-by-day itinerary.</li>
+            <li>Press and hold on the words <b>Day 1</b> until they highlight, drag the lower blue handle down to the last day, and tap <b>Copy</b>. (It doesn't have to be neat — extra text is ignored.)</li>
+            <li>Come back here and tap <b>Paste itinerary</b>.</li></ol>
+          <p class="fine">Tip: in the iPhone app (Port-Pocket-Guide.ipa) there's no copying — it opens Viking's site and reads the itinerary with one tap.</p>`}
+      </div>
+      <div class="pastebox">
+        <button id="cpaste" class="build">📋 Paste itinerary</button>
+        <textarea id="ctext" rows="4" placeholder="…or press and hold here and choose Paste. You can also type one port per line, like:&#10;May 6, 2027  Breisach, Germany  8:00 AM  6:00 PM">${esc(d.text)}</textarea>
+        <div class="row"><button id="cread" class="ghost">Read it</button>
+          <label class="ghost file">Pick a file…<input id="cfile" type="file" accept=".txt,.csv,.tsv,.ics,text/plain,text/csv,text/calendar"></label>
+          <span class="fine">Text, spreadsheet (.csv) or calendar (.ics)</span></div>
       </div>
       ${d.page && d.page.ask ? departurePicker(d) : ""}
-      <h3 class="or">Or paste or pick a file</h3>
-      <p>Paste the itinerary — from the cruise line's website, your booking or an email — or pick a file. One port per line with its date, plus arrival and departure times if you have them. Sea days are skipped.</p>
       <div class="form">
         <label><span>Cruise name</span><input id="cname" type="text" value="${esc(d.name)}" placeholder="e.g. Mediterranean Odyssey"></label>
         <label><span>Ship (optional)</span><input id="cship" type="text" value="${esc(d.ship)}" placeholder="e.g. Viking Sea"></label>
         <label><span>First day (only needed if the lines say "Day 1, Day 2…" without dates)</span><input id="cstart" type="date" value="${esc(d.start)}"></label>
       </div>
-      <textarea id="ctext" rows="7" placeholder="May 4, 2027   Basel, Switzerland&#10;May 6, 2027   Breisach, Germany   8:00 AM   6:00 PM&#10;May 7, 2027   At sea&#10;…">${esc(d.text)}</textarea>
-      <div class="row"><button id="cread" class="ghost">Read itinerary</button>
-        <label class="ghost file">Pick a file…<input id="cfile" type="file" accept=".txt,.csv,.tsv,.ics,text/plain,text/csv,text/calendar"></label>
-        <span class="fine">Text, spreadsheet (.csv) or calendar (.ics)</span></div>
       <details class="fine"><summary>Examples it understands</summary>
         <pre>Sat, Jan 30, 2027  Tromsø, Norway  12:00 PM  11:00 PM
 2027-09-12, Ajaccio, France, 08:00, 18:00
@@ -517,6 +521,16 @@ Basel    the first day filled in above)</pre></details>
     const bind = (id, k) => { const i = $("#" + id); i.oninput = () => { d[k] = i.value; }; };
     bind("cname", "name"); bind("cship", "ship"); bind("cstart", "start"); bind("ctext", "text");
     $("#cread").onclick = () => readItinerary(d.text);
+    // Pasting reads straight away; the button asks the phone for what's on the clipboard.
+    $("#ctext").addEventListener("paste", () => setTimeout(() => { d.text = $("#ctext").value; readItinerary(d.text); }, 50));
+    $("#cpaste").onclick = async () => {
+      try {
+        const t = navigator.clipboard && navigator.clipboard.readText ? await navigator.clipboard.readText() : "";
+        if (t && t.trim()) { d.text = t; $("#ctext").value = t; readItinerary(t); return; }
+        toast("Nothing copied yet — copy the itinerary on Viking's page first.");
+      } catch (e) { toast("Press and hold in the box below and choose Paste."); }
+      $("#ctext").focus();
+    };
     const vs = $("#vsite"), vm = $("#vmvj");
     if (vs) vs.onclick = () => native.postMessage({ cmd: "viking", url: VIKING });
     if (vm) vm.onclick = () => native.postMessage({ cmd: "viking", url: MVJ });

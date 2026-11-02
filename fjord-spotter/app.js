@@ -106,7 +106,7 @@ let pendingR = false;
 function schedule() { if (pendingR) return; pendingR = true; requestAnimationFrame(() => { pendingR = false; render(); }); }
 
 function itemHTML(x, extra = "") {
-  return `<div class="item"><div class="ic" aria-hidden="true">${ICON[x.it.k] || "•"}</div><div class="t"><div class="n">${esc(F.title(x.it))}</div><div class="d">${esc(F.detail(x))}</div>${extra}</div>${x.clock ? `<div class="clock">${x.clock}:00</div>` : ""}</div>`;
+  return `<div class="item"><div class="ic" aria-hidden="true">${ICON[x.it.k] || "•"}</div><div class="t"><div class="n">${esc(F.title(x.it))}</div><div class="d">${esc(F.detail(x))}</div>${extra}</div>${x.clock ? `<div class="clock">${x.clock} o'clock</div>` : ""}</div>`;
 }
 function render() {
   const pos = position(), h = heading();

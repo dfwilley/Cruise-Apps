@@ -93,21 +93,22 @@ function visible(pos, course, items) {
   return out;
 }
 /** Port and starboard lists, most notable first. */
+const named = (x) => x.it.n !== "Unnamed light"; // unnamed lights only matter to the lighthouse identifier
 function sides(pos, course, items, limit = 25) {
-  const v = visible(pos, course, items).sort((a, b) => b.score - a.score);
+  const v = visible(pos, course, items).filter(named).sort((a, b) => b.score - a.score);
   const pick = (s) => v.filter((x) => s.includes(x.side)).slice(0, limit);
   return { port: pick(["Port"]), starboard: pick(["Starboard"]), ahead: pick(["Ahead"]), astern: pick(["Astern"]) };
 }
 /** What's in the direction the phone points (within ±half the cone), best first. */
 function pointing(pos, heading, items, cone = 24) {
-  return visible(pos, null, items).map((x) => ({ ...x, off: angleDiff(x.b, heading) }))
+  return visible(pos, null, items).filter(named).map((x) => ({ ...x, off: angleDiff(x.b, heading) }))
     .filter((x) => Math.abs(x.off) <= cone / 2)
     .map((x) => ({ ...x, match: x.score * (1 - Math.abs(x.off) / cone) }))
     .sort((a, b) => b.match - a.match);
 }
 /** Labels for the camera view: horizontal position 0–1 across the screen, rows so they don't overlap. */
 function cameraLabels(pos, heading, items, hfov = 50, max = 14) {
-  const inView = visible(pos, null, items).map((x) => ({ ...x, off: angleDiff(x.b, heading) }))
+  const inView = visible(pos, null, items).filter(named).map((x) => ({ ...x, off: angleDiff(x.b, heading) }))
     .filter((x) => Math.abs(x.off) <= hfov / 2).sort((a, b) => b.score - a.score).slice(0, max);
   const rows = [];
   for (const x of inView) {
@@ -171,7 +172,6 @@ function detail(x) {
   if (it.e && (it.k === "peak" || it.k === "glacier")) bits.push(fmtFt(it.e));
   if (it.l) bits.push(parseLight(it.l).text);
   bits.push(`${fmtNm(x.d)} ${compass16(x.b)}`);
-  if (x.clock) bits.push(`${x.clock} o'clock`);
   return bits.join(" · ");
 }
 

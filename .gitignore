@@ -1,0 +1,9 @@
+native/*/*.xcodeproj/
+native/*/*/Info.plist
+native/*/build/
+native/*/Payload/
+native/*/shots/
+*.ipa
+*.log
+*.xcresult
+.DS_Store

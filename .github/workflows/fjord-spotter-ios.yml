@@ -1,0 +1,86 @@
+name: Fjord Spotter iPhone app
+
+on:
+  push:
+    branches: [main]
+    paths: ["fjord-spotter/**", "native/fjord-spotter/**", "tests/fjord.test.js", ".github/workflows/fjord-spotter-ios.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test the spotting logic
+        run: node tests/fjord.test.js
+
+      - name: Install XcodeGen
+        run: command -v xcodegen || brew install xcodegen
+
+      - name: Create the Xcode project
+        working-directory: native/fjord-spotter
+        run: xcodegen generate
+
+      - name: Run tests and take screenshots on an iPhone simulator
+        working-directory: native/fjord-spotter
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -E '^[[:space:]]+iPhone' | head -1 | sed -E 's/^[[:space:]]+//; s/ \(.*//')
+          echo "::notice::Simulator: $DEVICE"
+          xcodebuild test -project FjordSpotter.xcodeproj -scheme FjordSpotter \
+            -destination "platform=iOS Simulator,name=$DEVICE" -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee test.log | grep -E "error:|Test Case .*(passed|failed)|Executed|\*\* TEST" || true
+          grep -E "Executed [0-9]+ test" test.log | sort -u | while IFS= read -r l; do echo "::notice::$l"; done
+          if ! grep -q "\*\* TEST SUCCEEDED \*\*" test.log; then
+            grep -E "error:|: error|failed|xcodebuild: error" test.log | sort -u | head -10 | while IFS= read -r l; do echo "::error::${l:0:900}"; done
+            exit 1
+          fi
+
+      - name: Publish screenshots to the ci-screenshots-fjord branch
+        if: always()
+        working-directory: native/fjord-spotter
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -d TestResults.xcresult ] || exit 0
+          mkdir -p shots
+          xcrun xcresulttool export attachments --path TestResults.xcresult --output-path shots || true
+          cd shots
+          git init -q -b ci-screenshots-fjord
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add -A && git commit -qm "Screenshots from run ${{ github.run_number }}" || exit 0
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screenshots-fjord
+
+      - name: Build for iPhone (unsigned)
+        working-directory: native/fjord-spotter
+        run: |
+          xcodebuild build -project FjordSpotter.xcodeproj -scheme FjordSpotter \
+            -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" 2>&1 | tee build.log | grep -E "error:|\*\* BUILD" || true
+          if ! grep -q "\*\* BUILD SUCCEEDED \*\*" build.log; then
+            grep -E "error:" build.log | sort -u | head -10 | while IFS= read -r l; do echo "::error::${l:0:900}"; done
+            exit 1
+          fi
+
+      - name: Package the .ipa
+        working-directory: native/fjord-spotter
+        run: |
+          mkdir -p Payload && cp -R build/Build/Products/Release-iphoneos/FjordSpotter.app Payload/
+          zip -qry Fjord-Spotter.ipa Payload && ls -l Fjord-Spotter.ipa
+
+      - name: Publish the .ipa (always at the same download link)
+        working-directory: native/fjord-spotter
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete fjord-spotter-latest --repo "${{ github.repository }}" --cleanup-tag -y || true
+          gh release create fjord-spotter-latest Fjord-Spotter.ipa --repo "${{ github.repository }}" \
+            --title "Fjord Spotter (build ${{ github.run_number }})" --latest=false \
+            --notes "Download Fjord-Spotter.ipa below and install it with Sideloadly. Built from commit ${GITHUB_SHA:0:7}."

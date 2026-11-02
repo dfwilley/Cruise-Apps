@@ -1,0 +1,65 @@
+name: FjordSpotter
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  FjordSpotter:
+    type: application
+    platform: iOS
+    sources:
+      - path: FjordSpotter
+      - path: ../../fjord-spotter
+        type: folder
+        buildPhase: resources
+    info:
+      path: FjordSpotter/Info.plist
+      properties:
+        CFBundleDisplayName: Fjord Spotter
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSLocationWhenInUseUsageDescription: Fjord Spotter uses GPS to know where the ship is, so it can name the mountains, islands and lighthouses around you. GPS works at sea without Wi-Fi.
+        NSCameraUsageDescription: Fjord Spotter shows the camera view with the names of what you're looking at drawn on top.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.fjordspotter
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  FjordSpotterTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [FjordSpotterTests]
+    dependencies:
+      - target: FjordSpotter
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  FjordSpotterUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [FjordSpotterUITests]
+    dependencies:
+      - target: FjordSpotter
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  FjordSpotter:
+    build:
+      targets:
+        FjordSpotter: all
+    test:
+      targets:
+        - FjordSpotterTests
+        - FjordSpotterUITests

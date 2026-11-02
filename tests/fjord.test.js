@@ -78,4 +78,20 @@ ok("formatting in nautical miles and feet", () => {
   assert.equal(F.fmtNm(18.52), "10 nm"); assert.equal(F.fmtNm(5), "2.7 nm"); assert.equal(F.fmtNm(0.5), "1,640 ft");
   assert.equal(F.fmtFt(1392), "4,567 ft"); assert.equal(F.compass16(225), "SW");
 });
+// Real OpenStreetMap data along the route (written by the "Landmark data" workflow).
+global.window = {}; eval(fs.readFileSync(path.join(__dirname, "../fjord-spotter/data/landmarks.js"), "utf8"));
+const REAL = window.FJORD_LANDMARKS.items;
+ok("real data: thousands of landmarks, readable lights", () => {
+  assert(REAL.length > 5000, REAL.length);
+  const lights = REAL.filter((x) => x.l); assert(lights.length > 500);
+  assert(lights.filter((x) => !F.parseLight(x.l).type).length / lights.length < 0.01, "almost all light patterns readable");
+});
+ok("real data: Stetinden is in view sailing out of the Ofotfjord, and no unnamed lights in the lists", () => {
+  const p = V.at(Date.parse("2027-02-04T23:30:00Z"));
+  const v = F.visible(p, p.course, REAL); assert(v.some((x) => x.it.n === "Stetinden"), "Stetinden visible");
+  const s = F.sides(p, p.course, REAL, 50); for (const k of ["port", "starboard", "ahead", "astern"]) assert(!s[k].some((x) => x.it.n === "Unnamed light"));
+});
+ok("real data: Narvik's 1940 destroyer wrecks are included", () => {
+  assert(REAL.some((x) => x.k === "wreck" && /Georg Thiele/.test(x.n)));
+});
 console.log(`\nAll ${n} test groups passed.`);

@@ -2353,31 +2353,6 @@
 "fromPier": 0.18
 },
 {
-"name": "City Art Centre",
-"group": "sight",
-"kind": "gallery",
-"lat": 55.95103,
-"lon": -3.18916,
-"website": "https://www.edinburghmuseums.org.uk/venue/city-art-centre",
-"wikidata": "Q17569430",
-"fee": "no",
-"wheelchair": "yes",
-"fromPier": 0.2
-},
-{
-"name": "Fruitmarket",
-"group": "sight",
-"kind": "gallery",
-"lat": 55.95124,
-"lon": -3.18969,
-"hours": "11:00-18:00",
-"website": "https://www.fruitmarket.co.uk/",
-"wikidata": "Q4402028",
-"fee": "no",
-"wheelchair": "yes",
-"fromPier": 0.21
-},
-{
 "name": "Black Watch Memorial",
 "group": "sight",
 "kind": "historic",
@@ -2510,18 +2485,6 @@
 "fromPier": 0.33
 },
 {
-"name": "National Gallery",
-"group": "sight",
-"kind": "gallery",
-"lat": 55.95089,
-"lon": -3.19562,
-"hours": "Mo-Su 10:00-17:00; Th 10:00-19:00",
-"website": "https://www.nationalgalleries.org/",
-"wikidata": "Q942713",
-"fee": "no",
-"fromPier": 0.33
-},
-{
 "name": "Greyfriars Kirk",
 "group": "sight",
 "kind": "attraction",
@@ -2646,17 +2609,6 @@
 "fromPier": 0.42
 },
 {
-"name": "Royal Scottish Academy",
-"group": "sight",
-"kind": "gallery",
-"lat": 55.9517,
-"lon": -3.19629,
-"website": "https://www.royalscottishacademy.org/",
-"wikidata": "Q7374813",
-"fee": "no",
-"fromPier": 0.42
-},
-{
 "name": "Royal Scots Monument",
 "group": "sight",
 "kind": "historic",
@@ -2728,6 +2680,45 @@
 "lon": -3.1854,
 "wikidata": "Q17812523",
 "fromPier": 0.52
+},
+{
+"name": "Anatomical Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 55.94485,
+"lon": -3.1901,
+"hours": "Sa[-1] 10:00-16:00; Jun-Jul off",
+"website": "https://www.ed.ac.uk/biomedical-sciences/anatomy/anatomical-museum",
+"wikidata": "Q26986300",
+"fromPier": 0.52
+},
+{
+"name": "Political Martyrs' Monument",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.95337,
+"lon": -3.1858,
+"wikidata": "Q7210212",
+"wheelchair": "no",
+"fromPier": 0.53
+},
+{
+"name": "Scottish-American Soldiers Monument",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95348,
+"lon": -3.18613,
+"wikidata": "Q17570821",
+"fromPier": 0.53
+},
+{
+"name": "Melville's Monument",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95422,
+"lon": -3.19315,
+"wikidata": "Q17570686",
+"fromPier": 0.54
 }
 ],
 "practical": [
@@ -3414,18 +3405,6 @@
 "fromPier": 0.89
 },
 {
-"name": "ARTE DELUX",
-"group": "sight",
-"kind": "gallery",
-"lat": 51.51087,
-"lon": -0.08878,
-"hours": "Mo-Fr 09:00-18:00",
-"website": "https://www.artedelux.com",
-"wikidata": "Q139862599",
-"description": "Private art gallery, by appointment",
-"fromPier": 0.94
-},
-{
 "name": "Old Operating Theatre Museum",
 "group": "sight",
 "kind": "museum",
@@ -3459,20 +3438,6 @@
 "fromPier": 0.98
 },
 {
-"name": "Whitechapel Gallery",
-"group": "sight",
-"kind": "gallery",
-"lat": 51.51615,
-"lon": -0.07026,
-"hours": "Tu-We,Fr-Su 11:00-18:00; Th 11:00-21:00",
-"website": "https://www.whitechapelgallery.org/",
-"wikidata": "Q1814654",
-"fee": "yes",
-"wheelchair": "limited",
-"phone": "+44 207 522 7888",
-"fromPier": 0.98
-},
-{
 "name": "London Stone",
 "group": "sight",
 "kind": "historic",
@@ -3501,6 +3466,26 @@
 "lon": -0.08796,
 "wikidata": "Q20786631",
 "fromPier": 1.02
+},
+{
+"name": "London Troops War Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51352,
+"lon": -0.08807,
+"wikidata": "Q18575165",
+"wheelchair": "yes",
+"fromPier": 1.04
+},
+{
+"name": "Duke of Wellington",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51346,
+"lon": -0.08842,
+"wikidata": "Q18159872",
+"wheelchair": "no",
+"fromPier": 1.05
 }
 ],
 "practical": [
@@ -3904,6 +3889,16 @@
 "fromPier": 0.75
 },
 {
+"name": "Petersplatz",
+"group": "sight",
+"kind": "attraction",
+"lat": 47.55924,
+"lon": 7.58352,
+"wikidata": "Q2079730",
+"wheelchair": "yes",
+"fromPier": 0.77
+},
+{
 "name": "Ausstellungsraum Klingental",
 "group": "sight",
 "kind": "gallery",
@@ -3915,16 +3910,6 @@
 "fee": "no",
 "wheelchair": "yes",
 "phone": "+41 61 681 66 98",
-"fromPier": 0.77
-},
-{
-"name": "Petersplatz",
-"group": "sight",
-"kind": "attraction",
-"lat": 47.55924,
-"lon": 7.58352,
-"wikidata": "Q2079730",
-"wheelchair": "yes",
 "fromPier": 0.77
 },
 {
@@ -4699,6 +4684,72 @@
 "fromPier": 2.1
 },
 {
+"name": "Museum of toys",
+"group": "sight",
+"kind": "museum",
+"lat": 48.07912,
+"lon": 7.36215,
+"local": "Musée du Jouet",
+"hours": "Feb-Jun,Sep-Nov: We-Mo 10:00-17:00; Jul,Aug,Dec: Mo-Su 10:00-18:00",
+"wikidata": "Q3330441",
+"fee": "yes",
+"website": "https://www.museejouet.com/",
+"fromPier": 16.77
+},
+{
+"name": "Ancienne douane (Koïfhus)",
+"group": "sight",
+"kind": "historic",
+"lat": 48.07586,
+"lon": 7.35908,
+"wikidata": "Q3199479",
+"fromPier": 16.88
+},
+{
+"name": "Maison Pfister",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.07672,
+"lon": 7.35813,
+"wikidata": "Q2350639",
+"wheelchair": "no",
+"fromPier": 16.97
+},
+{
+"name": "Musée Bartholdi",
+"group": "sight",
+"kind": "museum",
+"lat": 48.07658,
+"lon": 7.3576,
+"hours": "Tu-Su 10:00-12:00, 14:00-18:00",
+"wikidata": "Q3329085",
+"fee": "yes",
+"website": "https://www.musee-bartholdi.fr/",
+"fromPier": 17.01
+},
+{
+"name": "Maison Pfeffel",
+"group": "sight",
+"kind": "historic",
+"lat": 48.07502,
+"lon": 7.35574,
+"wikidata": "Q3278935",
+"fromPier": 17.09
+},
+{
+"name": "Unterlinden Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 48.07986,
+"lon": 7.35556,
+"local": "Musée Unterlinden",
+"hours": "Mo, We-Su 10:00-18:00; Th 10:00-20:00",
+"website": "https://www.musee-unterlinden.com",
+"wikidata": "Q1851283",
+"fee": "yes",
+"fromPier": 17.26
+},
+{
 "name": "Église Saint-Antoine",
 "group": "sight",
 "kind": "church",
@@ -4735,29 +4786,6 @@
 "fromPier": 16.67
 },
 {
-"name": "Petite Venice",
-"group": "sight",
-"kind": "viewpoint",
-"lat": 48.07462,
-"lon": 7.36033,
-"local": "La petite Venise",
-"wheelchair": "yes",
-"fromPier": 16.75
-},
-{
-"name": "Museum of toys",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07912,
-"lon": 7.36215,
-"local": "Musée du Jouet",
-"hours": "Feb-Jun,Sep-Nov: We-Mo 10:00-17:00; Jul,Aug,Dec: Mo-Su 10:00-18:00",
-"wikidata": "Q3330441",
-"fee": "yes",
-"website": "https://www.museejouet.com/",
-"fromPier": 16.77
-},
-{
 "name": "Église Saint-Matthieu",
 "group": "sight",
 "kind": "church",
@@ -4766,26 +4794,6 @@
 "website": "http://www.paroisse-protestante-colmar.org/",
 "wikidata": "Q27921564",
 "fromPier": 16.78
-},
-{
-"name": "Musée d'Histoire Naturelle et d'Éthnographie",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07365,
-"lon": 7.35879,
-"hours": "Tu-Fr 09:00-12:00, 14:00-17:00; Sa-Su 10:00-12:00, 14:00-18:00",
-"website": "https://www.museumcolmar.org/",
-"fee": "yes",
-"phone": "+33 3 89 23 84 15",
-"fromPier": 16.83
-},
-{
-"name": "Maison des Arcades",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07682,
-"lon": 7.35999,
-"fromPier": 16.84
 },
 {
 "name": "Église de Dieu",
@@ -4797,73 +4805,6 @@
 "fromPier": 16.87
 },
 {
-"name": "Ancienne douane (Koïfhus)",
-"group": "sight",
-"kind": "historic",
-"lat": 48.07586,
-"lon": 7.35908,
-"wikidata": "Q3199479",
-"fromPier": 16.88
-},
-{
-"name": "Choco Story",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07695,
-"lon": 7.35855,
-"hours": "Feb-Dec 10:00-18:00",
-"website": "https://www.choco-story-colmar.fr/",
-"fee": "yes",
-"phone": "+33 9 88 99 44 30",
-"fromPier": 16.95
-},
-{
-"name": "Théophile Conrad Pfeffel",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07554,
-"lon": 7.35776,
-"fromPier": 16.96
-},
-{
-"name": "Maison Pfister",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07672,
-"lon": 7.35813,
-"wikidata": "Q2350639",
-"wheelchair": "no",
-"fromPier": 16.97
-},
-{
-"name": "Espace d'Art Contemporain André Malraux",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07923,
-"lon": 7.35933,
-"website": "https://eacam.eu",
-"fee": "no",
-"wheelchair": "limited",
-"phone": "+33 3 89 20 67 59",
-"fromPier": 16.97
-},
-{
-"name": "Maison Zum Kragen",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07677,
-"lon": 7.35803,
-"fromPier": 16.98
-},
-{
-"name": "Maison Adolph",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07684,
-"lon": 7.3581,
-"fromPier": 16.98
-},
-{
 "name": "St Martin's Church",
 "group": "sight",
 "kind": "church",
@@ -4873,26 +4814,6 @@
 "wikidata": "Q1581390",
 "wheelchair": "yes",
 "fromPier": 16.99
-},
-{
-"name": "Musée Bartholdi",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07658,
-"lon": 7.3576,
-"hours": "Tu-Su 10:00-12:00, 14:00-18:00",
-"wikidata": "Q3329085",
-"fee": "yes",
-"website": "https://www.musee-bartholdi.fr/",
-"fromPier": 17.01
-},
-{
-"name": "Ancien corps de garde",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.0769,
-"lon": 7.35775,
-"fromPier": 17.01
 },
 {
 "name": "Église Saint-Léon",
@@ -4912,131 +4833,6 @@
 "wikidata": "Q60385182",
 "wheelchair": "limited",
 "fromPier": 17.07
-},
-{
-"name": "Maison Pfeffel",
-"group": "sight",
-"kind": "historic",
-"lat": 48.07502,
-"lon": 7.35574,
-"wikidata": "Q3278935",
-"fromPier": 17.09
-},
-{
-"name": "Gustave Adolphe Hirn",
-"group": "sight",
-"kind": "historic",
-"lat": 48.07347,
-"lon": 7.35484,
-"wheelchair": "yes",
-"fromPier": 17.1
-},
-{
-"name": "Église des Dominicains",
-"group": "sight",
-"kind": "church",
-"lat": 48.07827,
-"lon": 7.35664,
-"hours": "Tu,Th,Su 10:00-13:00,15:00-18:00; We 15:00-18:00; Fr,Sa 10:00-18:00",
-"wikidata": "Q108057379",
-"fromPier": 17.13
-},
-{
-"name": "Maison Voltaire",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07714,
-"lon": 7.35565,
-"fromPier": 17.16
-},
-{
-"name": "Carré d'artistes",
-"group": "sight",
-"kind": "gallery",
-"lat": 48.07757,
-"lon": 7.35587,
-"hours": "Tu-Sa 10:00-13:00,14:00-18:30",
-"website": "https://www.carredartistes.com",
-"fee": "no",
-"phone": "+33367351939",
-"fromPier": 17.16
-},
-{
-"name": "Maison des Têtes",
-"group": "sight",
-"kind": "attraction",
-"lat": 48.07856,
-"lon": 7.35553,
-"fromPier": 17.22
-},
-{
-"name": "Jean-Jacques Waltz (alias Hansi)",
-"group": "sight",
-"kind": "historic",
-"lat": 48.07741,
-"lon": 7.35465,
-"fromPier": 17.24
-},
-{
-"name": "Unterlinden Museum",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07986,
-"lon": 7.35556,
-"local": "Musée Unterlinden",
-"hours": "Mo, We-Su 10:00-18:00; Th 10:00-20:00",
-"website": "https://www.musee-unterlinden.com",
-"wikidata": "Q1851283",
-"fee": "yes",
-"fromPier": 17.26
-},
-{
-"name": "Musée Unterlinden",
-"group": "sight",
-"kind": "museum",
-"lat": 48.08033,
-"lon": 7.35568,
-"hours": "Mo,We-Sa 10:30-17:00; Tu,Su off",
-"fee": "yes",
-"fromPier": 17.27
-},
-{
-"name": "L'Ackerhof",
-"group": "sight",
-"kind": "museum",
-"lat": 48.08054,
-"lon": 7.35573,
-"fee": "yes",
-"fromPier": 17.27
-},
-{
-"name": "Musée Hansi",
-"group": "sight",
-"kind": "museum",
-"lat": 48.07876,
-"lon": 7.35476,
-"hours": "Mo-Fr 10:00-12:30,13:30-18:00; Sa 10:00-18:00; Su 10:00-12:30,13:30-18:00",
-"fee": "yes",
-"wheelchair": "yes",
-"phone": "+33 3 89 41 44 20",
-"fromPier": 17.28
-},
-{
-"name": "Fontaine Bruat",
-"group": "sight",
-"kind": "historic",
-"lat": 48.07559,
-"lon": 7.35276,
-"fromPier": 17.32
-},
-{
-"name": "Église Saint-Joseph",
-"group": "sight",
-"kind": "church",
-"lat": 48.08177,
-"lon": 7.34693,
-"wikidata": "Q38643844",
-"fromPier": 17.94
 }
 ],
 "practical": [
@@ -6257,6 +6053,17 @@
 "fromPier": 1.23
 },
 {
+"name": "Christuskirche",
+"group": "sight",
+"kind": "church",
+"lat": 49.0113,
+"lon": 8.387,
+"website": "https://www.christuskirche-karlsruhe.de/",
+"wikidata": "Q127426",
+"wheelchair": "yes",
+"fromPier": 1.24
+},
+{
 "name": "Leibdragonerdenkmal",
 "group": "sight",
 "kind": "historic",
@@ -6265,6 +6072,16 @@
 "wikidata": "Q1246685",
 "wheelchair": "yes",
 "fromPier": 1.27
+},
+{
+"name": "Lutherkirche",
+"group": "sight",
+"kind": "church",
+"lat": 49.00818,
+"lon": 8.4235,
+"wikidata": "Q1877945",
+"wheelchair": "yes",
+"fromPier": 1.45
 },
 {
 "name": "ZKM Lichthof 1+2",
@@ -6460,28 +6277,6 @@
 "wheelchair": "limited",
 "phone": "+49 7221 9000",
 "fromPier": 30.59
-},
-{
-"name": "Villa Carlotta",
-"group": "sight",
-"kind": "historic",
-"lat": 48.7579,
-"lon": 8.23319,
-"wikidata": "Q126088314",
-"fromPier": 30.61
-},
-{
-"name": "Russian Orthodox Church of The Transfiguration of Our Lord",
-"group": "sight",
-"kind": "historic",
-"lat": 48.75384,
-"lon": 8.24438,
-"local": "Russisch-Orthodoxe Christi-Verklärungskirche",
-"website": "https://ka.stadtwiki.net/Russische_Kirche_Baden-Baden",
-"wikidata": "Q314323",
-"wheelchair": "no",
-"phone": "+49 7221 3732138",
-"fromPier": 30.7
 }
 ],
 "practical": [
@@ -9681,17 +9476,6 @@
 "fromPier": 0.58
 },
 {
-"name": "Kunstbunker",
-"group": "sight",
-"kind": "gallery",
-"lat": 49.44957,
-"lon": 11.08206,
-"website": "https://www.kunstbunker-nuernberg.org/",
-"wikidata": "Q1792358",
-"wheelchair": "no",
-"fromPier": 0.58
-},
-{
 "name": "1. Artikel der Menschenrechte",
 "group": "sight",
 "kind": "historic",
@@ -9788,6 +9572,16 @@
 "wikidata": "Q1439511",
 "wheelchair": "yes",
 "fromPier": 0.61
+},
+{
+"name": "8. Artikel der Menschenrechte",
+"group": "sight",
+"kind": "historic",
+"lat": 49.4485,
+"lon": 11.07516,
+"website": "https://www.nuernberg.de/internet/menschenrechte/strasse_der_menschrechte.html",
+"wikidata": "Q2354270",
+"fromPier": 0.62
 }
 ],
 "practical": [
@@ -10167,6 +9961,32 @@
 "gust": 45,
 "freezePct": 91
 },
+"bergen": {
+"days": 150,
+"years": "2016–2025",
+"hi": 3.4,
+"lo": -2.2,
+"coldLo": -11.9,
+"warmHi": 6.9,
+"wetPct": 59,
+"snowPct": 4,
+"wind": 19,
+"gust": 45,
+"freezePct": 60
+},
+"edinburgh": {
+"days": 150,
+"years": "2016–2025",
+"hi": 6.6,
+"lo": 2.1,
+"coldLo": -1.6,
+"warmHi": 10.3,
+"wetPct": 49,
+"snowPct": 7,
+"wind": 29,
+"gust": 57,
+"freezePct": 23
+},
 "london": {
 "days": 150,
 "years": "2016–2025",
@@ -10216,6 +10036,19 @@
 "wetPct": 43,
 "snowPct": 0,
 "wind": 17,
+"gust": 35,
+"freezePct": 0
+},
+"karlsruhe": {
+"days": 150,
+"years": "2016–2025",
+"hi": 18.7,
+"lo": 8.5,
+"coldLo": 4.2,
+"warmHi": 24.8,
+"wetPct": 43,
+"snowPct": 0,
+"wind": 16,
 "gust": 35,
 "freezePct": 0
 },
@@ -10270,8 +10103,901 @@
 "wind": 15,
 "gust": 35,
 "freezePct": 2
+},
+"nuremberg": {
+"days": 150,
+"years": "2016–2025",
+"hi": 18.9,
+"lo": 8.0,
+"coldLo": 3.0,
+"warmHi": 24.1,
+"wetPct": 41,
+"snowPct": 0,
+"wind": 15,
+"gust": 35,
+"freezePct": 2
 }
 },
+"berthCheck": [
+{
+"port": "tromso",
+"pier": "prostneset",
+"nearest": "Prostneset havneterminal",
+"km": 0.1,
+"named": [
+{
+"name": "Kai 10/11",
+"lat": 69.65073,
+"lon": 18.96053,
+"km": 0.36
+},
+{
+"name": "Hurtigruten Tromsø",
+"lat": 69.64654,
+"lon": 18.96029,
+"km": 0.11
+},
+{
+"name": "Tromsø Prostneset hurtigbåtkai",
+"lat": 69.64634,
+"lon": 18.95753,
+"km": 0.19
+},
+{
+"name": "Brygge 3",
+"lat": 69.65053,
+"lon": 18.96873,
+"km": 0.45
+},
+{
+"name": "Brygge 4",
+"lat": 69.65033,
+"lon": 18.96782,
+"km": 0.41
+},
+{
+"name": "Strandtorget fergeleie",
+"lat": 69.64681,
+"lon": 18.95601,
+"km": 0.21
+},
+{
+"name": "Prostneset havneterminal",
+"lat": 69.64687,
+"lon": 18.95905,
+"km": 0.1
+},
+{
+"name": "Redningsselskapet",
+"lat": 69.65173,
+"lon": 18.96212,
+"km": 0.47
+},
+{
+"name": "Stille badstue",
+"lat": 69.65088,
+"lon": 18.9623,
+"km": 0.38
+},
+{
+"name": "Lavvo badstue",
+"lat": 69.65105,
+"lon": 18.96253,
+"km": 0.4
+}
+]
+},
+{
+"port": "tromso",
+"pier": "breivika",
+"nearest": "Småbåthavna",
+"km": 3.1,
+"named": []
+},
+{
+"port": "alta",
+"pier": "terminalkaia",
+"nearest": "Terminalkaia",
+"km": 0.0,
+"named": [
+{
+"name": "Terminalkaia",
+"lat": 69.98,
+"lon": 23.3346,
+"km": 0.0
+},
+{
+"name": "Urnesbukta Marina",
+"lat": 69.98621,
+"lon": 23.30293,
+"km": 1.39
+},
+{
+"name": "Alta hurtigbåtterminal",
+"lat": 69.97814,
+"lon": 23.33006,
+"km": 0.27
+},
+{
+"name": "Alta rutebåtterminal",
+"lat": 69.97691,
+"lon": 23.32831,
+"km": 0.42
+},
+{
+"name": "Snøhvitkaia",
+"lat": 69.97824,
+"lon": 23.32965,
+"km": 0.27
+}
+]
+},
+{
+"port": "harstad",
+"pier": "larsneset",
+"nearest": "Hurtigruten Harstad",
+"km": 0.14,
+"named": [
+{
+"name": "Harstad hurtigbåtkai",
+"lat": 68.80107,
+"lon": 16.54668,
+"km": 0.14
+},
+{
+"name": "Hurtigruten Harstad",
+"lat": 68.79879,
+"lon": 16.54809,
+"km": 0.14
+},
+{
+"name": "Port of Harstad",
+"lat": 68.80119,
+"lon": 16.55919,
+"km": 0.54
+},
+{
+"name": "Harstad Gjestehavn",
+"lat": 68.80222,
+"lon": 16.54585,
+"km": 0.27
+}
+]
+},
+{
+"port": "harstad",
+"pier": "stangnes",
+"nearest": "Stangnes ferjekai",
+"km": 0.0,
+"named": [
+{
+"name": "Stangnes ferjekai",
+"lat": 68.77691,
+"lon": 16.59097,
+"km": 0.0
+}
+]
+},
+{
+"port": "narvik",
+"pier": "central",
+"nearest": "Narvik Havn",
+"km": 0.54,
+"named": [
+{
+"name": "Narvik Havn",
+"lat": 68.43093,
+"lon": 17.41375,
+"km": 0.54
+}
+]
+},
+{
+"port": "narvik",
+"pier": "fagernes",
+"nearest": "Narvik Havn",
+"km": 2.04,
+"named": []
+},
+{
+"port": "bergen",
+"pier": "skolten",
+"nearest": "Skolten",
+"km": 0.37,
+"named": [
+{
+"name": "Beffen - Nykirkekaien",
+"lat": 60.39731,
+"lon": 5.31494,
+"km": 0.17
+},
+{
+"name": "Beffen - Bradbenken",
+"lat": 60.39805,
+"lon": 5.32058,
+"km": 0.2
+},
+{
+"name": "Strandterminalen",
+"lat": 60.39522,
+"lon": 5.32199,
+"km": 0.46
+},
+{
+"name": "Strandkaiterminalen, båt Askøy",
+"lat": 60.39562,
+"lon": 5.32073,
+"km": 0.38
+},
+{
+"name": "Strandkaiterminalen båtkai",
+"lat": 60.39533,
+"lon": 5.32187,
+"km": 0.44
+},
+{
+"name": "Skolten",
+"lat": 60.40131,
+"lon": 5.31342,
+"km": 0.37
+},
+{
+"name": "Terminal Hurtigruten",
+"lat": 60.39244,
+"lon": 5.31137,
+"km": 0.74
+},
+{
+"name": "Bergen",
+"lat": 60.39166,
+"lon": 5.30657,
+"km": 0.95
+},
+{
+"name": "Ludebryggen",
+"lat": 60.41099,
+"lon": 5.32229,
+"km": 1.42
+},
+{
+"name": "Skuteviksbryggen",
+"lat": 60.40268,
+"lon": 5.32054,
+"km": 0.5
+},
+{
+"name": "Bergen port Jekteviksterminalen",
+"lat": 60.39226,
+"lon": 5.31044,
+"km": 0.78
+},
+{
+"name": "Ballastkaien",
+"lat": 60.40073,
+"lon": 5.30227,
+"km": 0.85
+}
+]
+},
+{
+"port": "bergen",
+"pier": "dokken",
+"nearest": "Bergen port Jekteviksterminalen",
+"km": 0.03,
+"named": [
+{
+"name": "Beffen - Nykirkekaien",
+"lat": 60.39731,
+"lon": 5.31494,
+"km": 0.59
+},
+{
+"name": "Beffen - Bradbenken",
+"lat": 60.39805,
+"lon": 5.32058,
+"km": 0.83
+},
+{
+"name": "Strandterminalen",
+"lat": 60.39522,
+"lon": 5.32199,
+"km": 0.7
+},
+{
+"name": "Strandkaiterminalen, båt Askøy",
+"lat": 60.39562,
+"lon": 5.32073,
+"km": 0.66
+},
+{
+"name": "Strandkaiterminalen båtkai",
+"lat": 60.39533,
+"lon": 5.32187,
+"km": 0.7
+},
+{
+"name": "Skolten",
+"lat": 60.40131,
+"lon": 5.31342,
+"km": 0.99
+},
+{
+"name": "Terminal Hurtigruten",
+"lat": 60.39244,
+"lon": 5.31137,
+"km": 0.05
+},
+{
+"name": "Bergen",
+"lat": 60.39166,
+"lon": 5.30657,
+"km": 0.24
+},
+{
+"name": "Skuteviksbryggen",
+"lat": 60.40268,
+"lon": 5.32054,
+"km": 1.26
+},
+{
+"name": "Bergen port Jekteviksterminalen",
+"lat": 60.39226,
+"lon": 5.31044,
+"km": 0.03
+},
+{
+"name": "Ballastkaien",
+"lat": 60.40073,
+"lon": 5.30227,
+"km": 1.02
+},
+{
+"name": "Bradbenken",
+"lat": 60.39816,
+"lon": 5.31937,
+"km": 0.8
+}
+]
+},
+{
+"port": "edinburgh",
+"pier": "rosyth",
+"nearest": "Rosyth Cruise Terminal",
+"km": 0.35,
+"named": [
+{
+"name": "Rosyth Cruise Terminal",
+"lat": 56.02376,
+"lon": -3.43758,
+"km": 0.35
+}
+]
+},
+{
+"port": "london",
+"pier": "tilbury",
+"nearest": "Port of Tilbury",
+"km": 0.57,
+"named": [
+{
+"name": "Port of Tilbury",
+"lat": 51.45606,
+"lon": 0.35372,
+"km": 0.57
+},
+{
+"name": "River Cargo Jetty",
+"lat": 51.45149,
+"lon": 0.34399,
+"km": 1.21
+},
+{
+"name": "River Cargo Jetty",
+"lat": 51.45155,
+"lon": 0.34371,
+"km": 1.23
+}
+]
+},
+{
+"port": "basel",
+"pier": "stjohann",
+"nearest": "Anlegestelle St. Johann 1",
+"km": 0.19,
+"named": [
+{
+"name": "St. Johann Fähre \"Ueli\"",
+"lat": 47.5694,
+"lon": 7.5862,
+"km": 0.52
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.56996,
+"lon": 7.58627,
+"km": 0.57
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.56107,
+"lon": 7.59014,
+"km": 0.85
+},
+{
+"name": "Klingental Fähre \"Vogel Gryff\"",
+"lat": 47.56195,
+"lon": 7.58647,
+"km": 0.58
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.56527,
+"lon": 7.58388,
+"km": 0.2
+},
+{
+"name": "Basel Schifflände",
+"lat": 47.55991,
+"lon": 7.5885,
+"km": 0.86
+},
+{
+"name": "Klingental Fähre \"Vogel Gryff\"",
+"lat": 47.56266,
+"lon": 7.58847,
+"km": 0.64
+},
+{
+"name": "St. Johann Fähre \"Ueli\"",
+"lat": 47.56938,
+"lon": 7.58341,
+"km": 0.4
+},
+{
+"name": "Münster Fähre \"Leu\"",
+"lat": 47.5581,
+"lon": 7.59436,
+"km": 1.3
+},
+{
+"name": "Münster Fähre \"Leu\"",
+"lat": 47.55703,
+"lon": 7.59301,
+"km": 1.32
+},
+{
+"name": "Rheinhafen St. Johann",
+"lat": 47.56798,
+"lon": 7.58328,
+"km": 0.26
+},
+{
+"name": "Anlegestelle St. Johann 1",
+"lat": 47.56703,
+"lon": 7.5835,
+"km": 0.19
+}
+]
+},
+{
+"port": "basel",
+"pier": "klybeck",
+"nearest": "Rhytaxi / Rheintaxi",
+"km": 0.27,
+"named": [
+{
+"name": "St. Johann Fähre \"Ueli\"",
+"lat": 47.5694,
+"lon": 7.5862,
+"km": 1.14
+},
+{
+"name": "Rhytaxi Basel GmbH, Wassertaxi ab Dreiländereck",
+"lat": 47.5884,
+"lon": 7.5898,
+"km": 0.99
+},
+{
+"name": "Huningue",
+"lat": 47.59262,
+"lon": 7.58897,
+"km": 1.46
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58139,
+"lon": 7.58625,
+"km": 0.27
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58296,
+"lon": 7.58842,
+"km": 0.38
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.56996,
+"lon": 7.58627,
+"km": 1.07
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58764,
+"lon": 7.59167,
+"km": 0.94
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.5888,
+"lon": 7.59252,
+"km": 1.08
+},
+{
+"name": "Basel Rheinhafen/Dreiländereck",
+"lat": 47.58759,
+"lon": 7.58897,
+"km": 0.9
+},
+{
+"name": "Weil am Rhein",
+"lat": 47.59166,
+"lon": 7.5914,
+"km": 1.37
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58739,
+"lon": 7.59359,
+"km": 0.96
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58537,
+"lon": 7.59865,
+"km": 1.0
+}
+]
+},
+{
+"port": "basel",
+"pier": "dreilaendereck",
+"nearest": "Rhytaxi Basel GmbH, Wassertaxi ab Dreiländereck",
+"km": 0.19,
+"named": [
+{
+"name": "Rhytaxi Basel GmbH, Wassertaxi ab Dreiländereck",
+"lat": 47.5884,
+"lon": 7.5898,
+"km": 0.19
+},
+{
+"name": "Huningue",
+"lat": 47.59262,
+"lon": 7.58897,
+"km": 0.29
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58139,
+"lon": 7.58625,
+"km": 0.98
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58296,
+"lon": 7.58842,
+"km": 0.78
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58764,
+"lon": 7.59167,
+"km": 0.33
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.5888,
+"lon": 7.59252,
+"km": 0.3
+},
+{
+"name": "Basel Rheinhafen/Dreiländereck",
+"lat": 47.58759,
+"lon": 7.58897,
+"km": 0.27
+},
+{
+"name": "Weil am Rhein",
+"lat": 47.59166,
+"lon": 7.5914,
+"km": 0.26
+},
+{
+"name": "Plateforme en bois",
+"lat": 47.59345,
+"lon": 7.58905,
+"km": 0.38
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58739,
+"lon": 7.59359,
+"km": 0.45
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58537,
+"lon": 7.59865,
+"km": 0.89
+},
+{
+"name": "Rhytaxi / Rheintaxi",
+"lat": 47.58595,
+"lon": 7.5986,
+"km": 0.85
+}
+]
+},
+{
+"port": "breisach",
+"pier": "breisach",
+"nearest": "Motorboot & Yachtclub Breisach",
+"km": 0.25,
+"named": [
+{
+"name": "Fuchs Hafen",
+"lat": 48.03035,
+"lon": 7.56976,
+"km": 0.47
+},
+{
+"name": "Motorboot & Yachtclub Breisach",
+"lat": 48.02874,
+"lon": 7.57646,
+"km": 0.25
+},
+{
+"name": "Breisacher Fahrgast-Schifffahrt GmbH",
+"lat": 48.02577,
+"lon": 7.57916,
+"km": 0.63
+},
+{
+"name": "Port Rhénan Colmar Neuf Brisach",
+"lat": 48.0324,
+"lon": 7.56385,
+"km": 0.92
+},
+{
+"name": "Embarcadère \"Irène\"",
+"lat": 48.02463,
+"lon": 7.57284,
+"km": 0.75
+},
+{
+"name": "Croisi Europe River Cruises",
+"lat": 48.02459,
+"lon": 7.58074,
+"km": 0.8
+},
+{
+"name": "Viking River Cruises",
+"lat": 48.02733,
+"lon": 7.57733,
+"km": 0.42
+},
+{
+"name": "Viking River Cruises",
+"lat": 48.0267,
+"lon": 7.57796,
+"km": 0.5
+},
+{
+"name": "Fuchs Hafen",
+"lat": 48.02912,
+"lon": 7.57081,
+"km": 0.44
+}
+]
+},
+{
+"port": "strasbourg",
+"pier": "belges",
+"nearest": "Europe Boat Trading",
+"km": 0.21,
+"named": [
+{
+"name": "Europe Boat Trading",
+"lat": 48.57462,
+"lon": 7.77715,
+"km": 0.21
+},
+{
+"name": "Evae (Port de Plaisance)",
+"lat": 48.57178,
+"lon": 7.77814,
+"km": 0.47
+}
+]
+},
+{
+"port": "strasbourg",
+"pier": "minoterie",
+"nearest": "Europe Boat Trading",
+"km": 0.91,
+"named": [
+{
+"name": "Europe Boat Trading",
+"lat": 48.57462,
+"lon": 7.77715,
+"km": 0.91
+},
+{
+"name": "Evae (Port de Plaisance)",
+"lat": 48.57178,
+"lon": 7.77814,
+"km": 1.23
+}
+]
+},
+{
+"port": "karlsruhe",
+"pier": "rheinhafen",
+"nearest": "Reede 7",
+"km": 0.47,
+"named": [
+{
+"name": "Contargo Containerterminal",
+"lat": 49.01674,
+"lon": 8.32113,
+"km": 0.52
+},
+{
+"name": "Reede 7",
+"lat": 49.01563,
+"lon": 8.31048,
+"km": 0.47
+},
+{
+"name": "Reede 5",
+"lat": 49.01663,
+"lon": 8.3043,
+"km": 0.92
+},
+{
+"name": "Reede 6",
+"lat": 49.01658,
+"lon": 8.30608,
+"km": 0.8
+}
+]
+},
+{
+"port": "frankfurt",
+"pier": "mainkai",
+"nearest": "Frankfurt - Eiserner Steg",
+"km": 0.1,
+"named": [
+{
+"name": "Bootshaus",
+"lat": 50.10221,
+"lon": 8.67024,
+"km": 1.18
+},
+{
+"name": "Frankfurt - Eiserner Steg",
+"lat": 50.10821,
+"lon": 8.68244,
+"km": 0.1
+}
+]
+},
+{
+"port": "marktheidenfeld",
+"pier": "mkf",
+"nearest": null,
+"km": null,
+"named": []
+},
+{
+"port": "wurzburg",
+"pier": "ludwigkai",
+"nearest": "Würzburg",
+"km": 0.95,
+"named": [
+{
+"name": "Würzburg",
+"lat": 49.79655,
+"lon": 9.92552,
+"km": 0.95
+},
+{
+"name": "Schiffsanlegestelle Würzburg",
+"lat": 49.79715,
+"lon": 9.92543,
+"km": 1.02
+},
+{
+"name": "Veitshöchheimer Personenschiffahrt",
+"lat": 49.79656,
+"lon": 9.92558,
+"km": 0.95
+}
+]
+},
+{
+"port": "wurzburg",
+"pier": "alterhafen",
+"nearest": "Alter Hafen",
+"km": 0.19,
+"named": [
+{
+"name": "Würzburg",
+"lat": 49.79655,
+"lon": 9.92552,
+"km": 0.62
+},
+{
+"name": "Alter Hafen",
+"lat": 49.80124,
+"lon": 9.9217,
+"km": 0.19
+},
+{
+"name": "Schiffsanlegestelle Würzburg",
+"lat": 49.79715,
+"lon": 9.92543,
+"km": 0.55
+},
+{
+"name": "Veitshöchheimer Personenschiffahrt",
+"lat": 49.79656,
+"lon": 9.92558,
+"km": 0.62
+}
+]
+},
+{
+"port": "bamberg",
+"pier": "bamberghafen",
+"nearest": "Anlegestelle Hotelschiffe",
+"km": 0.08,
+"named": [
+{
+"name": "Motorbootclub Regnitz-Main Bamberg",
+"lat": 49.90595,
+"lon": 10.86201,
+"km": 0.86
+},
+{
+"name": "Anlegestelle Hotelschiffe",
+"lat": 49.90621,
+"lon": 10.87297,
+"km": 0.08
+},
+{
+"name": "Anlegestelle Hotelschiffe",
+"lat": 49.90771,
+"lon": 10.86879,
+"km": 0.42
+},
+{
+"name": "Kanusteg",
+"lat": 49.90346,
+"lon": 10.87517,
+"km": 0.29
+}
+]
+},
+{
+"port": "nuremberg",
+"pier": "nbghafen",
+"nearest": null,
+"km": null,
+"named": []
+}
+],
 "rates": {
 "date": "2026-10-30",
 "NOK": 9.2302,

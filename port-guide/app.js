@@ -739,6 +739,10 @@
       <label><span>Depart</span><input type="time" data-i="${i}" data-k="to" value="${esc(r.to || "")}"></label></li>`).join("");
     el.innerHTML = `
       ${mine ? `<h3>Your cruises</h3><ul class="mine">${mine}</ul>` : ""}
+      <div class="transfer"><b>Move cruises between your computer and phone</b>
+        <div class="row">${CRUISES.length || mySearches().length ? `<button id="xsave" class="ghost">⬆ Save to a file</button>` : ""}
+          <label class="ghost file">⬇ Load from a file<input id="xload" type="file" accept=".json,application/json"></label></div>
+        <p class="fine">${CRUISES.length ? "Saves your cruises (already built), your Near me searches and marked ship berths in one file. " : ""}On the other device, tap <b>Load from a file</b> and pick it — from Downloads, Files, iCloud Drive, Dropbox or an email attachment. Cruises with the same name are updated, others are added.</p></div>
       <h3>${d.editing ? "Edit " + esc(d.name) : "Add a cruise"}</h3>
       <div class="viking" id="vbox">${vikingBox(d)}</div>
       <details class="other"${d.text || d.page || (d.rows.length && !d.vsel) ? " open" : ""}><summary>Not on Viking's list? Paste an itinerary or pick a file</summary>
@@ -797,6 +801,8 @@ Basel    the first day filled in above)</pre></details>
     const ar = $("#caddrow"); if (ar) ar.onclick = () => { const last = d.rows[d.rows.length - 1]; d.rows.push(Object.assign(emptyRow(), last && last.date ? { date: I.addDays(last.date, 1) } : {})); renderAdd(); };
     const bb = $("#cbuild"); if (bb) bb.onclick = buildCruise;
     el.querySelectorAll("[data-edit]").forEach(b => b.onclick = () => editCruise(b.dataset.edit));
+    const xs = $("#xsave"); if (xs) xs.onclick = exportData;
+    $("#xload").onchange = e => { const f = e.target.files[0]; if (f) f.text().then(importData); e.target.value = ""; };
     el.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
       if (b.dataset.sure !== "1") { b.dataset.sure = "1"; b.textContent = "Tap again to remove"; return; }   // two taps, no pop-up
       const c = CRUISES.find(c => c.voyage.id === b.dataset.del);
@@ -813,6 +819,48 @@ Basel    the first day filled in above)</pre></details>
       <label class="fine">${deps.length ? "Not listed? " : ""}First day of your cruise: <input id="depdate" type="date"></label></div>`;
   }
   // text: pasted text, a file, or a page read from Viking's site (opts.title = the page's title)
+  // ---- Moving cruises between devices: one .json file ---------------------------------------------------------------
+  function exportData() {
+    const berths = {};
+    for (const c of CRUISES) for (const p of c.voyage.ports) {
+      const b = store.get("berth." + p.id, null), pier = store.get("pier." + p.id, null);
+      if (b || pier) berths[p.id] = { berth: b, pier };
+    }
+    const data = { app: "port-pocket-guide", version: 1, exported: new Date().toISOString(), cruises: CRUISES,
+      searches: mySearches(), interests: store.get("interests", []), berths };
+    const text = JSON.stringify(data), name = "Port-Guide-cruises-" + new Date().toISOString().slice(0, 10) + ".json";
+    if (native) { native.postMessage({ cmd: "shareFile", name, text }); return; }
+    const file = window.File ? new File([text], name, { type: "application/json" }) : null;
+    const phone = /iPhone|iPad|Android/i.test(navigator.userAgent);
+    if (phone && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: "Port Guide cruises" }).catch(() => {}); return;
+    }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "application/json" })); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    toast("Saved " + name + " to your Downloads. Send it to the other device (email, Dropbox, iCloud Drive…) and load it there.");
+  }
+  function importData(text) {
+    let d; try { d = JSON.parse(text); } catch (e) { d = null; }
+    if (!d || d.app !== "port-pocket-guide" || !Array.isArray(d.cruises)) { toast("That isn't a Port Guide cruise file."); return; }
+    const names = [];
+    for (const c of d.cruises) {
+      if (!c || !c.voyage || !Array.isArray(c.voyage.ports)) continue;
+      const i = CRUISES.findIndex(x => x.voyage.id === c.voyage.id || x.voyage.name === c.voyage.name && firstDate(x.voyage) === firstDate(c.voyage));
+      if (i >= 0) CRUISES[i] = c; else CRUISES.push(c);
+      names.push(c.voyage.name);
+    }
+    const list = mySearches();
+    for (const sv of d.searches || []) if (sv && sv.label && !list.some(x => x.label === sv.label)) list.push(sv);
+    store.set("searches", list);
+    store.set("interests", [...new Set(store.get("interests", []).concat(d.interests || []))]);
+    for (const [id, v] of Object.entries(d.berths || {})) { if (v.berth) store.set("berth." + id, v.berth); if (v.pier) store.set("pier." + id, v.pier); }
+    store.set("onboarded", true);
+    saveCruises();
+    if (names.length && (!voyage || !VOYAGES.includes(voyage))) { voyage = P.currentVoyage(VOYAGES, now()); cur = P.currentPort(voyage.ports, now()); state.port = cur.port; }
+    toast(names.length ? `Loaded ${names.length} cruise${names.length > 1 ? "s" : ""}: ${names.join(", ")}.` : "Loaded your Near me searches.");
+    if (names.length) setMode("voyage"); else render();
+  }
+
   function readItinerary(text, opts) {
     const d = state.draft;
     if (!text || !text.trim()) { toast("Paste the itinerary in the box first, or pick a file."); return; }

@@ -221,3 +221,4 @@ h2.welcome { font-size: 1.7rem; color: var(--navy); font-family: "New York", "Io
 .pick { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 8px 13px; font-size: .92rem; }
 .pick.on { background: var(--navy); border-color: var(--navy); color: #fff; }
 .row.tight { margin: 2px 0 6px; }
+.transfer { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; margin: 12px 0; }

@@ -22,7 +22,7 @@ A pocket guide to the seven ports of the same voyage: Tromsø, Alta, Harstad, Na
 - **Web app:** https://dfwilley.github.io/Cruise-Apps/port-guide/
 - **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/port-guide-latest/Port-Pocket-Guide.ipa (install with Sideloadly)
 
-The app starts with no cruises: add each one under **＋ Add cruise** (the first launch also asks what you're interested in and turns those into Near me buttons; change them under Near me › My interests). The original hand-made Norway and Rhine & Main data stays in `port-guide/data/` for the country facts and the tests.
+The app starts with no cruises (move added cruises between computer and phone with **Save to a file** / **Load from a file** under Add cruise): add each one under **＋ Add cruise** (the first launch also asks what you're interested in and turns those into Near me buttons; change them under Near me › My interests). The original hand-made Norway and Rhine & Main data stays in `port-guide/data/` for the country facts and the tests.
 
 Top bar: **📍 Near me** (works anywhere; **＋ Add** your own searches such as *barber shop*, *laundry* or *gas station* — they stay as buttons and list those places nearest first with directions; uses the iPhone's location to find sights, museums, food and drink, views and parks, shops and handy places — toilets, cash, pharmacy — within a 10- or 20-minute walk or a short drive, plus notable places from Wikipedia; in a cruise port it adds the all-aboard countdown and the walk back to the ship), one tab per cruise, and **＋ Add cruise**.
 

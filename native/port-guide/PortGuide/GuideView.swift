@@ -59,9 +59,19 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         case "alerts": schedule((m["items"] as? [[String: Any]]) ?? [])
         case "speak": speak(m["text"] as? String ?? "", lang: m["lang"] as? String ?? "nb-NO")
         case "viking": openViking(m["url"] as? String)
+        case "shareFile": shareFile(m["name"] as? String ?? "Port-Guide-cruises.json", m["text"] as? String ?? "")
         case "saveCruises": if let j = m["json"] as? String { try? Data(j.utf8).write(to: Self.cruisesFile, options: .atomic) }
         default: break
         }
+    }
+
+    // MARK: Saving your cruises to a file (AirDrop, Mail, Files…) to load on another device
+    private func shareFile(_ name: String, _ text: String) {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(name)
+        guard (try? Data(text.utf8).write(to: url, options: .atomic)) != nil else { return }
+        let sheet = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        sheet.popoverPresentationController?.sourceView = view
+        present(sheet, animated: true)
     }
 
     // MARK: Viking's website, to read a cruise itinerary

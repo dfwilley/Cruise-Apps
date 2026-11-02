@@ -30,14 +30,14 @@ create table public.quest_entries (
 create index quest_entries_group_date on public.quest_entries(group_id,happened_at desc);
 create index quest_members_user on public.quest_members(user_id);
 create or replace function public.quest_is_member(p_group uuid)
-returns boolean language sql stable security definer set search_path = '' as $$
+returns boolean language sql stable security definer set search_path = public, extensions as $$
  select exists(select 1 from public.quest_members m where m.group_id=p_group and m.user_id=(select auth.uid()))
 $$;
 revoke all on function public.quest_is_member(uuid) from public;
 grant execute on function public.quest_is_member(uuid) to authenticated;
 create or replace function public.quest_create_group(p_name text)
 returns table(group_id uuid, invite_code text)
-language plpgsql security definer set search_path = '' as $$
+language plpgsql security definer set search_path = public, extensions as $$
 declare gid uuid; code text;
 begin
  if auth.uid() is null then raise exception 'Sign in first'; end if;
@@ -49,7 +49,7 @@ begin
  return query select gid,code;
 end $$;
 create or replace function public.quest_join_group(p_group uuid,p_code text)
-returns boolean language plpgsql security definer set search_path = '' as $$
+returns boolean language plpgsql security definer set search_path = public, extensions as $$
 begin
  if auth.uid() is null then raise exception 'Sign in first'; end if;
  if length(p_code) <> 32 or not exists (

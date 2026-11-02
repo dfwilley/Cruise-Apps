@@ -1,0 +1,64 @@
+name: PortGuide
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  PortGuide:
+    type: application
+    platform: iOS
+    sources:
+      - path: PortGuide
+      - path: ../../port-guide
+        type: folder
+        buildPhase: resources
+    info:
+      path: PortGuide/Info.plist
+      properties:
+        CFBundleDisplayName: Port Guide
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSLocationWhenInUseUsageDescription: Port Guide uses your location only when you tap Use my location, to give the walking distance to sights and back to the ship.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.portguide
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  PortGuideTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [PortGuideTests]
+    dependencies:
+      - target: PortGuide
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  PortGuideUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [PortGuideUITests]
+    dependencies:
+      - target: PortGuide
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  PortGuide:
+    build:
+      targets:
+        PortGuide: all
+    test:
+      targets:
+        - PortGuideTests
+        - PortGuideUITests

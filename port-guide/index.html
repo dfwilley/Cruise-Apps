@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Port Pocket Guide</title>
+<meta name="theme-color" content="#0f2236">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Port Guide">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><img src="icons/icon-192.png" alt=""><div><h1>Port Pocket Guide</h1><p id="voyage">Viking Libra · In Search of Northern Lights</p></div></div>
+  <nav id="ports" aria-label="Ports"></nav>
+</header>
+
+<section id="hero" aria-live="polite"></section>
+
+<nav id="tabs" role="tablist">
+  <button role="tab" data-tab="walk" aria-selected="true">Pier &amp; walking</button>
+  <button role="tab" data-tab="day">Hours &amp; weather</button>
+  <button role="tab" data-tab="money">Money &amp; phrases</button>
+</nav>
+
+<main>
+  <section id="walk" class="panel"></section>
+  <section id="day" class="panel" hidden></section>
+  <section id="money" class="panel" hidden></section>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="data/ports.js"></script>
+<script src="data/places.js"></script>
+<script src="port.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

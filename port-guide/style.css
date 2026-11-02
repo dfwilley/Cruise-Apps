@@ -214,3 +214,10 @@ details.other { margin: 12px 0; } details.other > summary { font-weight: 600; co
 .addsearch { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; margin: 10px 0; }
 .addsearch .row { flex-wrap: nowrap; } .addsearch input { flex: 1; min-width: 0; font: inherit; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; }
 .meta a { font-weight: 600; }
+/* First run: interests */
+#welcome { padding-top: 14px; }
+h2.welcome { font-size: 1.7rem; color: var(--navy); font-family: "New York", "Iowan Old Style", Georgia, serif; }
+.interests { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0; }
+.pick { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 8px 13px; font-size: .92rem; }
+.pick.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.row.tight { margin: 2px 0 6px; }

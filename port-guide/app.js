@@ -39,7 +39,8 @@
       Object.assign(PLACES.ports, c.places.ports); PLACES.climate = Object.assign(PLACES.climate || {}, c.places.climate);
       for (const [k, co] of Object.entries(c.countries || {})) if (!BUILT_IN.includes(k)) COUNTRIES[k] = co;
     }
-    VOYAGES = FACTS.voyages.concat(CRUISES.map(c => c.voyage)).sort((a, b) => firstDate(a) < firstDate(b) ? -1 : 1);
+    // Only the cruises you add (the guide's original Norway and Rhine data stay in data/ports.js for the country facts and tests).
+    VOYAGES = CRUISES.map(c => c.voyage).sort((a, b) => firstDate(a) < firstDate(b) ? -1 : 1);
   }
   mergeCruises();
 
@@ -48,12 +49,13 @@
   const picked = VOYAGES.find(v => v.id === store.get("voyage", null));
   let voyage = (qs.get("voyage") && VOYAGES.find(v => v.id === qs.get("voyage")))
     || (qs.get("port") && VOYAGES.find(v => v.ports.some(p => p.id === qs.get("port"))))
-    || (picked && now() < voyageEnd(picked) ? picked : null) || P.currentVoyage(VOYAGES, now());
-  let cur = P.currentPort(voyage.ports, now());
+    || (picked && now() < voyageEnd(picked) ? picked : null) || (VOYAGES.length ? P.currentVoyage(VOYAGES, now()) : null);
+  let cur = voyage ? P.currentPort(voyage.ports, now()) : { port: null };
   const TABS = ["walk", "ideas", "day", "money"];
   const state = {
-    mode: ["near", "add"].includes(qs.get("mode")) ? qs.get("mode") : "voyage",   // "voyage" (a cruise's guide), "near" (places around you), "add" (add a cruise)
-    port: (qs.get("port") && voyage.ports.find(p => p.id === qs.get("port"))) || cur.port,
+    // "voyage" (a cruise's guide), "near" (places around you), "add" (add a cruise), "welcome" (first run: your interests)
+    mode: ["near", "add", "welcome"].includes(qs.get("mode")) ? qs.get("mode") : !store.get("onboarded", false) ? "welcome" : voyage ? "voyage" : "add",
+    port: (qs.get("port") && voyage && voyage.ports.find(p => p.id === qs.get("port"))) || cur.port,
     tab: (t => t === "near" ? "ideas" : TABS.includes(t) ? t : "walk")(qs.get("tab") || (fakeNow ? "walk" : store.get("tab", "walk"))),   // previews always open on the first tab
     cat: store.get("cat", "all"), radius: store.get("radius", 1600), more: 0,
     draft: null,
@@ -95,9 +97,10 @@
     });
     const on = $("#voyages [aria-selected=true]"); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "center" });
     $("#voyage").textContent = state.mode === "near" ? "Places of interest around you" : state.mode === "add" ? "Add a cruise from your itinerary"
-      : [voyage.ship, voyage.name].filter(Boolean).join(" · ");
+      : state.mode === "welcome" ? "Welcome — what interests you?" : voyage ? [voyage.ship, voyage.name].filter(Boolean).join(" · ") : "";
   }
   function setMode(m) {
+    if (m === "voyage" && !voyage) m = "add";
     state.mode = m;
     if (m === "near" && (!state.me || Date.now() - state.me.at > 120e3)) locate();
     render(); window.scrollTo(0, 0);
@@ -273,9 +276,9 @@
       fail, { enableHighAccuracy: true, timeout: 20000, maximumAge: 30000 });
   }
   function gotLocation(lat, lon, acc) {
-    const p = state.port, d = P.km(lat, lon, p.area.lat, p.area.lon);
+    const p = state.port, d = p ? P.km(lat, lon, p.area.lat, p.area.lon) : 0;
     state.me = { lat, lon, acc, at: Date.now() };
-    renderWalk(); renderIdeas();
+    if (p) { renderWalk(); renderIdeas(); }
     if (state.mode === "near") {
       // Look things up again only if this fix is somewhere new (a sharper GPS fix nearby just re-sorts the distances).
       const a = state.around, moved = !a || a.lat == null || P.km(lat, lon, a.lat, a.lon) > 0.15 || a.error;
@@ -285,7 +288,7 @@
     }
     else if (d > 40) toast(`You're ${Math.round(d / 1.609)} miles from ${p.name} — distances are from where you are now.`);
   }
-  function gotError(msg) { toast(msg); renderWalk(); renderIdeas(); renderAround(); }
+  function gotError(msg) { toast(msg); if (state.port) { renderWalk(); renderIdeas(); } renderAround(); }
   window.__portNative = m => {
     if (m.type === "location") gotLocation(m.lat, m.lon, m.acc);
     else if (m.type === "viking") gotVikingPage(m);
@@ -437,6 +440,7 @@
       <p class="clock">It's <b>${esc(ck.label)}</b>${at ? " in " + esc(at.p.name.replace(/ \(.*\)| &.*/, "")) : ""}.</p>
       <div class="filters" aria-label="How far">${radius}</div>
       <div class="filters" aria-label="What">${cats}</div>
+      <div class="row tight"><button class="link" id="myint">⚙︎ My interests</button><span class="fine">Choose what shows up here.</span></div>
       ${body}`;
     $("#locate3").onclick = locate;
     el.querySelectorAll("[data-r]").forEach(b => b.onclick = () => {
@@ -449,6 +453,7 @@
       state.cat = b.dataset.c; state.more = 0; state.adding = false; store.set("cat", state.cat);
       if (state.cat.startsWith("s:")) { state.searchRes = null; renderAround(); runSearch(); } else renderAround();
     });
+    $("#myint").onclick = () => setMode("welcome");
     $("#addchip").onclick = () => { state.adding = !state.adding; renderAround(); const i = $("#newsearch"); if (i) i.focus(); };
     const ns = $("#newsearch");
     if (ns) {
@@ -509,6 +514,61 @@
     } else state.around = near ? Object.assign(saved, { cached: true, refreshing: false })
       : { error: "No connection for the map lookup right now. When you're in a cruise port, the Ideas and Pier & walking tabs still work offline." };
     renderAround();
+  }
+
+  // ---- First run (and "My interests" in Near me): what you like → buttons in Near me ------------------------------------
+  // [label, icon, what it adds]: "cat:…" is one of Near me's own buttons (already there); anything else is a search.
+  const INTERESTS = [
+    ["Museums", "🏛", "cat:museum"], ["History & landmarks", "🏰", "cat:sight"], ["Views & parks", "⛰", "cat:park"], ["Food & drink", "🍽", "cat:food"],
+    ["Shopping", "🛍", "cat:shop"], ["Restrooms, cash & pharmacies", "🚻", "cat:handy"],
+    ["Aviation museums", "✈️", "aviation museum"], ["Airports", "🛩", "airport"], ["Churches", "⛪", "church"], ["Coffee", "☕", "coffee"],
+    ["Bakeries", "🥐", "bakery"], ["Bars & pubs", "🍺", "bar"], ["Wine & liquor", "🍷", "wine"], ["Ice cream", "🍦", "ice cream"],
+    ["Bookshops", "📚", "bookstore"], ["Souvenirs & gifts", "🎁", "souvenir"], ["Tobacco & cigars", "🚬", "cigar"], ["Barber shop", "💈", "barber shop"],
+    ["Laundry", "🧺", "laundry"], ["Groceries", "🛒", "grocery"], ["Post office", "✉️", "post office"], ["Phone & SIM", "📱", "phone"],
+    ["Gas station", "⛽", "gas station"], ["Propane", "🔥", "propane"], ["RV parks & camping", "🏕", "rv park"], ["RV dump station", "🚐", "dump station"],
+    ["EV charging", "🔌", "ev charging"], ["Hardware store", "🔨", "hardware"], ["Auto repair", "🔧", "auto repair"], ["Golf", "⛳", "golf"],
+    ["Beaches", "🏖", "beach"], ["Bikes", "🚲", "bike rental"], ["Train stations", "🚆", "train station"], ["Ferries", "⛴", "ferry"],
+    ["Gym", "🏋️", "gym"], ["Massage & spa", "💆", "massage"], ["Doctor & clinic", "🩺", "doctor"], ["Hospital", "🏥", "hospital"],
+    ["Veterinarian", "🐾", "vet"], ["Free Wi-Fi", "📶", "wifi"]
+  ];
+  function renderWelcome() {
+    const el = $("#welcome"); if (!el || state.mode !== "welcome") return;
+    const picks = state.picks || (state.picks = new Set(store.get("interests", [])));
+    const first = !store.get("onboarded", false);
+    el.innerHTML = `
+      <h2 class="welcome">${first ? "Welcome aboard" : "My interests"}</h2>
+      <p>What kinds of things are you interested in? Pick as many as you like. Each one becomes a button in <b>📍 Near me</b>, so you can find it close by in any port or town — with directions.</p>
+      <div class="interests">${INTERESTS.map(([label, icon]) => `<button class="pick${picks.has(label) ? " on" : ""}" data-pick="${esc(label)}" aria-pressed="${picks.has(label)}">${icon} ${esc(label)}</button>`).join("")}</div>
+      <div class="form"><label><span>Anything else? Separate with commas.</span><input id="extra" type="text" placeholder="e.g. sushi, hobby shop, cigar lounge" value="${esc(state.extra || "")}"></label></div>
+      <button class="build" id="wdone">${first ? "Save and continue" : "Save"}</button>
+      <div class="row"><button class="link" id="wskip">${first ? "Skip for now" : "Cancel"}</button><span class="fine">You can change these any time: Near me › My interests.</span></div>`;
+    el.querySelectorAll("[data-pick]").forEach(b => b.onclick = () => {
+      const l = b.dataset.pick; picks.has(l) ? picks.delete(l) : picks.add(l);
+      b.classList.toggle("on", picks.has(l)); b.setAttribute("aria-pressed", picks.has(l));
+    });
+    const ex = $("#extra"); ex.oninput = () => { state.extra = ex.value; };
+    $("#wdone").onclick = () => finishWelcome(true);
+    $("#wskip").onclick = () => finishWelcome(false);
+  }
+  function finishWelcome(save) {
+    const first = !store.get("onboarded", false);
+    store.set("onboarded", true);
+    if (save) {
+      const picks = state.picks || new Set(), list = mySearches(), added = [], already = [];
+      const add = s => { if (!s) return; if (list.some(x => x.label === s.label)) already.push(s.label); else { list.push({ term: s.term, label: s.label, icon: s.icon }); added.push(s.label); } };
+      for (const [label, , what] of INTERESTS) {
+        if (!picks.has(label)) continue;
+        if (what.startsWith("cat:")) already.push(label);   // one of Near me's own buttons — already listed
+        else add(I.findSearch(what));
+      }
+      for (const t of String(state.extra || "").split(/[,;\n]+/).map(x => x.trim()).filter(Boolean)) add(I.findSearch(t));
+      store.set("searches", list); store.set("interests", [...picks]);
+      state.extra = "";
+      toast(added.length ? `Added ${added.length} button${added.length > 1 ? "s" : ""} to Near me: ${added.join(", ")}.${already.length ? " Already there: " + already.join(", ") + "." : ""}`
+        : already.length ? "Those are already in Near me." : "Saved.");
+    }
+    state.picks = null;
+    setMode(first ? (voyage ? "voyage" : "add") : "near");
   }
 
   // ---- Your own searches (chips after the built-in ones): "barber shop", "laundromat"… ------------------------------------
@@ -742,7 +802,7 @@ Basel    the first day filled in above)</pre></details>
       const c = CRUISES.find(c => c.voyage.id === b.dataset.del);
       CRUISES = CRUISES.filter(x => x !== c); saveCruises();
       for (const p of c.voyage.ports) { delete PLACES.ports[p.id]; delete PLACES.climate[p.id]; }
-      if (voyage === c.voyage) { voyage = P.currentVoyage(VOYAGES, now()); cur = P.currentPort(voyage.ports, now()); state.port = cur.port; }
+      if (voyage === c.voyage) { voyage = VOYAGES.length ? P.currentVoyage(VOYAGES, now()) : null; cur = voyage ? P.currentPort(voyage.ports, now()) : { port: null }; state.port = cur.port; }
       toast("Removed " + c.voyage.name + "."); render();
     });
   }
@@ -838,8 +898,9 @@ Basel    the first day filled in above)</pre></details>
     const f = ports[0].days[0], last = ports[ports.length - 1];
     if (!f.note) f.note = "Embarkation day";
     last.disembark = true; const ld = last.days[last.days.length - 1]; if (!ld.note) ld.note = "Disembarkation day";
-    const words = d.name.trim().split(/[\s:–-]+/).filter(Boolean);
-    const short = d.name.trim().length <= 22 ? d.name.trim() : words.slice(0, 2).join(" ").length <= 22 ? words.slice(0, 2).join(" ") : words[0].slice(0, 22);
+    const nm = d.name.trim(), core = nm.replace(/^(in search of|journey to|the|a|an)\s+/i, "");
+    const words = core.split(/[\s:–-]+/).filter(Boolean);
+    const short = nm.length <= 22 ? nm : core.length <= 22 ? core : words.slice(0, 2).join(" ").length <= 22 ? words.slice(0, 2).join(" ") : words[0].slice(0, 22);
     const v = { id, name: d.name.trim(), short, dates: I.voyageDates(ports), ship: d.ship.trim(), imported: true,
       about: "Added from your itinerary on " + new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + ".",
       timesKnown: ports.some(p => p.days.some(x => x.from || x.to)), ports, sources: d.vsource ? [d.vsource] : [] };
@@ -1001,7 +1062,7 @@ Basel    the first day filled in above)</pre></details>
     ["#ports", "#hero", "#tabs", "#foot"].forEach(s => $(s).hidden = !g);
     document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === state.tab));
     TABS.forEach(id => $("#" + id).hidden = !g || id !== state.tab);
-    $("#around").hidden = state.mode !== "near"; $("#add").hidden = state.mode !== "add";
+    $("#around").hidden = state.mode !== "near"; $("#add").hidden = state.mode !== "add"; $("#welcome").hidden = state.mode !== "welcome";
   }
   document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => { state.tab = b.dataset.tab; store.set("tab", state.tab); renderTabs(); renderPanel(); });
   function renderPanel() { ({ walk: renderWalk, ideas: renderIdeas, day: renderDay, money: renderMoney })[state.tab](); }
@@ -1010,6 +1071,8 @@ Basel    the first day filled in above)</pre></details>
     renderVoyages(); renderTabs();
     if (state.mode === "near") { renderAround(); if (state.me && !state.around) loadAround(); if (state.me && state.cat.startsWith("s:") && !state.searchRes) runSearch(); return; }
     if (state.mode === "add") { renderAdd(); return; }
+    if (state.mode === "welcome") { renderWelcome(); return; }
+    if (!voyage) { state.mode = "add"; render(); return; }
     renderPorts(); renderHero(); renderWalk(); renderIdeas(); renderDay(); renderMoney(); renderFoot();
   }
   if (state.mode === "near") locate();

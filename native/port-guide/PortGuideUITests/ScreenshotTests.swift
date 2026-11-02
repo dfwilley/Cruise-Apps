@@ -1,49 +1,33 @@
 import XCTest
 
-/// Opens the app as if it were the morning of the Narvik port day and saves a screenshot of each tab.
+/// First launch: the "what are you interested in?" screen, then Add cruise (there are no cruises until you add one).
 final class ScreenshotTests: XCTestCase {
     func snap(_ app: XCUIApplication, _ name: String) {
         let a = XCTAttachment(screenshot: app.screenshot()); a.name = name; a.lifetime = .keepAlways; add(a)
     }
-    func testScreens() {
-        let app = XCUIApplication()
-        app.launchArguments = ["-previewNow", "2027-02-04T09:00:00Z"]
-        app.launch()
-        let web = app.webViews.firstMatch
-        XCTAssertTrue(web.waitForExistence(timeout: 15))
-        XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Narvik")).firstMatch.waitForExistence(timeout: 30), "screens loaded inside the app")
-        sleep(2)
-        snap(app, "1-pier")
-        web.swipeUp(); sleep(1); snap(app, "2-sights")
-        for (tab, name) in [("Hours", "3-hours"), ("Money", "4-money")] {
-            let b = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", tab)).firstMatch
-            web.swipeDown(); web.swipeDown()
-            if b.waitForExistence(timeout: 5) { b.tap(); sleep(2); snap(app, name); web.swipeUp(); sleep(1); snap(app, name + "b") }
-        }
+    func text(_ web: XCUIElement, _ s: String) -> XCUIElement {
+        web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", s)).firstMatch
     }
-
-    /// The river voyage on the Würzburg day: hero, Ideas, and the hours tab; then the Near me and Add cruise screens.
-    func testRiverVoyage() {
+    func button(_ web: XCUIElement, _ s: String) -> XCUIElement {
+        web.buttons.matching(NSPredicate(format: "label CONTAINS %@", s)).firstMatch
+    }
+    func testFirstRunAndAddCruise() {
         let app = XCUIApplication()
-        app.launchArguments = ["-previewNow", "2027-05-11T08:00:00Z"]
         app.launch()
         let web = app.webViews.firstMatch
         XCTAssertTrue(web.waitForExistence(timeout: 15))
-        XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Würzburg")).firstMatch.waitForExistence(timeout: 30), "river voyage opens on Würzburg")
-        sleep(2); snap(app, "5-river")
-        for (tab, name) in [("Ideas", "6-ideas"), ("Hours", "7-river-hours"), ("Money", "8-euro")] {
-            let b = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", tab)).firstMatch
-            web.swipeDown(); web.swipeDown()
-            if b.waitForExistence(timeout: 5) { b.tap(); sleep(2); snap(app, name); web.swipeUp(); sleep(1); snap(app, name + "b") }
+        // A fresh install opens on the interests screen; a simulator that ran the tests before may already be past it.
+        if text(web, "Welcome aboard").waitForExistence(timeout: 20) {
+            snap(app, "1-welcome")
+            for pick in ["Coffee", "Barber shop"] { let b = button(web, pick); if b.waitForExistence(timeout: 5) { b.tap() } }
+            let save = button(web, "Save and continue")
+            for _ in 0..<6 where !save.isHittable { web.swipeUp() }
+            XCTAssertTrue(save.waitForExistence(timeout: 5), "Save button")
+            save.tap(); sleep(2)
         }
-        web.swipeDown(); web.swipeDown()
-        let add = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Add cruise")).firstMatch
-        if add.waitForExistence(timeout: 5) {
-            add.tap(); sleep(1)
-            XCTAssertTrue(web.staticTexts["Add a cruise"].firstMatch.waitForExistence(timeout: 5), "Add cruise screen opens")
-            XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Viking")).firstMatch.waitForExistence(timeout: 5), "Viking cruise finder shows")
-            sleep(3); snap(app, "9b-viking-list")
-            snap(app, "9-add-cruise")
-        }
+        XCTAssertTrue(text(web, "Add a cruise").waitForExistence(timeout: 20), "with no cruises the app opens on Add cruise")
+        sleep(3); snap(app, "2-add-cruise")
+        let near = button(web, "Near me")
+        if near.waitForExistence(timeout: 5) { near.tap(); sleep(3); snap(app, "3-near-me") }
     }
 }

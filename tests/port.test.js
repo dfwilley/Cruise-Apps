@@ -147,4 +147,76 @@ test("river voyage: dates, untimed days, holidays and which voyage to open", () 
   assert.strictEqual(P.fmtMoney(12.5, "EUR"), "€12.50");
 });
 
+// ---- Adding your own cruises, and Near me ------------------------------------------------------------------
+const I = require("../port-guide/import.js");
+const rowsOf = (t, o) => I.parseAny(t, o).rows.map(r => [r.date, r.port, r.from, r.to]);
+
+test("itinerary pasted from a cruise line: dates, times, sea days skipped, embark/disembark", () => {
+  const r = rowsOf(`Sat, Jan 30, 2027   Tromsø, Norway   12:00 PM   11:00 PM
+Feb 3 At Sea
+Thu, Feb 4 Narvik, Norway 7:00am - 5:00pm
+Feb 11 London (Tilbury), England 6:00 AM Disembark`);
+  assert.deepStrictEqual(r, [["2027-01-30", "Tromsø, Norway", "12:00", "23:00"], ["2027-02-04", "Narvik, Norway", "07:00", "17:00"],
+    ["2027-02-11", "London (Tilbury), England", "06:00", null]]);
+});
+
+test("spreadsheet lines keep their columns (an empty arrival stays empty)", () => {
+  const r = rowsOf("Date,Port,Arrive,Depart\n2027-09-10,Barcelona,Spain,,17:00\n2027-09-11,At sea,,\n2027-09-12,Ajaccio,France,08:00,18:00");
+  assert.deepStrictEqual(r, [["2027-09-10", "Barcelona, Spain", null, "17:00"], ["2027-09-12", "Ajaccio, France", "08:00", "18:00"]]);
+});
+
+test("Day 1 / Day 2 layout counts from the first day; descriptions and scenic cruising are ignored", () => {
+  const t = "Day 1\nBasel\nEmbark your ship this afternoon. Enjoy a welcome dinner.\nDay 2\nBasel\nDay 3\nBreisach\nDay 5\nScenic Cruising: Middle Rhine\nDay 10\nNuremberg";
+  const r = I.parseAny(t, { start: "2027-05-04" }).rows;
+  assert.deepStrictEqual(r.map(x => x.date + " " + x.port), ["2027-05-04 Basel", "2027-05-05 Basel", "2027-05-06 Breisach", "2027-05-13 Nuremberg"]);
+  assert.deepStrictEqual(I.groupRows(r).map(p => p.name + " " + p.days.length), ["Basel 2", "Breisach 1", "Nuremberg 1"]);
+  assert.ok(I.parseAny(t, {}).skipped.length > 0, "without a first day it asks for one");
+});
+
+test("US dates without a year roll over New Year", () => {
+  const r = rowsOf("12/28/2027 Miami, Florida 4:00 PM\n12/30 Cozumel, Mexico 7am 5pm\n1/1 Roatán, Honduras 8 AM 4 PM");
+  assert.deepStrictEqual(r.map(x => x[0]), ["2027-12-28", "2027-12-30", "2028-01-01"]);
+  assert.deepStrictEqual(r[1].slice(2), ["07:00", "17:00"]);
+});
+
+test("calendar files: local and UTC times, all-day sea days skipped", () => {
+  const ics = "BEGIN:VCALENDAR\nBEGIN:VEVENT\nDTSTART;TZID=Europe/Lisbon:20271005T080000\nDTEND;TZID=Europe/Lisbon:20271005T170000\nSUMMARY:Port: Lisbon\nLOCATION:Lisbon\\, Portugal\nEND:VEVENT\n"
+    + "BEGIN:VEVENT\nDTSTART;VALUE=DATE:20271006\nDTEND;VALUE=DATE:20271007\nSUMMARY:Day at sea\nEND:VEVENT\nBEGIN:VEVENT\nDTSTART:20271007T060000Z\nDTEND:20271007T160000Z\nSUMMARY:Cádiz\nEND:VEVENT\nEND:VCALENDAR";
+  const r = I.parseAny(ics).rows;
+  assert.deepStrictEqual(r.map(x => [x.date, x.port, x.from, x.to]), [["2027-10-05", "Lisbon, Portugal", "08:00", "17:00"], ["2027-10-07", "Cádiz", null, null]]);
+  const p = I.makePort("t", I.groupRows(r)[1], { lat: 36.53, lon: -6.29, country: "ES", zone: "Europe/Madrid", label: "Cádiz" }, 2);
+  assert.deepStrictEqual([p.tz, p.days[0].from, p.days[0].to], [2, "08:00", "18:00"]);
+});
+
+test("time zones and countries for added ports", () => {
+  assert.strictEqual(I.tzOffset("Europe/Zurich", "2027-05-04"), 2);
+  assert.strictEqual(I.tzOffset("Europe/Zurich", "2027-01-04"), 1);
+  assert.strictEqual(I.tzOffset("America/Phoenix", "2027-07-04"), -7);
+  const es = I.makeCountry("ES", FACTS.countries);
+  assert.deepStrictEqual([es.name, es.currency, es.language], ["Spain", "EUR", "Spanish"]);
+  assert.ok(es.phrases.length >= 5 && es.phrases.every(x => x.local && x.say && x.lang));
+  assert.strictEqual(I.makeCountry("AT", FACTS.countries).phrases.length, FACTS.countries.DE.phrases.length, "Austria borrows the German phrases");
+  assert.strictEqual(P.fmtMoney(1500, "JPY"), "¥1,500");
+  assert.strictEqual(P.fmtMoney(12.5, "SEK"), "13 kr");
+});
+
+test("typical weather from a week either side of the date", () => {
+  const time = [], mx = [], mn = [], pr = [];
+  for (let y = 2021; y <= 2025; y++) for (let d = 1; d <= 30; d++) { time.push(`${y}-06-${String(d).padStart(2, "0")}`); mx.push(d <= 22 ? 25 : 40); mn.push(15); pr.push(d % 2 ? 2 : 0); }
+  const c = I.climateFrom({ time, temperature_2m_max: mx, temperature_2m_min: mn, precipitation_sum: pr, snowfall_sum: pr.map(() => 0), wind_gusts_10m_max: pr.map(() => 20) }, "2027-06-10");
+  assert.deepStrictEqual([c.days, c.hi, c.lo, c.years], [75, 25, 15, "2021–2025"]);
+  assert.ok(c.wetPct > 40 && c.wetPct < 60);
+});
+
+test("Near me: map places sorted by distance and sorted into kinds; dull Wikipedia articles left out", () => {
+  const els = [{ lat: 32.23, lon: -110.97, tags: { name: "Café", amenity: "cafe" } }, { lat: 32.2227, lon: -110.9748, tags: { amenity: "toilets" } },
+    { lat: 32.24, lon: -110.96, tags: { name: "Air Museum", tourism: "museum", museum: "aviation" } }, { lat: 32.24, lon: -110.96, tags: { name: "Bench" } }];
+  const ps = I.placesFrom(els, 32.2226, -110.9747, P.km);
+  assert.deepStrictEqual(ps.map(p => p.g + ":" + p.kind), ["handy:toilets", "food:cafe", "sight:air museum"]);
+  const nb = I.notableFrom({ 1: { pageid: 1, title: "Old Mission", description: "18th-century church", coordinates: [{ lat: 32.1, lon: -111 }] },
+    2: { pageid: 2, title: "Main Street", description: "street in Tucson", coordinates: [{ lat: 32.2, lon: -111 }] } }, 32.2226, -110.9747, P.km);
+  assert.deepStrictEqual(nb.map(n => n.title), ["Old Mission"]);
+  assert.ok(/around:1500,/.test(I.aroundQuery(32, -110, 8000)) && /around:8000,/.test(I.aroundQuery(32, -110, 8000)), "food stays within walking range");
+});
+
 console.log(`\n${n} test groups passed`);

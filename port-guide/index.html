@@ -16,7 +16,7 @@
 <body>
 <header id="top">
   <div class="brand"><img src="icons/icon-192.png" alt=""><div><h1>Port Pocket Guide</h1><p id="voyage"></p></div></div>
-  <nav id="voyages" role="tablist" aria-label="Voyage"></nav>
+  <nav id="voyages" role="tablist" aria-label="Near me, your cruises, and add a cruise"></nav>
   <nav id="ports" aria-label="Ports"></nav>
 </header>
 
@@ -24,16 +24,18 @@
 
 <nav id="tabs" role="tablist">
   <button role="tab" data-tab="walk" aria-selected="true">Pier &amp; walking</button>
-  <button role="tab" data-tab="near">Near me</button>
+  <button role="tab" data-tab="ideas">Ideas</button>
   <button role="tab" data-tab="day">Hours &amp; weather</button>
   <button role="tab" data-tab="money">Money &amp; phrases</button>
 </nav>
 
 <main>
   <section id="walk" class="panel"></section>
-  <section id="near" class="panel" hidden></section>
+  <section id="ideas" class="panel" hidden></section>
   <section id="day" class="panel" hidden></section>
   <section id="money" class="panel" hidden></section>
+  <section id="around" class="panel" hidden aria-label="Near me"></section>
+  <section id="add" class="panel" hidden aria-label="Add a cruise"></section>
 </main>
 
 <footer id="foot"></footer>
@@ -41,6 +43,7 @@
 <script src="data/ports.js"></script>
 <script src="data/places.js"></script>
 <script src="port.js"></script>
+<script src="import.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -223,7 +223,9 @@
     if (cur === "CHF") return "CHF " + n(v);
     if (cur === "USD") return "$" + (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString("en-US"));
     if (cur === "GBP") return "£" + (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString("en-US"));
-    return (v < 100 ? v.toFixed(0 + (v < 10 ? 1 : 0)) : Math.round(v).toLocaleString("en-US")) + " kr";
+    if (["NOK", "SEK", "DKK", "ISK"].includes(cur) || !cur) return (v < 100 ? v.toFixed(0 + (v < 10 ? 1 : 0)) : Math.round(v).toLocaleString("en-US")) + " kr";
+    try { return new Intl.NumberFormat("en-US", { style: "currency", currency: cur, maximumFractionDigits: v < 100 ? 2 : 0, minimumFractionDigits: 0 }).format(v); }
+    catch (e) { return Math.round(v).toLocaleString("en-US") + " " + cur; }
   }
 
   const api = { km, walk, fmtMi, fmtMin, mapsLink, portDate, localParts, fmtClock, fmt12, dayLabel, dowOf, portCall, currentPort,

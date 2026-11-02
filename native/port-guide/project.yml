@@ -26,7 +26,7 @@ targets:
         LSRequiresIPhoneOS: true
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
-        NSLocationWhenInUseUsageDescription: Port Guide uses your location only when you tap Use my location, to give the walking distance to sights and back to the ship.
+        NSLocationWhenInUseUsageDescription: Port Guide uses your location while you use Near me or tap Use my location, to find places of interest around you and the walk back to the ship.
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.portguide

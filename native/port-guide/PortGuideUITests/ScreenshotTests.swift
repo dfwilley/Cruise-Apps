@@ -21,7 +21,7 @@ final class ScreenshotTests: XCTestCase {
         }
     }
 
-    /// The river voyage on the Würzburg day: hero, Near me ideas, and the hours tab.
+    /// The river voyage on the Würzburg day: hero, Ideas, and the hours tab; then the Near me and Add cruise screens.
     func testRiverVoyage() {
         let app = XCUIApplication()
         app.launchArguments = ["-previewNow", "2027-05-11T08:00:00Z"]
@@ -30,9 +30,16 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertTrue(web.waitForExistence(timeout: 15))
         XCTAssertTrue(web.staticTexts["Würzburg"].firstMatch.waitForExistence(timeout: 15), "river voyage opens on Würzburg")
         sleep(2); snap(app, "5-river")
-        for (tab, name) in [("Near me", "6-near"), ("Hours", "7-river-hours"), ("Money", "8-euro")] {
+        for (tab, name) in [("Ideas", "6-ideas"), ("Hours", "7-river-hours"), ("Money", "8-euro")] {
             let b = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", tab)).firstMatch
             if b.waitForExistence(timeout: 5) { b.tap(); sleep(2); snap(app, name); web.swipeUp(); sleep(1); snap(app, name + "b") }
+        }
+        web.swipeDown(); web.swipeDown()
+        let add = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Add cruise")).firstMatch
+        if add.waitForExistence(timeout: 5) {
+            add.tap(); sleep(1)
+            XCTAssertTrue(web.buttons["Read itinerary"].firstMatch.waitForExistence(timeout: 5), "Add cruise screen opens")
+            snap(app, "9-add-cruise")
         }
     }
 }

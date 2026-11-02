@@ -4,7 +4,7 @@ import XCTest
 final class PortGuideTests: XCTestCase {
     func testScreensAndPortDataAreInsideTheApp() throws {
         let dir = try XCTUnwrap(Bundle.main.url(forResource: "port-guide", withExtension: nil))
-        for f in ["index.html", "app.js", "port.js", "style.css", "data/ports.js", "data/places.js"] {
+        for f in ["index.html", "app.js", "port.js", "import.js", "style.css", "data/ports.js", "data/places.js"] {
             XCTAssertTrue(FileManager.default.fileExists(atPath: dir.appendingPathComponent(f).path), f)
         }
         let facts = try String(contentsOf: dir.appendingPathComponent("data/ports.js"), encoding: .utf8)

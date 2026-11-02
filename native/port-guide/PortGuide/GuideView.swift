@@ -5,7 +5,8 @@ import AVFoundation
 import UserNotifications
 
 /// The Port Pocket Guide screens, bundled inside the app so they work ashore with no signal.
-/// The screens ask this side for: "locate" (one GPS fix), "alerts" (all-aboard reminders) and "speak" (say a phrase).
+/// The screens ask this side for: "locate" (one GPS fix), "alerts" (all-aboard reminders), "speak" (say a phrase)
+/// and "saveCruises" (a backup copy of the cruises you added, handed back to the screens at every launch).
 /// Links to Apple Maps and websites open outside the app.
 struct GuideView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> GuideController { GuideController() }
@@ -23,6 +24,11 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         view.backgroundColor = UIColor(red: 15/255, green: 34/255, blue: 54/255, alpha: 1)
         let cfg = WKWebViewConfiguration()
         cfg.userContentController.add(WeakHandler(self), name: "port")
+        // Cruises you added: give the screens the saved copy before they start, in case the web storage was cleared.
+        if let d = try? Data(contentsOf: Self.cruisesFile), let json = String(data: d, encoding: .utf8),
+           let lit = try? JSONSerialization.data(withJSONObject: [json], options: [.fragmentsAllowed]), let arr = String(data: lit, encoding: .utf8) {
+            cfg.userContentController.addUserScript(WKUserScript(source: "window.__savedCruises = \(arr)[0];", injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
         web = WKWebView(frame: view.bounds, configuration: cfg)
         web.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         web.navigationDelegate = self
@@ -52,8 +58,15 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         case "locate": locate()
         case "alerts": schedule((m["items"] as? [[String: Any]]) ?? [])
         case "speak": speak(m["text"] as? String ?? "", lang: m["lang"] as? String ?? "nb-NO")
+        case "saveCruises": if let j = m["json"] as? String { try? Data(j.utf8).write(to: Self.cruisesFile, options: .atomic) }
         default: break
         }
+    }
+
+    static var cruisesFile: URL {
+        let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("my-cruises.json")
     }
 
     // MARK: Location (one fix at a time; nothing runs in the background)

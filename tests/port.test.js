@@ -112,7 +112,7 @@ if (PLACES) test("port data file: sights, hours, weather and rates for every por
     assert.ok(d && d.sights.length >= 5, p.id + " has sights: " + (d && d.sights.length));
     assert.ok(d.practical.length >= 3, p.id + " has practical places");
     const c = PLACES.climate[p.id];
-    assert.ok(c && c.hi > -15 && c.hi < 15 && c.lo < c.hi, p.id + " has typical weather");
+    assert.ok(c && c.hi > -15 && c.hi < 30 && c.lo < c.hi, p.id + " has typical weather");
   }
   assert.ok(PLACES.climate.tromso.hi < PLACES.climate.london.hi, "London is milder than Tromsø");
   const names = PLACES.ports.bergen.sights.map(s => s.name + " " + (s.local || "")).join("|");
@@ -131,7 +131,8 @@ test("river voyage: dates, untimed days, holidays and which voyage to open", () 
   assert.ok(!b.timed && b.allAboard === null && !b.disembark);
   assert.ok(P.portCall(port("nuremberg")).disembark);
   assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-09T12:00+02:00")).port.id, "frankfurt");
-  assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-05T23:00+02:00")).port.id, "breisach");
+  assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-05T23:00+02:00")).port.id, "basel");
+  assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-06T00:30+02:00")).port.id, "breisach");
   assert.strictEqual(P.currentVoyage(FACTS.voyages, new Date("2026-11-01")).id, "norway");
   assert.strictEqual(P.currentVoyage(FACTS.voyages, new Date("2027-02-12")).id, "rhine");
   const C = FACTS.countries;

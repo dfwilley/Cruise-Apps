@@ -113,7 +113,7 @@ for p in PORTS:
         if i["name"].lower() in names: continue     # one entry per name (several outlines of the same place)
         names.add(i["name"].lower()); sights.append(i)
     # Prefer well-known places (with a Wikidata entry), museums and sights over galleries and churches, then the nearest.
-    rank = lambda i: ((0 if i.get("wikidata") else 3) + {"church": 2, "gallery": 1}.get(i["kind"], 0), i["fromPier"])
+    rank = lambda i: ((0 if i.get("wikidata") else 3) + {"church": 4, "gallery": 1}.get(i["kind"], 0), i["fromPier"])
     extra = p.get("extraSights", [])
     def in_extra(i): return any(km(i["lat"], i["lon"], a["lat"], a["lon"]) <= a["r"] for a in extra)
     main_s = sorted((i for i in sights if not in_extra(i)), key=rank)[:45 - 15 * len(extra)]

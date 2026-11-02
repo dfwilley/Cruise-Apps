@@ -238,4 +238,17 @@ test("My Viking Journey style: dated days with arrive/depart on the next line; D
   assert.deepStrictEqual(g.map(x => x.date.slice(5) + " " + x.port), ["06-01 Bergen, Norway", "06-02 Flåm, Norway", "06-03 Flåm, Norway", "06-05 Stavanger"]);
 });
 
+test("Near me searches: typed words → map tags; barbers listed before other hair salons; unknown words still search", () => {
+  const b = I.findSearch("Barber shop");
+  assert.deepStrictEqual([b.label, b.icon], ["Barber shop", "💈"]);
+  assert.ok(I.searchQuery(b, 32.2, -110.9, 1600).includes("nwr(around:1600,32.2,-110.9)[shop=hairdresser];"));
+  const r = I.searchResults([{ lat: 32.2236, lon: -110.9747, tags: { shop: "hairdresser", name: "Glamour Salon" } },
+    { lat: 32.24, lon: -110.9747, tags: { shop: "hairdresser", name: "Joe's Barber Shop" } }], b, 32.2226, -110.9747, P.km);
+  assert.deepStrictEqual(r.map(x => x.name + (x.pref ? " (barber)" : "")), ["Joe's Barber Shop (barber)", "Glamour Salon"]);
+  for (const [t, label] of [["laundromat", "Laundry"], ["gas station", "Gas station"], ["restroom", "Restrooms"], ["RV parks", "RV parks & camping"]]) assert.strictEqual(I.findSearch(t).label, label);
+  for (const t of I.SEARCH_SUGGESTIONS) assert.ok(!I.findSearch(t).generic, t);
+  const g = I.findSearch("sushi");
+  assert.ok(g.generic && g.filters.some(f => f.includes('name~"sushi"')));
+});
+
 console.log(`\n${n} test groups passed`);

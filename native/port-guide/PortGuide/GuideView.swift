@@ -48,7 +48,7 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
             web.loadFileURL(page, allowingReadAccessTo: dir)
         }
         loc.delegate = self
-        loc.desiredAccuracy = kCLLocationAccuracyBest
+        loc.desiredAccuracy = kCLLocationAccuracyNearestTenMeters   // quicker than "Best", plenty for walking directions
     }
 
     // MARK: Messages from the screens
@@ -88,7 +88,12 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         switch loc.authorizationStatus {
         case .notDetermined: loc.requestWhenInUseAuthorization()
         case .denied, .restricted: send(["type": "error", "message": "Location is off for Port Guide. Turn it on in Settings › Port Guide › Location."])
-        default: loc.requestLocation()
+        default:
+            // A recent fix the phone already has gets the search going at once; the fresh fix follows.
+            if let l = loc.location, -l.timestamp.timeIntervalSinceNow < 300, l.horizontalAccuracy >= 0, l.horizontalAccuracy < 500 {
+                send(["type": "location", "lat": l.coordinate.latitude, "lon": l.coordinate.longitude, "acc": l.horizontalAccuracy])
+            }
+            loc.requestLocation()
         }
     }
     func locationManagerDidChangeAuthorization(_ m: CLLocationManager) {

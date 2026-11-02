@@ -421,6 +421,112 @@
       .sort((a, b) => a.d - b.d);
   }
 
+  // ---- Your own Near me searches ("barber shop", "laundromat"…) → map tags -------------------------------------------
+  // Each: words people type → label, icon, the OpenStreetMap filters to ask for, and (optionally) what to list first.
+  const SEARCHES = [
+    [["barber", "barbers", "barber shop", "barbershop", "men's haircut", "haircut"], "Barber shop", "💈",
+      ['[shop=hairdresser]', '[shop=barber]', '[craft=barber]'], /barb|herren|\bmen\b|male|uomo|hombre|homme|frisør for menn/i],
+    [["hair salon", "hairdresser", "salon"], "Hair salon", "💇", ['[shop=hairdresser]']],
+    [["laundry", "laundromat", "launderette", "dry cleaner", "dry cleaning", "wash clothes"], "Laundry", "🧺", ['[shop~"^(laundry|dry_cleaning)$"]', '[amenity=washing_machine]']],
+    [["pharmacy", "drugstore", "drug store", "chemist", "medicine"], "Pharmacy", "✚", ['[amenity=pharmacy]', '[healthcare=pharmacy]']],
+    [["atm", "cash", "cash machine", "bank", "money"], "ATM & bank", "💳", ['[amenity~"^(atm|bank)$"]']],
+    [["money exchange", "currency exchange", "exchange", "bureau de change"], "Money exchange", "💱", ['[amenity=bureau_de_change]']],
+    [["grocery", "groceries", "grocery store", "supermarket", "market", "food store", "convenience store"], "Groceries", "🛒", ['[shop~"^(supermarket|convenience|greengrocer|grocery|deli)$"]']],
+    [["coffee", "cafe", "café", "coffee shop", "espresso"], "Coffee", "☕", ['[amenity=cafe]']],
+    [["bakery", "bread", "pastry"], "Bakery", "🥐", ['[shop~"^(bakery|pastry)$"]']],
+    [["restaurant", "food", "lunch", "dinner"], "Restaurants", "🍽", ['[amenity=restaurant]']],
+    [["pizza"], "Pizza", "🍕", ['[cuisine~"pizza"]']],
+    [["ice cream", "gelato"], "Ice cream", "🍦", ['[amenity=ice_cream]', '[shop=ice_cream]', '[cuisine~"ice_cream"]']],
+    [["bar", "pub", "beer", "brewery", "beer garden"], "Bars & pubs", "🍺", ['[amenity~"^(bar|pub|biergarten)$"]', '[craft=brewery]']],
+    [["wine", "liquor", "liquor store", "wine shop"], "Wine & liquor", "🍷", ['[shop~"^(alcohol|wine|beverages)$"]']],
+    [["gas", "gas station", "fuel", "petrol", "diesel"], "Gas station", "⛽", ['[amenity=fuel]']],
+    [["propane", "lpg"], "Propane", "🔥", ['[shop=gas]', '[amenity=fuel]["fuel:lpg"=yes]']],
+    [["rv park", "campground", "camping", "rv campground", "caravan park"], "RV parks & camping", "🏕", ['[tourism~"^(camp_site|caravan_site)$"]']],
+    [["dump station", "rv dump", "sanitary dump"], "RV dump station", "🚐", ['[amenity=sanitary_dump_station]']],
+    [["ev charging", "charging station", "charger"], "EV charging", "🔌", ['[amenity=charging_station]']],
+    [["parking", "car park", "parking lot"], "Parking", "🅿️", ['[amenity=parking]']],
+    [["car wash"], "Car wash", "🚿", ['[amenity=car_wash]']],
+    [["auto repair", "mechanic", "car repair", "garage", "tire", "tires"], "Auto repair", "🔧", ['[shop~"^(car_repair|tyres|car_parts)$"]']],
+    [["hardware", "hardware store", "home improvement", "tools"], "Hardware store", "🔨", ['[shop~"^(hardware|doityourself|trade)$"]']],
+    [["post office", "mail", "post", "stamps", "postbox", "mailbox"], "Post office", "✉️", ['[amenity=post_office]', '[amenity=post_box]']],
+    [["shipping", "fedex", "ups", "parcel"], "Shipping & parcels", "📦", ['[amenity=post_office]', '[shop=copyshop]', '[office=courier]']],
+    [["toilet", "toilets", "restroom", "restrooms", "bathroom", "wc", "loo"], "Restrooms", "🚻", ['[amenity=toilets]']],
+    [["doctor", "clinic", "medical", "urgent care", "walk-in clinic"], "Doctor & clinic", "🩺", ['[amenity~"^(doctors|clinic)$"]', '[healthcare~"^(doctor|clinic|centre)$"]']],
+    [["hospital", "emergency", "er"], "Hospital", "🏥", ['[amenity=hospital]']],
+    [["dentist", "dental"], "Dentist", "🦷", ['[amenity=dentist]', '[healthcare=dentist]']],
+    [["optician", "eyeglasses", "glasses", "optometrist"], "Optician", "👓", ['[shop=optician]', '[healthcare=optometrist]']],
+    [["vet", "veterinarian", "animal hospital"], "Veterinarian", "🐾", ['[amenity=veterinary]']],
+    [["pet store", "pet shop", "pet supplies"], "Pet store", "🐕", ['[shop=pet]']],
+    [["phone", "sim card", "mobile phone", "cell phone", "phone store"], "Phone & SIM", "📱", ['[shop=mobile_phone]', '[shop=telecommunication]']],
+    [["electronics", "batteries", "camera store", "camera"], "Electronics", "🔋", ['[shop~"^(electronics|camera|computer)$"]']],
+    [["bookstore", "books", "book shop"], "Bookshop", "📚", ['[shop=books]']],
+    [["library"], "Library", "🏛", ['[amenity=library]']],
+    [["shoe repair", "cobbler", "key cutting", "keys"], "Shoe repair & keys", "👞", ['[craft~"^(shoemaker|key_cutter)$"]', '[shop~"^(shoe_repair|locksmith)$"]']],
+    [["tailor", "alterations", "sewing"], "Tailor", "🧵", ['[craft=tailor]', '[shop=tailor]']],
+    [["nail salon", "nails", "manicure", "pedicure"], "Nail salon", "💅", ['[shop=beauty][beauty~"nails"]', '[shop=nails]']],
+    [["massage", "spa", "day spa"], "Massage & spa", "💆", ['[shop=massage]', '[leisure=spa]', '[amenity=spa]']],
+    [["gym", "fitness", "workout"], "Gym", "🏋️", ['[leisure=fitness_centre]']],
+    [["golf", "golf course"], "Golf", "⛳", ['[leisure=golf_course]']],
+    [["cigar", "cigars", "tobacco", "tobacconist"], "Tobacco & cigars", "🚬", ['[shop=tobacco]']],
+    [["souvenir", "souvenirs", "gift shop", "gifts"], "Souvenirs & gifts", "🎁", ['[shop~"^(gift|souvenir)$"]']],
+    [["clothing", "clothes", "clothing store", "outdoor gear", "jacket"], "Clothing", "🧥", ['[shop~"^(clothes|outdoor|department_store)$"]']],
+    [["church", "mass", "cathedral"], "Churches", "⛪", ['[amenity=place_of_worship][religion=christian]']],
+    [["museum", "museums"], "Museums", "🏛", ['[tourism=museum]']],
+    [["aviation museum", "air museum", "aircraft"], "Aviation", "✈️", ['[tourism=museum][museum~"aviation|transport"]', '[historic=aircraft]']],
+    [["airport", "airfield", "airstrip"], "Airports", "✈️", ['[aeroway~"^(aerodrome|airstrip)$"]']],
+    [["park", "parks", "garden", "gardens"], "Parks", "🌳", ['[leisure~"^(park|garden)$"][name]']],
+    [["viewpoint", "view", "lookout", "scenic view"], "Viewpoints", "⛰", ['[tourism=viewpoint]']],
+    [["beach", "beaches"], "Beaches", "🏖", ['[natural=beach]', '[leisure=beach_resort]']],
+    [["taxi", "cab", "taxi stand"], "Taxi stands", "🚕", ['[amenity=taxi]']],
+    [["bike rental", "bicycle rental", "bike", "bicycle", "e-bike"], "Bikes", "🚲", ['[amenity=bicycle_rental]', '[shop=bicycle]']],
+    [["train", "train station", "railway station"], "Train stations", "🚆", ['[railway=station][name]']],
+    [["bus station", "bus"], "Bus stations", "🚌", ['[amenity=bus_station]']],
+    [["ferry", "ferry terminal", "water taxi"], "Ferries", "⛴", ['[amenity=ferry_terminal]']],
+    [["tourist information", "tourist info", "visitor center", "information"], "Tourist info", "ℹ︎", ['[tourism=information][information~"office|visitor_centre"]']],
+    [["wifi", "wi-fi", "internet"], "Free Wi-Fi", "📶", ['[internet_access~"^(wlan|yes|wifi)$"][name]']]
+  ];
+  const termKey = s => String(s || "").toLowerCase().replace(/[’']/g, "'").replace(/\s+/g, " ").trim();
+  // A typed search → { term, label, icon, filters: [...], prefer: regex source or null }. Unknown words still work: they
+  // match place names and kinds ("car repair" → shop=car_repair).
+  function findSearch(text) {
+    const t = termKey(text); if (!t) return null;
+    const variants = [t, t.replace(/s$/, ""), t.replace(/\s+(shop|shops|store|stores|near me|nearby)$/, ""), t.replace(/^(a|an|the)\s+/, "")];
+    for (const [words, label, icon, filters, prefer] of SEARCHES)
+      if (variants.some(v => words.includes(v) || v === termKey(label))) return { term: t, label, icon, filters, prefer: prefer ? prefer.source : null };
+    const word = t.replace(/\s+(shop|store)$/, "").replace(/[^a-z0-9 À-ɏ-]/gi, "").trim();
+    if (!word) return null;
+    const tag = word.replace(/\s+/g, "_").replace(/s$/, "");
+    const esc = word.replace(/[.*+?^${}()|[\]\\"]/g, "");
+    return { term: t, label: word.charAt(0).toUpperCase() + word.slice(1), icon: "🔎", generic: true,
+      filters: [`[name~"${esc}",i]`, `[~"^(shop|amenity|craft|office|healthcare|leisure|tourism)$"~"^${tag}$",i]`, `[cuisine~"${tag}",i]`], prefer: null };
+  }
+  function searchQuery(s, lat, lon, r) {
+    return `[out:json][timeout:15];(${s.filters.map(f => `nwr(around:${r},${lat},${lon})${f};`).join("")});out center tags 150;`;
+  }
+  const human = v => String(v || "").replace(/_/g, " ").replace(/;.*/, "");
+  // Overpass results for a search → places, nearest first; the ones matching `prefer` (e.g. barbers among hair salons) flagged.
+  function searchResults(elements, s, lat, lon, km) {
+    const pref = s.prefer ? new RegExp(s.prefer, "i") : null, seen = new Set(), out = [];
+    for (const e of elements || []) {
+      const t = e.tags || {}, la = e.lat != null ? e.lat : e.center && e.center.lat, lo = e.lon != null ? e.lon : e.center && e.center.lon;
+      if (la == null) continue;
+      const name = t["name:en"] || t.name || t.brand || t.operator || s.label;
+      const key = name + "|" + la.toFixed(4) + lo.toFixed(4);
+      if (seen.has(key)) continue; seen.add(key);
+      const kindTag = t.shop || t.amenity || t.craft || t.healthcare || t.leisure || t.tourism || t.office || t.aeroway || "";
+      const p = { name, local: t["name:en"] && t.name && t.name !== t["name:en"] ? t.name : undefined, kind: "custom", label: human(kindTag) || s.label.toLowerCase(),
+        lat: +la.toFixed(5), lon: +lo.toFixed(5), d: km(lat, lon, la, lo) };
+      if (t.opening_hours) p.hours = t.opening_hours;
+      if (t.phone || t["contact:phone"]) p.phone = t.phone || t["contact:phone"];
+      if (t.website || t["contact:website"]) p.website = t.website || t["contact:website"];
+      if (pref) p.pref = pref.test([t.name, t["name:en"], t.hairdresser, t.shop === "barber" ? "barber" : "", t.craft, t.male === "yes" ? "male" : ""].join(" "));
+      if (p.pref) p.label = s.label.toLowerCase();
+      out.push(p);
+    }
+    return out.sort((a, b) => (pref ? (b.pref ? 1 : 0) - (a.pref ? 1 : 0) : 0) || a.d - b.d);
+  }
+  const SEARCH_SUGGESTIONS = ["Barber shop", "Laundry", "Pharmacy", "ATM", "Groceries", "Coffee", "Gas station", "Post office", "Restrooms", "Hardware store", "Phone & SIM", "RV parks & camping"];
+
   // ---- Building a cruise from the checked itinerary ------------------------------------------------------------
   const slug = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 30) || "port";
   // Find a port: Open-Meteo's place search first (it also gives the time zone), then OpenStreetMap's.
@@ -477,7 +583,7 @@
       : a.slice(0, 4) === b.slice(0, 4) ? f(a) + " – " + f(b) + ", " + b.slice(0, 4) : f(a) + ", " + a.slice(0, 4) + " – " + f(b) + ", " + b.slice(0, 4);
   }
 
-  const api = { parseItinerary, parseICS, parseAny, parsePage, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
+  const api = { findSearch, searchQuery, searchResults, SEARCH_SUGGESTIONS, parseItinerary, parseICS, parseAny, parsePage, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
     aroundQuery, placesFrom, notableFrom, geocode, makePort, voyageDates, slug, addDays, CURRENCY, RATED };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.PortImport = api;
 })(this);

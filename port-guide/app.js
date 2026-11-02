@@ -264,16 +264,25 @@
     document.querySelectorAll(".locate").forEach(b => { b.textContent = "📍 Finding you…"; b.disabled = true; });
     if (native) { native.postMessage({ cmd: "locate" }); return; }
     if (!navigator.geolocation) return gotError("This browser can't share location.");
-    navigator.geolocation.getCurrentPosition(
-      pos => gotLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy),
-      err => gotError(err.code === 1 ? "Location is off for this site. Turn it on in Settings › Privacy › Location Services › Safari Websites." : "Couldn't get a GPS fix — try again in the open."),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 30000 });
+    // A quick rough fix (Wi-Fi/cell, usually under a second) starts the search; the GPS fix then sharpens it.
+    let fixed = false;
+    const fail = err => { if (!fixed) gotError(err.code === 1 ? "Location is off for this site. Turn it on in Settings › Privacy › Location Services › Safari Websites." : "Couldn't get a GPS fix — try again in the open."); };
+    navigator.geolocation.getCurrentPosition(pos => { if (!fixed) gotLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy); },
+      () => {}, { enableHighAccuracy: false, timeout: 4000, maximumAge: 300000 });
+    navigator.geolocation.getCurrentPosition(pos => { fixed = true; gotLocation(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy); },
+      fail, { enableHighAccuracy: true, timeout: 20000, maximumAge: 30000 });
   }
   function gotLocation(lat, lon, acc) {
     const p = state.port, d = P.km(lat, lon, p.area.lat, p.area.lon);
     state.me = { lat, lon, acc, at: Date.now() };
-    renderWalk(); renderIdeas(); renderAround();
-    if (state.mode === "near") loadAround();
+    renderWalk(); renderIdeas();
+    if (state.mode === "near") {
+      // Look things up again only if this fix is somewhere new (a sharper GPS fix nearby just re-sorts the distances).
+      const a = state.around, moved = !a || a.lat == null || P.km(lat, lon, a.lat, a.lon) > 0.15 || a.error;
+      if (moved) loadAround(); else renderAround();
+      const sr = state.searchRes;
+      if (state.cat.startsWith("s:") && (!sr || sr.error || sr.lat == null || P.km(lat, lon, sr.lat, sr.lon) > 0.15)) runSearch();
+    }
     else if (d > 40) toast(`You're ${Math.round(d / 1.609)} miles from ${p.name} — distances are from where you are now.`);
   }
   function gotError(msg) { toast(msg); renderWalk(); renderIdeas(); renderAround(); }
@@ -378,9 +387,13 @@
   }
   function renderAround() {
     const el = $("#around"); if (!el || state.mode !== "near") return;
+    const typing = document.activeElement && document.activeElement.id === "newsearch";   // keep the keyboard up through a redraw
     const me = state.me, at = me ? portOfLocation(me) : null, ck = clockFor(at && at.p);
     const radius = RADII.map(([m, l]) => `<button class="f${state.radius === m ? " on" : ""}" data-r="${m}">${l}</button>`).join("");
-    const cats = CATS.map(([k, l]) => `<button class="f${state.cat === k ? " on" : ""}" data-c="${k}">${l}</button>`).join("");
+    if (state.cat.startsWith("s:") && !mySearches()[+state.cat.slice(2)]) state.cat = "all";
+    const cats = CATS.map(([k, l]) => `<button class="f${state.cat === k ? " on" : ""}" data-c="${k}">${l}</button>`).join("")
+      + mySearches().map((sv, i) => `<button class="f mine${state.cat === "s:" + i ? " on" : ""}" data-c="s:${i}">${sv.icon} ${esc(sv.label)}</button>`).join("")
+      + `<button class="f add${state.adding ? " on" : ""}" id="addchip">＋ Add</button>`;
     const accTxt = me && me.acc ? ` · within ${me.acc < 100 ? Math.round(me.acc * 3.281) + " ft" : P.fmtMi(me.acc / 1609)}` : "";
     let body = "";
     if (!me) body = `<p class="callout">Tap <b>Find places near me</b> and allow location when your iPhone asks. Your position goes only to the map lookups.</p>`;
@@ -398,7 +411,7 @@
       }
       const a = state.around;
       let list = "";
-      if (!a || a.loading) list = `<p class="fine">Looking for places around you…</p>`;
+      if (!a || (a.loading && !(a.items || []).length && !(a.notable || []).length)) list = `<p class="fine">Looking for places around you…</p>`;
       else if (a.error) list = `<p class="callout warn">${esc(a.error)}</p>`;
       else {
         const notable = (state.cat === "all" || state.cat === "sight") ? a.notable.filter(n => n.d * 1000 <= state.radius * 1.2).slice(0, 8) : [];
@@ -409,14 +422,15 @@
             return `<li class="place notable">${n.thumb ? `<img src="${esc(n.thumb)}" alt="" loading="lazy">` : `<span class="ico" aria-hidden="true">★</span>`}
               <div class="pbody"><b>${esc(n.title)}</b><p class="what">${esc(n.what)}</p><div class="meta"><span>${f.txt}</span><a href="${esc(n.url)}" target="_blank" rel="noopener">Read about it</a></div></div>
               <a class="go" href="${P.mapsLink({ lat: n.lat, lon: n.lon, name: n.title }, me, f.mode)}" target="_blank" rel="noopener">Map</a></li>`; }).join("")}</ul>` : "")
-          + `<h3>${state.cat === "all" ? "Everything nearby" : esc(CATS.find(c => c[0] === state.cat)[1])} <small class="fine">${items.length} found</small></h3>`
+          + `<h3>${state.cat === "all" ? "Everything nearby" : esc((CATS.find(c => c[0] === state.cat) || [0, ""])[1])} <small class="fine">${items.length} found</small></h3>`
           + (shown.length ? `<ul class="places compact">${shown.map(x => placeItem(x, me, ck)).join("")}</ul>`
               + (items.length > shown.length ? `<button class="ghost wide" id="more">Show ${Math.min(30, items.length - shown.length)} more</button>` : "")
-            : `<p class="fine">Nothing of that kind within ${RADII.find(r => r[0] === state.radius)[1].toLowerCase()}. Try a wider distance.</p>`)
-          + `<p class="fine">${a.cached ? "Saved list from " : "Live from "}OpenStreetMap and Wikipedia, ${new Date(a.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}. Hours shown where the map has them — check before a long walk.</p>`;
+            : a.partial ? `<p class="fine">Still getting shops, food and sights from the map…</p>` : `<p class="fine">Nothing of that kind within ${RADII.find(r => r[0] === state.radius)[1].toLowerCase()}. Try a wider distance.</p>`)
+          + `<p class="fine">${a.refreshing ? "<b>Updating…</b> " : ""}${a.cached && !a.refreshing ? "Saved list from " : a.cached ? "Showing the last list. " : "Live from "}OpenStreetMap and Wikipedia, ${new Date(a.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}. Hours shown where the map has them — check before a long walk.</p>`;
       }
-      body = port + list;
+      body = state.cat.startsWith("s:") ? searchBody(me, ck) : port + list;
     }
+    if (state.adding) body = addSearchForm() + body;
     el.innerHTML = `
       <div class="row"><button class="ghost locate" id="locate3">📍 ${me ? "Update my location" : "Find places near me"}</button>
         <span class="fine">${me ? `Updated ${new Date(me.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}${accTxt}` : ""}</span></div>
@@ -428,39 +442,127 @@
     el.querySelectorAll("[data-r]").forEach(b => b.onclick = () => {
       const r = +b.dataset.r, wider = r > (state.around && state.around.r || 0);
       state.radius = r; state.more = 0; store.set("radius", r);
-      if (wider && me && state.around && !state.around.loading) loadAround(); else renderAround();
+      if (state.cat.startsWith("s:") && me) { if (wider || r >= 1600) runSearch(); else renderAround(); }
+      else if (wider && me && state.around && !state.around.loading) loadAround(); else renderAround();
     });
-    el.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { state.cat = b.dataset.c; state.more = 0; store.set("cat", state.cat); renderAround(); });
+    el.querySelectorAll("[data-c]").forEach(b => b.onclick = () => {
+      state.cat = b.dataset.c; state.more = 0; state.adding = false; store.set("cat", state.cat);
+      if (state.cat.startsWith("s:")) { state.searchRes = null; renderAround(); runSearch(); } else renderAround();
+    });
+    $("#addchip").onclick = () => { state.adding = !state.adding; renderAround(); const i = $("#newsearch"); if (i) i.focus(); };
+    const ns = $("#newsearch");
+    if (ns) {
+      ns.oninput = () => { state.newsearch = ns.value; };
+      $("#addsearch").onclick = () => addSearch($("#newsearch").value);
+      ns.onkeydown = e => { if (e.key === "Enter") addSearch(ns.value); };
+      if (typing) { ns.focus(); ns.setSelectionRange(ns.value.length, ns.value.length); }
+    }
+    el.querySelectorAll("[data-sugg]").forEach(b => b.onclick = () => addSearch(b.dataset.sugg));
+    const rm = $("#rmsearch"); if (rm) rm.onclick = () => {
+      const list = mySearches(); list.splice(+state.cat.slice(2), 1); store.set("searches", list);
+      state.cat = "all"; store.set("cat", "all"); renderAround();
+    };
     const mo = $("#more"); if (mo) mo.onclick = () => { state.more += 30; renderAround(); };
     const op = $("#openport"); if (op) op.onclick = () => { voyage = at.v; state.port = at.p; store.set("voyage", voyage.id); setMode("voyage"); };
   }
+  // Ask two OpenStreetMap servers at once and take whichever answers first; a third if both fail.
   async function overpass(q) {
-    for (const url of ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]) {
-      try {
-        const r = await fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), headers: { "Content-Type": "application/x-www-form-urlencoded" } });
-        if (r.ok) return await r.json();
-      } catch (e) {}
+    const ask = (url, ctl) => fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), signal: ctl && ctl.signal,
+      headers: { "Content-Type": "application/x-www-form-urlencoded" } }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    const ctls = [0, 1].map(() => window.AbortController ? new AbortController() : null);
+    try {
+      const j = await Promise.any(["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter"].map((u, i) => ask(u, ctls[i])));
+      ctls.forEach(c => c && c.abort());
+      return j;
+    } catch (e) {
+      return ask("https://overpass.kumi.systems/api/interpreter");
     }
-    throw new Error("map lookup failed");
   }
   async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(r.status); return r.json(); }
   const wikiURL = (lat, lon, r, n) => `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=geosearch&ggscoord=${lat}%7C${lon}&ggsradius=${Math.min(10000, r)}&ggslimit=${n}&prop=coordinates%7Cdescription%7Cpageimages&piprop=thumbnail&pithumbsize=160&colimit=max`;
   async function loadAround() {
     const me = state.me; if (!me) return;
+    const req = state.aroundReq = (state.aroundReq || 0) + 1, stale = () => state.aroundReq !== req;   // a newer lookup replaces this one
     const r = Math.max(state.radius, 1600);   // fetch at least a 20-minute walk, so narrowing needs no new lookup
-    state.around = { loading: true }; renderAround();
-    const [osm, wiki] = await Promise.allSettled([overpass(I.aroundQuery(me.lat, me.lon, r)), getJSON(wikiURL(me.lat, me.lon, r, 50))]);
-    if (state.me !== me) return;
-    if (osm.status === "fulfilled" || wiki.status === "fulfilled") {
-      state.around = { items: osm.status === "fulfilled" ? I.placesFrom(osm.value.elements, me.lat, me.lon, P.km) : [],
-        notable: wiki.status === "fulfilled" ? I.notableFrom((wiki.value.query || {}).pages, me.lat, me.lon, P.km) : [], at: Date.now(), r, lat: me.lat, lon: me.lon };
-      store.set("around", state.around);
-    } else {
-      const saved = store.get("around", null);
-      state.around = saved && P.km(me.lat, me.lon, saved.lat, saved.lon) < 1 ? Object.assign(saved, { cached: true })
-        : { error: "No connection for the map lookup right now. When you're in a cruise port, the Ideas and Pier & walking tabs still work offline." };
+    // Show the last list straight away if it was for about here, while the fresh one loads.
+    const saved = store.get("around", null);
+    const near = saved && saved.items && P.km(me.lat, me.lon, saved.lat, saved.lon) < 0.5;
+    state.around = near ? Object.assign(saved, { cached: true, refreshing: true }) : { loading: true, items: [], notable: [], lat: me.lat, lon: me.lon, r };
+    renderAround();
+    const fresh = { items: null, notable: null, at: Date.now(), r, lat: me.lat, lon: me.lon };
+    const show = () => {
+      if (stale()) return;
+      const keep = state.around || {};
+      state.around = { items: fresh.items || keep.items || [], notable: fresh.notable || keep.notable || [], at: fresh.at, r, lat: me.lat, lon: me.lon,
+        refreshing: !(fresh.items && fresh.notable), partial: !fresh.items };
+      renderAround();
+    };
+    const osm = overpass(I.aroundQuery(me.lat, me.lon, r)).then(j => { fresh.items = I.placesFrom(j.elements, me.lat, me.lon, P.km); show(); });
+    const wiki = getJSON(wikiURL(me.lat, me.lon, r, 50)).then(j => { fresh.notable = I.notableFrom((j.query || {}).pages, me.lat, me.lon, P.km); show(); });
+    const res = await Promise.allSettled([osm, wiki]);
+    if (stale()) return;
+    if (res.some(x => x.status === "fulfilled")) {
+      if (!fresh.items) fresh.items = near ? saved.items : [];
+      if (!fresh.notable) fresh.notable = near ? saved.notable : [];
+      show(); state.around.refreshing = false; state.around.partial = false;
+      store.set("around", { items: fresh.items, notable: fresh.notable, at: fresh.at, r, lat: me.lat, lon: me.lon });
+    } else state.around = near ? Object.assign(saved, { cached: true, refreshing: false })
+      : { error: "No connection for the map lookup right now. When you're in a cruise port, the Ideas and Pier & walking tabs still work offline." };
+    renderAround();
+  }
+
+  // ---- Your own searches (chips after the built-in ones): "barber shop", "laundromat"… ------------------------------------
+  const mySearches = () => store.get("searches", []);
+  async function runSearch() {
+    const me = state.me, i = +state.cat.slice(2), sv = mySearches()[i]; if (!me || !sv) return;
+    const s = I.findSearch(sv.term), r = Math.max(state.radius, 1600);
+    const req = state.searchReq = (state.searchReq || 0) + 1;
+    const key = sv.term + "|" + r;
+    const saved = store.get("search." + sv.term, null);
+    state.searchRes = saved && saved.key === key && P.km(me.lat, me.lon, saved.lat, saved.lon) < 0.3 ? Object.assign(saved, { refreshing: true }) : { loading: true, lat: me.lat, lon: me.lon, key };
+    renderAround();
+    try {
+      const j = await overpass(I.searchQuery(s, me.lat, me.lon, r));
+      if (state.searchReq !== req) return;
+      state.searchRes = { items: I.searchResults(j.elements, s, me.lat, me.lon, P.km), at: Date.now(), lat: me.lat, lon: me.lon, r, key };
+      store.set("search." + sv.term, state.searchRes);
+    } catch (e) {
+      if (state.searchReq !== req) return;
+      state.searchRes = state.searchRes.items ? Object.assign(state.searchRes, { refreshing: false, cached: true }) : { error: "No connection for the map lookup right now — try again in a moment." };
     }
     renderAround();
+  }
+  function searchBody(me, ck) {
+    const sv = mySearches()[+state.cat.slice(2)], s = sv && I.findSearch(sv.term), res = state.searchRes;
+    if (!sv) return "";
+    const head = `<h3>${sv.icon} ${esc(sv.label)} <small class="fine">${res && res.items ? res.items.length + " found" : ""}</small></h3>`;
+    const foot = `<div class="row"><button class="link" id="rmsearch">Remove “${esc(sv.label)}” from my searches</button></div>`;
+    if (!res || res.loading) return head + `<p class="fine">Looking for ${esc(sv.label.toLowerCase())} around you…</p>` + foot;
+    if (res.error) return head + `<p class="callout warn">${esc(res.error)}</p>` + foot;
+    const within = res.items.filter(x => x.d * 1000 <= Math.max(state.radius, 1600) * 1.05);
+    const a = within.filter(x => !s.prefer || x.pref), b = s.prefer ? within.filter(x => !x.pref) : [];
+    const row = x => { const o = x.hours ? openNow(x.hours, ck) : null, f = howFar(me, x);
+      return `<li class="place"><span class="ico" aria-hidden="true">${sv.icon}</span><div class="pbody"><b>${esc(x.name)}</b>${x.local ? ` <small>${esc(x.local)}</small>` : ""}
+        <div class="meta"><span>${esc(x.label)}</span><span>${f.txt}</span>${x.phone ? `<a href="tel:${esc(x.phone.replace(/[^+\d]/g, ""))}">Call</a>` : ""}</div>${o ? `<span class="hrs ${o.cls}">${esc(o.txt)}</span>` : ""}</div>
+        <a class="go" href="${P.mapsLink(x, me, f.mode)}" target="_blank" rel="noopener" aria-label="Directions to ${esc(x.name)}">Directions</a></li>`; };
+    const list = items => `<ul class="places compact">${items.slice(0, 40).map(row).join("")}</ul>`;
+    const none = `<p class="fine">None found within ${RADII.find(r => r[0] === state.radius)[1].toLowerCase()}${state.radius < 8000 ? " — try <b>Short drive</b>" : ""}. Map data is thinner in some places; a nearby town may have more.</p>`;
+    return head + (within.length ? (a.length ? list(a) : "") + (b.length ? `<h4 class="sub4">${a.length ? "Also nearby" : "Nearest"}: ${esc(b[0].label)}s</h4>` + list(b) : "") : none)
+      + `<p class="fine">${res.refreshing ? "Updating… " : ""}${res.cached ? "Saved list. " : ""}From OpenStreetMap. Directions open Apple Maps (walking, or driving when it's far).</p>` + foot;
+  }
+  function addSearchForm() {
+    return `<div class="addsearch"><b>Add a search</b>
+      <div class="row"><input id="newsearch" type="search" enterkeyhint="done" placeholder="What do you need nearby? e.g. barber shop" autocomplete="off" value="${esc(state.newsearch || "")}"><button id="addsearch" class="ghost">Add</button></div>
+      <div class="filters">${I.SEARCH_SUGGESTIONS.filter(t => !mySearches().some(x => x.label === I.findSearch(t).label)).map(t => { const s = I.findSearch(t); return `<button class="f" data-sugg="${esc(t)}">${s.icon} ${esc(s.label)}</button>`; }).join("")}</div>
+      <p class="fine">Searches you add stay as buttons here, and work in any town.</p></div>`;
+  }
+  function addSearch(text) {
+    const s = I.findSearch(text); if (!s) return;
+    const list = mySearches();
+    let i = list.findIndex(x => x.label === s.label);
+    if (i < 0) { list.push({ term: s.term, label: s.label, icon: s.icon }); i = list.length - 1; store.set("searches", list); }
+    state.adding = false; state.newsearch = ""; state.cat = "s:" + i; state.searchRes = null; store.set("cat", state.cat);
+    renderAround(); runSearch();
   }
 
   // ---- Add cruise (top bar): paste or pick an itinerary, check it, build a tab ----------------------------------------
@@ -906,7 +1008,7 @@ Basel    the first day filled in above)</pre></details>
 
   function render() {
     renderVoyages(); renderTabs();
-    if (state.mode === "near") { renderAround(); if (state.me && !state.around) loadAround(); return; }
+    if (state.mode === "near") { renderAround(); if (state.me && !state.around) loadAround(); if (state.me && state.cat.startsWith("s:") && !state.searchRes) runSearch(); return; }
     if (state.mode === "add") { renderAdd(); return; }
     renderPorts(); renderHero(); renderWalk(); renderIdeas(); renderDay(); renderMoney(); renderFoot();
   }

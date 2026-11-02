@@ -38,7 +38,7 @@ final class ScreenshotTests: XCTestCase {
         let add = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Add cruise")).firstMatch
         if add.waitForExistence(timeout: 5) {
             add.tap(); sleep(1)
-            XCTAssertTrue(web.buttons["Read itinerary"].firstMatch.waitForExistence(timeout: 5), "Add cruise screen opens")
+            XCTAssertTrue(web.staticTexts["Add a cruise"].firstMatch.waitForExistence(timeout: 5), "Add cruise screen opens")
             XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Viking")).firstMatch.waitForExistence(timeout: 5), "Viking cruise finder shows")
             sleep(3); snap(app, "9b-viking-list")
             snap(app, "9-add-cruise")

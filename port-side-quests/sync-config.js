@@ -1,6 +1,6 @@
-// Public client configuration only. Set values after creating your Supabase project.
-// The publishable key is intended for browsers. NEVER put a service_role/secret key here.
+// Public Supabase client configuration for Cruise Port Side Quests.
+// The publishable key is intended for use in browsers. NEVER add service_role or secret keys.
 window.QUEST_SYNC_CONFIG = {
-  url: '',
-  publishableKey: ''
+  url: 'https://tfhobgicvfzhlycjmvwd.supabase.co',
+  publishableKey: 'sb_publishable_V8dQHMz537YHxZTgGf0pQg_wiSQVis_'
 };

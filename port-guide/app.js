@@ -465,8 +465,104 @@
 
   // ---- Add cruise (top bar): paste or pick an itinerary, check it, build a tab ----------------------------------------
   const emptyRow = () => ({ date: "", port: "", from: "", to: "" });
-  function newDraft() { return { name: "", ship: "", start: "", text: "", rows: [], editing: null, log: [], busy: false, page: null }; }
+  function newDraft() { return { name: "", ship: "", start: "", text: "", rows: [], editing: null, log: [], busy: false, page: null, vq: "", vcat: null, vsel: null, vdate: "", vsource: null }; }
   const VIKING = "https://www.viking.com/", MVJ = "https://www.myvikingjourney.com/";
+  // ---- Viking's cruise list (downloaded weekly from Viking's websites into viking-catalog/ by a GitHub workflow) ----------
+  const CATALOG = location.protocol === "file:" ? "https://dfwilley.github.io/Cruise-Apps/viking-catalog/" : new URL("../viking-catalog/", location.href).href;
+  const VTYPE = { river: "River", ocean: "Ocean", expedition: "Expedition" };
+  async function loadVikingIndex() {
+    if (state.vindex && state.vindex.cruises) return;
+    state.vindex = { loading: true };
+    try {
+      const r = await fetch(CATALOG + "index.json", { cache: "no-cache" }); if (!r.ok) throw new Error(r.status);
+      state.vindex = await r.json(); store.set("vindex", state.vindex);
+    } catch (e) {
+      const saved = store.get("vindex", null);
+      state.vindex = saved && saved.cruises ? Object.assign(saved, { offline: true }) : { error: "Couldn't load Viking's cruise list — check your connection and try again." };
+    }
+    if (state.mode === "add") { const b = $("#vbox"); if (b) { b.innerHTML = vikingBox(state.draft); bindViking(state.draft); } }
+  }
+  const fmtD = s => P.dayLabel(s).replace(/^(\w{3})\w*, /, "$1, ");
+  function vikingMatches(q) {
+    const idx = state.vindex; if (!idx || !idx.cruises) return "";
+    const words = I.slug(q || "").split("-").filter(Boolean);
+    if (!words.length) return "";
+    const hits = idx.cruises.filter(c => { const hay = I.slug(c.name + " " + c.route + " " + c.region); return words.every(w => hay.includes(w)); }).slice(0, 12);
+    if (!hits.length) return `<li class="fine">No Viking cruise matches "${esc(q)}". Try one word from the name, or a port.</li>`;
+    return hits.map(c => `<li><button class="vpick" data-vid="${c.id}"><b>${esc(c.name)}</b>
+      <small>${VTYPE[c.type] || ""} · ${c.days} days${c.n ? ` · ${c.n} departures${c.from ? ", " + fmtD(c.from).slice(5) + " " + c.from.slice(0, 4) : ""}${c.to && c.to !== c.from ? " – " + c.to.slice(0, 4) : ""}` : " · no upcoming dates"}</small>
+      <small class="route">${esc(c.route)}</small></button></li>`).join("");
+  }
+  function vikingBox(d) {
+    const idx = state.vindex;
+    if (!idx || idx.loading) { loadVikingIndex(); return `<b>Find your Viking cruise</b><p class="fine">Loading Viking's cruise list…</p>`; }
+    if (idx.error) return `<b>Find your Viking cruise</b><p>${esc(idx.error)}</p><button class="ghost" id="vretry">Try again</button>`;
+    const c = d.vcat;
+    if (!c) return `<b>1. Which Viking cruise?</b>
+      <input id="vq" type="search" enterkeyhint="search" autocomplete="off" placeholder="Type the cruise name — e.g. Rhine & Main" value="${esc(d.vq || "")}">
+      <ul class="vlist" id="vlist">${vikingMatches(d.vq)}</ul>
+      <p class="fine">${idx.cruises.length} river, ocean and expedition cruises from Viking's website, updated ${esc(P.dayLabel(idx.generated).replace(/^\w+, /, ""))}${idx.offline ? " (saved copy — you're offline)" : ""}.</p>`;
+    if (c.loading) return `<b>${esc(c.name)}</b><p class="fine">Getting its dates…</p>`;
+    if (c.error) return `<b>${esc(c.name)}</b><p>${esc(c.error)}</p><button class="ghost" id="vchange">Pick another cruise</button>`;
+    const today = new Date().toISOString().slice(0, 10), from = I.addDays(today, -45);
+    let deps = c.departures.filter(x => x[0] >= from);
+    const want = d.vdate || "";
+    if (want) deps = deps.filter(x => Math.abs(Date.parse(x[0]) - Date.parse(want)) <= 21 * 864e5);
+    const many = !want && deps.length > 30;
+    const shown = many ? deps.slice(0, 30) : deps;
+    let year = "";
+    const list = shown.map((x, i) => {
+      const y = x[0].slice(0, 4), head = y !== year ? `<li class="yr">${y}</li>` : ""; year = y;
+      const on = d.vsel && d.vsel[0] === x[0] && d.vsel[2] === x[2] && d.vsel[1] === x[1];
+      return head + `<li><button class="dep${on ? " on" : ""}" data-dep-i="${c.departures.indexOf(x)}"><b>${fmtD(x[0])}</b><small>${esc((x[1] || "").replace("Viking ", ""))}${x[3] ? " · " + esc(x[3].replace(/ to /, " → ")) : ""}${x[4] ? " · sold out" : ""}</small></button></li>`;
+    }).join("");
+    return `<div class="vchosen"><div><b>${esc(c.name)}</b><small>${VTYPE[c.type] || ""} cruise · <a href="${esc(c.url)}" target="_blank" rel="noopener">see it on Viking.com</a></small></div><button class="ghost" id="vchange">Change</button></div>
+      <b>2. When do you sail?</b>
+      <label class="fine vdate">Your first day: <input id="vdate" type="date" value="${esc(want)}"> ${want ? `<button class="link" id="vclear">show all dates</button>` : ""}</label>
+      ${shown.length ? `<ul class="deps2">${list}</ul>` : `<p>No ${esc(c.name)} departures within three weeks of that date. Check the date, or clear it to see them all.</p>`}
+      ${many ? `<p class="fine">Showing the first 30 of ${deps.length} dates — enter your first day above to find yours.</p>` : ""}
+      ${d.vsel ? `<p class="fine">✓ ${esc(c.name)}, ${esc(P.dayLabel(d.vsel[0]))}${d.vsel[1] ? " on the " + esc(d.vsel[1]) : ""}. The ports are below — tap <b>Build the cruise tab</b>.</p>` : ""}`;
+  }
+  function bindViking(d) {
+    const q = $("#vq");
+    if (q) q.oninput = () => { d.vq = q.value; $("#vlist").innerHTML = vikingMatches(d.vq); bindPicks(d); };
+    bindPicks(d);
+    const rt = $("#vretry"); if (rt) rt.onclick = () => { state.vindex = null; $("#vbox").innerHTML = vikingBox(d); bindViking(d); };
+    const ch = $("#vchange"); if (ch) ch.onclick = () => { d.vcat = null; d.vsel = null; d.vdate = ""; d.rows = []; renderAdd(); const i = $("#vq"); if (i) i.focus(); };
+    const vd = $("#vdate"); if (vd) vd.onchange = () => {
+      d.vdate = vd.value;
+      const exact = d.vcat.departures.filter(x => x[0] === d.vdate);
+      if (exact.length === 1) chooseDeparture(d, exact[0]); else renderAdd();
+    };
+    const cl = $("#vclear"); if (cl) cl.onclick = () => { d.vdate = ""; renderAdd(); };
+    document.querySelectorAll("[data-dep-i]").forEach(b => b.onclick = () => chooseDeparture(d, d.vcat.departures[+b.dataset.depI]));
+  }
+  function bindPicks(d) {
+    document.querySelectorAll(".vpick").forEach(b => b.onclick = async () => {
+      const meta = state.vindex.cruises.find(c => c.id === b.dataset.vid);
+      d.vcat = { name: meta.name, loading: true }; d.vsel = null; d.vdate = ""; renderAdd();
+      try {
+        const r = await fetch(CATALOG + "c/" + meta.id + ".json", { cache: "no-cache" }); if (!r.ok) throw new Error(r.status);
+        d.vcat = await r.json(); store.set("vcat." + meta.id, d.vcat);
+      } catch (e) {
+        const saved = store.get("vcat." + meta.id, null);
+        d.vcat = saved || { name: meta.name, error: "Couldn't get this cruise's dates — check your connection." };
+      }
+      renderAdd();
+    });
+  }
+  const SKIP = /^(sail|scenic|cruis|at sea|day at sea|crossing|transit|explore the|antarctic peninsula|drake passage)/i;
+  // A departure → the check list: each port on its date (sea days and scenic sailing left out).
+  function chooseDeparture(d, dep) {
+    const c = d.vcat, days = c.itineraries[dep[2]] || Object.values(c.itineraries)[0] || [];
+    d.vsel = dep; d.vdate = d.vdate || "";
+    d.name = d.editing ? d.name : c.name; d.ship = dep[1] || ""; d.vsource = { title: "Viking: " + c.name, url: c.url };
+    d.rows = days.filter(([, p]) => !SKIP.test(p)).map(([n, p]) => ({ date: I.addDays(dep[0], n - 1), port: p, from: "", to: "" }));
+    d.page = null; d.text = ""; d.log = [];
+    renderAdd();
+    const bb = $("#cbuild"); if (bb && bb.scrollIntoView) bb.scrollIntoView({ block: "center", behavior: "smooth" });
+  }
+
   function renderAdd() {
     const el = $("#add"); if (!el || state.mode !== "add") return;
     const d = state.draft || (state.draft = newDraft());
@@ -481,36 +577,29 @@
     el.innerHTML = `
       ${mine ? `<h3>Your cruises</h3><ul class="mine">${mine}</ul>` : ""}
       <h3>${d.editing ? "Edit " + esc(d.name) : "Add a cruise"}</h3>
-      <div class="viking">
-        <b>Get it from Viking</b>
-        ${native ? `<p>Opens Viking's website inside the app. Go to your cruise's <b>Itinerary</b>, then tap <b>Use this itinerary</b> — no copying needed.</p>
-          <div class="row"><button id="vsite" class="build slim">Viking.com</button><button id="vmvj" class="ghost">My Viking Journey</button></div>
-          <p class="fine">My Viking Journey is your booking (sign in once): it shows your own dates and, for ocean voyages, the port times.</p>`
-        : `<ol class="steps">
-            <li>Open <a href="${VIKING}" target="_blank" rel="noopener">Viking.com</a> or <a href="${MVJ}" target="_blank" rel="noopener">My Viking Journey</a> and go to your cruise's day-by-day itinerary.</li>
-            <li>Press and hold on the words <b>Day 1</b> until they highlight, drag the lower blue handle down to the last day, and tap <b>Copy</b>. (It doesn't have to be neat — extra text is ignored.)</li>
-            <li>Come back here and tap <b>Paste itinerary</b>.</li></ol>
-          <p class="fine">Tip: in the iPhone app (Port-Pocket-Guide.ipa) there's no copying — it opens Viking's site and reads the itinerary with one tap.</p>`}
-      </div>
+      <div class="viking" id="vbox">${vikingBox(d)}</div>
+      <details class="other"${d.text || d.page || (d.rows.length && !d.vsel) ? " open" : ""}><summary>Not on Viking's list? Paste an itinerary or pick a file</summary>
       <div class="pastebox">
+        ${native ? `<div class="row"><button id="vmvj" class="ghost">Open My Viking Journey</button><span class="fine">Your booking, with port times: open it, go to the itinerary, tap <b>Use this itinerary</b>.</span></div>` : ""}
         <button id="cpaste" class="build">📋 Paste itinerary</button>
         <textarea id="ctext" rows="4" placeholder="…or press and hold here and choose Paste. You can also type one port per line, like:&#10;May 6, 2027  Breisach, Germany  8:00 AM  6:00 PM">${esc(d.text)}</textarea>
         <div class="row"><button id="cread" class="ghost">Read it</button>
           <label class="ghost file">Pick a file…<input id="cfile" type="file" accept=".txt,.csv,.tsv,.ics,text/plain,text/csv,text/calendar"></label>
           <span class="fine">Text, spreadsheet (.csv) or calendar (.ics)</span></div>
-      </div>
-      ${d.page && d.page.ask ? departurePicker(d) : ""}
-      <div class="form">
-        <label><span>Cruise name</span><input id="cname" type="text" value="${esc(d.name)}" placeholder="e.g. Mediterranean Odyssey"></label>
-        <label><span>Ship (optional)</span><input id="cship" type="text" value="${esc(d.ship)}" placeholder="e.g. Viking Sea"></label>
-        <label><span>First day (only needed if the lines say "Day 1, Day 2…" without dates)</span><input id="cstart" type="date" value="${esc(d.start)}"></label>
-      </div>
+        <div class="form"><label><span>First day (only needed if the lines say "Day 1, Day 2…" without dates)</span><input id="cstart" type="date" value="${esc(d.start)}"></label></div>
       <details class="fine"><summary>Examples it understands</summary>
         <pre>Sat, Jan 30, 2027  Tromsø, Norway  12:00 PM  11:00 PM
 2027-09-12, Ajaccio, France, 08:00, 18:00
 12/30/2027 Cozumel, Mexico 7am 5pm
 Day 1   (then the port on the next line, with
 Basel    the first day filled in above)</pre></details>
+      </div></details>
+      ${d.page && d.page.ask ? departurePicker(d) : ""}
+      <div class="form">
+        <label><span>Cruise name</span><input id="cname" type="text" value="${esc(d.name)}" placeholder="e.g. Mediterranean Odyssey"></label>
+        <label><span>Ship (optional)</span><input id="cship" type="text" value="${esc(d.ship)}" placeholder="e.g. Viking Sea"></label>
+      </div>
+
       ${d.rows.length ? `<h3>Check the ports <small class="fine">${new Set(d.rows.map(r => r.port.toLowerCase())).size} ports, ${d.rows.length} days</small></h3>
         <p class="fine">Fix anything that came through wrong. Times are local port times; leave them blank if you don't know them. Adding the country ("Ajaccio, France") helps find the right town.</p>
         <ul class="rows">${rows}</ul>
@@ -521,6 +610,7 @@ Basel    the first day filled in above)</pre></details>
     const bind = (id, k) => { const i = $("#" + id); i.oninput = () => { d[k] = i.value; }; };
     bind("cname", "name"); bind("cship", "ship"); bind("cstart", "start"); bind("ctext", "text");
     $("#cread").onclick = () => readItinerary(d.text);
+    bindViking(d);
     // Pasting reads straight away; the button asks the phone for what's on the clipboard.
     $("#ctext").addEventListener("paste", () => setTimeout(() => { d.text = $("#ctext").value; readItinerary(d.text); }, 50));
     $("#cpaste").onclick = async () => {
@@ -531,8 +621,7 @@ Basel    the first day filled in above)</pre></details>
       } catch (e) { toast("Press and hold in the box below and choose Paste."); }
       $("#ctext").focus();
     };
-    const vs = $("#vsite"), vm = $("#vmvj");
-    if (vs) vs.onclick = () => native.postMessage({ cmd: "viking", url: VIKING });
+    const vm = $("#vmvj");
     if (vm) vm.onclick = () => native.postMessage({ cmd: "viking", url: MVJ });
     el.querySelectorAll("[data-dep]").forEach(b => b.onclick = () => {
       d.start = b.dataset.dep; if (b.dataset.ship) d.ship = b.dataset.ship;
@@ -650,7 +739,7 @@ Basel    the first day filled in above)</pre></details>
     const short = d.name.trim().length <= 22 ? d.name.trim() : words.slice(0, 2).join(" ").length <= 22 ? words.slice(0, 2).join(" ") : words[0].slice(0, 22);
     const v = { id, name: d.name.trim(), short, dates: I.voyageDates(ports), ship: d.ship.trim(), imported: true,
       about: "Added from your itinerary on " + new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + ".",
-      timesKnown: ports.some(p => p.days.some(x => x.from || x.to)), ports, sources: [] };
+      timesKnown: ports.some(p => p.days.some(x => x.from || x.to)), ports, sources: d.vsource ? [d.vsource] : [] };
     const entry = { voyage: v, places, countries };
     CRUISES = CRUISES.filter(c => c.voyage.id !== id).concat(entry);
     saveCruises();

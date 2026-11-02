@@ -1,0 +1,37 @@
+name: Viking catalog
+
+# Downloads every Viking cruise (river, ocean, expedition): departures and day-by-day ports.
+# The Port Guide's "Add cruise" reads it from viking-catalog/ on GitHub Pages.
+on:
+  schedule:
+    - cron: "17 9 * * 1"     # Mondays
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["tools/build_viking_catalog.mjs", ".github/workflows/viking-catalog.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: viking-catalog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Download the catalog from Viking's websites
+        run: OUT=viking-catalog-new node tools/build_viking_catalog.mjs
+      - name: Save it
+        run: |
+          rm -rf viking-catalog && mv viking-catalog-new viking-catalog
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add -A viking-catalog
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -qm "Viking catalog: $(date -u +%Y-%m-%d)"
+          git pull -q --rebase origin main && git push -q origin HEAD:main

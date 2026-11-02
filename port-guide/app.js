@@ -8,7 +8,8 @@
 
   // ?now=2027-02-04T10:00+01:00 previews the app as if it were that moment.
   const qs = new URLSearchParams(location.search);
-  const fakeNow = qs.get("now") ? new Date(qs.get("now")) : null;
+  let fakeNow = qs.get("now") ? new Date(qs.get("now").replace(" ", "+")) : null;   // a "+" in a link can arrive as a space
+  if (fakeNow && isNaN(fakeNow)) fakeNow = null;
   const now = () => fakeNow || new Date();
 
   const store = {
@@ -70,7 +71,7 @@
       <p class="sub">${esc(dayTxt)} · ${esc(COUNTRIES[p.country].name)} · local time ${p.tz ? "UTC+1" : "UTC"}${p.tz ? " (Arizona +8 h)" : " (Arizona +7 h)"}</p>
       <div class="times">${times}</div>
       <p class="status">${status}</p>
-      <p class="fine">All aboard is assumed 30 minutes before sailing — Viking's daily program has the exact time.</p>
+      ${c.disembark ? "" : `<p class="fine">All aboard is assumed 30 minutes before sailing — Viking's daily program has the exact time.</p>`}
       ${alertBtn}`;
     const r = $("#remind");
     if (r) r.onclick = () => {

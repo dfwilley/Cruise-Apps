@@ -7,7 +7,7 @@ final class ScreenshotTests: XCTestCase {
     }
     func testScreens() {
         let app = XCUIApplication()
-        app.launchArguments = ["-previewNow", "2027-02-04T10:00:00+01:00"]
+        app.launchArguments = ["-previewNow", "2027-02-04T09:00:00Z"]
         app.launch()
         let web = app.webViews.firstMatch
         XCTAssertTrue(web.waitForExistence(timeout: 15))

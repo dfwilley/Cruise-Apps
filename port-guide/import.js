@@ -44,7 +44,7 @@
     return { times: out, rest };
   }
 
-  const SEA = /\b(at sea|sea day|day at sea|scenic cruising|cruising|crossing|sailing (the|through|along)|transit)\b/i;
+  const SEA = /\b(at sea|sea day|day at sea|days at sea|scenic|cruising|crossing|sailing (the|through|along)|transit)\b/i;
   const WEEKDAY = /\b(Mon|Tue|Tues|Wed|Thu|Thur|Thurs|Fri|Sat|Sun)(day|sday|nesday|rsday|urday)?\b\.?,?/gi;
   // The port's name from what's left of a line.
   function cleanPort(s) {
@@ -52,6 +52,26 @@
       .replace(/\b(arrives?|arrival|arriving|departs?|departure|departing|sails?|sailing|embark(ation)?|disembark(ation)?|all aboard|docked|docks|tender(ed)?|overnight|port of call|in port|ship|time|times|depart time|arrive time|local)\b:?/gi, " ")
       .replace(/[|•\t;]+/g, ",").replace(/\s*[-–—:]+\s*(?=,|$)/g, " ").replace(/^[\s,:\-–—]+|[\s,:\-–—.]+$/g, "")
       .replace(/\s*,\s*(,\s*)*/g, ", ").replace(/\s+/g, " ").replace(/^[\s,]+|[\s,]+$/g, "").trim();
+  }
+  // "Arrive 12:00 PM  Depart —" → { from: "12:00", to: null }; works without the words too ("7:00 AM 5:00 PM").
+  function labeledTimes(line) {
+    const i = line.search(/\b(depart|departure|departs|sail|sails|all aboard)\b/i);
+    if (i > 0 && /\barriv/i.test(line.slice(0, i))) return { from: findTimes(line.slice(0, i)).times[0] || null, to: findTimes(line.slice(i)).times[0] || null };
+    if (i === 0 && !/\barriv/i.test(line)) return { from: null, to: findTimes(line).times[0] || null };
+    const t = findTimes(line).times;
+    return { from: t[0] || null, to: t[1] || null };
+  }
+  let COUNTRY_NAMES = null;
+  function isCountry(s) {
+    if (!COUNTRY_NAMES) {
+      COUNTRY_NAMES = new Set(["england", "scotland", "wales", "northern ireland", "usa", "united states", "uk", "holland", "the netherlands", "czech republic"]);
+      for (let a = 65; a <= 90; a++) for (let b = 65; b <= 90; b++) {
+        const code = String.fromCharCode(a, b); let n = null;
+        try { n = new Intl.DisplayNames(["en"], { type: "region", fallback: "none" }).of(code); } catch (e) {}
+        if (n) COUNTRY_NAMES.add(n.toLowerCase());
+      }
+    }
+    return COUNTRY_NAMES.has(String(s).toLowerCase().trim());
   }
   const looksLikePort = s => s && s.length <= 60 && s.split(/\s+/).length <= 8 && !/[.!?]$/.test(s) && /[A-Za-zÀ-ž]/.test(s) && !SEA.test(s);
 
@@ -90,25 +110,37 @@
       }
       return slots.length === 2 && slots.some(Boolean) ? slots : null;
     }
+    let lastLine = -9;   // index of the line that added the last row, to pick up a country or times on the next line
     function push(date, port, times, raw, through) {
       const n = note(raw), t = times.slice(0, 2), cols = columns(raw);
       let from = t[0] || null, to = t[1] || null;
       if (cols) [from, to] = cols;
+      else if (/\barriv/i.test(raw) && /\b(depart|sail)/i.test(raw)) ({ from, to } = labeledTimes(raw));
       else if (t.length === 1 && /disembark|arriv/i.test(raw)) { /* an arrival */ }
       else if (t.length === 1 && /(depart|sail|leav|all aboard|embark)/i.test(raw)) { to = from; from = null; }
-      rows.push({ date, port, from, to, note: n });
+      rows.push({ date, port, from, to, note: n }); lastLine = li;
       if (through) for (let d = addDays(date, 1); d <= through; d = addDays(d, 1)) rows.push({ date: d, port, from: null, to: null, note: null });
       lastDate = through || date;
     }
+    let li = -1;
     for (const raw of lines) {
+      li++;
       if (!raw) continue;
-      const day = raw.match(/^day\s*(\d{1,2})\b/i);
+      const prev = rows[rows.length - 1];
+      if (prev && li - lastLine <= 2 && !/^days?\s*\d/i.test(raw) && !findDate(raw)) {
+        if (isCountry(raw) && !prev.port.includes(",")) { prev.port += ", " + raw; lastLine = li; continue; }   // "Basel" / "Switzerland"
+        const ft = findTimes(raw);
+        if (ft.times.length && !cleanPort(ft.rest) && !prev.from && !prev.to) { const t = labeledTimes(raw); prev.from = t.from; prev.to = t.to; lastLine = li; continue; }
+      }
+      const day = raw.match(/^days?\s*(\d{1,2})(?:\s*(?:-|–|—|&|and|to)\s*(\d{1,2}))?\b/i);
       const f = findDate(raw, yearHint);
       let date = f ? resolve(f) : null;
-      if (!date && day && opts.start) date = addDays(opts.start, +day[1] - 1);
+      let dayThrough = null;
+      if (!date && day && opts.start) { date = addDays(opts.start, +day[1] - 1); if (day[2] && +day[2] > +day[1]) dayThrough = addDays(opts.start, +day[2] - 1); }
+      if (!date && day && pending && pending.date && !pending.port) continue;   // "Thursday - Jun 3, 2027" then "Day 1": keep the date
       if (date) {
-        const through = f && f.md2 ? resolve({ y: f.y || +date.slice(0, 4), md: f.md2 }) : null;
-        const { times, rest } = findTimes(f ? f.rest : raw);
+        const through = f && f.md2 ? resolve({ y: f.y || +date.slice(0, 4), md: f.md2 }) : dayThrough;
+        const { times, rest } = findTimes(f ? f.rest : raw.replace(/^days?\s*\d{1,2}(?:\s*(?:-|–|—|&|and|to)\s*\d{1,2})?\b:?/i, " "));
         const port = cleanPort(rest);
         if (SEA.test(raw) && !looksLikePort(port.replace(SEA, "").trim())) { pending = null; lastDate = date; continue; }
         if (looksLikePort(port)) { push(date, port, times, raw, through && through > date ? through : null); pending = null; }
@@ -167,6 +199,48 @@
     return { rows: rows.sort((a, b) => a.date < b.date ? -1 : 1), skipped: [] };
   }
   function parseAny(text, opts) { return /BEGIN:VCALENDAR/.test(text) ? parseICS(text) : parseItinerary(text, opts); }
+
+  // ---- A whole web page (Viking's site, My Viking Journey, or a travel agent's copy) --------------------------------
+  // Pages split headings over several lines ("Day" / "1" / "Basel") and mix in prices and departure lists.
+  // → { rows, skipped, departures: [{ date, ship }], ship, title, hasDays }
+  const NOT_SHIPS = /^Viking (River|Rivers|Ocean|Oceans|Expedition|Expeditions|Cruises?|Journey|Explorer|Way|Air|Longships?|Homeport|Today|Daily|Society|Savings|Card|Destinations|Culture|Resident|Art|Kitchen|Credit|Voyages?|Mississippi|Holdings)\b/;
+  function parsePage(text, opts) {
+    opts = opts || {};
+    const raw = String(text || "").replace(/\r/g, "").split("\n").map(l => l.replace(/\s+/g, " ").trim()).filter(Boolean);
+    const lines = [];
+    for (let i = 0; i < raw.length; i++) {      // join "Day" + "1" (+ "Basel") into one heading
+      if (/^days?$/i.test(raw[i]) && /^\d{1,2}(\s*[-–]\s*\d{1,2})?$/.test(raw[i + 1] || "")) { lines.push(raw[i] + " " + raw[i + 1]); i++; }
+      else lines.push(raw[i]);
+    }
+    const ships = {};
+    for (const l of lines) for (const m of l.matchAll(/\bViking [A-Z][a-zæøåäöüé]{2,}\b/g)) if (!NOT_SHIPS.test(m[0])) ships[m[0]] = (ships[m[0]] || 0) + 1;
+    const ship = Object.keys(ships).sort((a, b) => ships[b] - ships[a])[0] || null;
+    // The day-by-day part: from the first "Day 1" (or the first dated port line) to where the page moves on.
+    let a = lines.findIndex(l => /^day\s*0?1\b/i.test(l));
+    const STOP = /^(dates (&|and) pric|pricing|dates$|choose your|select (a|your) (date|departure)|what'?s included|included features|ship details|deck plans?|pre[- ]?(&|and)? ?post|extensions?$|reviews?$|you may also like|similar (cruises|voyages)|footer|privacy)/i;
+    let block = lines;
+    if (a >= 0) {
+      let b = lines.length;
+      for (let i = a + 1; i < lines.length; i++) if (STOP.test(lines[i])) { b = i; break; }
+      block = lines.slice(Math.max(0, a - 1), b).filter(l => !/[$€£]\s?\d|per person|\bfrom\s+us?\$/i.test(l));
+    }
+    const res = parseItinerary(block.join("\n"), opts);
+    // Departure dates listed elsewhere on the page (for "Day 1, Day 2…" pages without dates).
+    const deps = [], seen = new Set();
+    const today = opts.today || new Date(), todayStr = iso(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    lines.forEach((l, i) => {
+      if (a >= 0 && i >= a && block.includes(l)) return;
+      const f = findDate(l);
+      if (!f || (!f.date && !f.y)) return;      // a departure list always shows the year
+      const d = f.date || iso(f.y, f.md[0], f.md[1]);
+      if (!validDate(+d.slice(0, 4), +d.slice(5, 7), +d.slice(8)) || d < todayStr || seen.has(d)) return;
+      seen.add(d);
+      const near = (l + " " + (lines[i + 1] || "") + " " + (lines[i - 1] || "")).match(/\bViking [A-Z][a-zæøåäöüé]{2,}\b/g) || [];
+      deps.push({ date: d, ship: near.find(x => !NOT_SHIPS.test(x)) || null });
+    });
+    const title = (opts.title || "").split(/\s[|–-]\s/)[0].replace(/^(NEW!?|New:)\s*/i, "").trim();
+    return Object.assign(res, { departures: deps.sort((x, y) => x.date < y.date ? -1 : 1).slice(0, 80), ship, title, hasDays: a >= 0 });
+  }
 
   // Consecutive days in the same port become one port call (an overnight).
   function groupRows(rows) {
@@ -403,7 +477,7 @@
       : a.slice(0, 4) === b.slice(0, 4) ? f(a) + " – " + f(b) + ", " + b.slice(0, 4) : f(a) + ", " + a.slice(0, 4) + " – " + f(b) + ", " + b.slice(0, 4);
   }
 
-  const api = { parseItinerary, parseICS, parseAny, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
+  const api = { parseItinerary, parseICS, parseAny, parsePage, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
     aroundQuery, placesFrom, notableFrom, geocode, makePort, voyageDates, slug, addDays, CURRENCY, RATED };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.PortImport = api;
 })(this);

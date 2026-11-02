@@ -58,9 +58,22 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         case "locate": locate()
         case "alerts": schedule((m["items"] as? [[String: Any]]) ?? [])
         case "speak": speak(m["text"] as? String ?? "", lang: m["lang"] as? String ?? "nb-NO")
+        case "viking": openViking(m["url"] as? String)
         case "saveCruises": if let j = m["json"] as? String { try? Data(j.utf8).write(to: Self.cruisesFile, options: .atomic) }
         default: break
         }
+    }
+
+    // MARK: Viking's website, to read a cruise itinerary
+    private func openViking(_ link: String?) {
+        guard let u = URL(string: link ?? "https://www.viking.com/") else { return }
+        let browser = VikingBrowser(url: u) { [weak self] page in
+            var m = page; m["type"] = "viking"
+            self?.send(m)
+        }
+        let nav = UINavigationController(rootViewController: browser)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
 
     static var cruisesFile: URL {

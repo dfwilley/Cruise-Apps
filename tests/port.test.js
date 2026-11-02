@@ -219,4 +219,23 @@ test("Near me: map places sorted by distance and sorted into kinds; dull Wikiped
   assert.ok(/around:1500,/.test(I.aroundQuery(32, -110, 8000)) && /around:8000,/.test(I.aroundQuery(32, -110, 8000)), "food stays within walking range");
 });
 
+test("Viking's website: split Day headings, country lines, scenic sailing, departure list with ships", () => {
+  const page = "Itinerary\nDay\n1\nBasel\nSwitzerland\nEmbark your ship and settle into your stateroom. Basel reflects a fascinating blend of traditions.\nDay\n2\nBasel\nSwitzerland\n"
+    + "Day\n3\nBreisach\nGermany\nDay\n7\nScenic Sailing: Main River, Spessart\nDay\n10\nNuremberg\nGermany\nDisembark after breakfast.\nDates & Pricing\nMay 4, 2027\nViking Skirnir\nFrom $4,999\nMay 14, 2027\nViking Modi\nFrom $5,199";
+  const today = new Date("2026-11-02");
+  const a = I.parsePage(page, { today, title: "NEW! Rhine & Main Explorer | Viking River Cruises" });
+  assert.deepStrictEqual([a.rows.length, a.hasDays, a.title], [0, true, "Rhine & Main Explorer"]);
+  assert.deepStrictEqual(a.departures, [{ date: "2027-05-04", ship: "Viking Skirnir" }, { date: "2027-05-14", ship: "Viking Modi" }]);
+  const b = I.parsePage(page, { today, start: "2027-05-04" });
+  assert.deepStrictEqual(b.rows.map(r => r.date.slice(5) + " " + r.port), ["05-04 Basel, Switzerland", "05-05 Basel, Switzerland", "05-06 Breisach, Germany", "05-13 Nuremberg, Germany"]);
+});
+
+test("My Viking Journey style: dated days with arrive/depart on the next line; Days 2-3 ranges", () => {
+  const r = I.parsePage("Day 1 Sat, Jan 30, 2027\nTromsø, Norway\nArrive 12:00 PM  Depart —\nDay 2 Sun, Jan 31, 2027\nTromsø, Norway\nArrive — Depart 11:00 PM\nDay 4 Feb 2, 2027\nAt Sea\nDay 5 Thu, Feb 4, 2027\nNarvik, Norway\n7:00 AM 5:00 PM",
+    { today: new Date("2026-11-02") }).rows;
+  assert.deepStrictEqual(r.map(x => [x.date, x.from, x.to]), [["2027-01-30", "12:00", null], ["2027-01-31", null, "23:00"], ["2027-02-04", "07:00", "17:00"]]);
+  const g = I.parsePage("Day 1 Bergen, Norway\nDays 2-3 Flåm, Norway\nDay 4 At Sea\nDay 5 Stavanger", { start: "2027-06-01" }).rows;
+  assert.deepStrictEqual(g.map(x => x.date.slice(5) + " " + x.port), ["06-01 Bergen, Norway", "06-02 Flåm, Norway", "06-03 Flåm, Norway", "06-05 Stavanger"]);
+});
+
 console.log(`\n${n} test groups passed`);

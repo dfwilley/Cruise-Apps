@@ -279,6 +279,7 @@
   function gotError(msg) { toast(msg); renderWalk(); renderIdeas(); renderAround(); }
   window.__portNative = m => {
     if (m.type === "location") gotLocation(m.lat, m.lon, m.acc);
+    else if (m.type === "viking") gotVikingPage(m);
     else if (m.type === "error") gotError(m.message);
   };
   function toast(msg) {
@@ -464,7 +465,8 @@
 
   // ---- Add cruise (top bar): paste or pick an itinerary, check it, build a tab ----------------------------------------
   const emptyRow = () => ({ date: "", port: "", from: "", to: "" });
-  function newDraft() { return { name: "", ship: "", start: "", text: "", rows: [], editing: null, log: [], busy: false }; }
+  function newDraft() { return { name: "", ship: "", start: "", text: "", rows: [], editing: null, log: [], busy: false, page: null }; }
+  const VIKING = "https://www.viking.com/", MVJ = "https://www.myvikingjourney.com/";
   function renderAdd() {
     const el = $("#add"); if (!el || state.mode !== "add") return;
     const d = state.draft || (state.draft = newDraft());
@@ -479,6 +481,16 @@
     el.innerHTML = `
       ${mine ? `<h3>Your cruises</h3><ul class="mine">${mine}</ul>` : ""}
       <h3>${d.editing ? "Edit " + esc(d.name) : "Add a cruise"}</h3>
+      <div class="viking">
+        <b>Get it from Viking</b>
+        ${native ? `<p>Opens Viking's website inside the app. Go to your cruise's <b>Itinerary</b>, then tap <b>Use this itinerary</b>.</p>
+          <div class="row"><button id="vsite" class="build slim">Viking.com</button><button id="vmvj" class="ghost">My Viking Journey</button></div>
+          <p class="fine">My Viking Journey is your booking (sign in once): it shows your own dates and, for ocean voyages, the port times.</p>`
+        : `<p>Open your cruise on Viking's site, go to the <b>Itinerary</b>, select all of the page and copy it, then paste it in the box below. (The iPhone app reads the page for you.)</p>
+          <div class="row"><a class="ghost" href="${VIKING}" target="_blank" rel="noopener">Viking.com</a><a class="ghost" href="${MVJ}" target="_blank" rel="noopener">My Viking Journey</a></div>`}
+      </div>
+      ${d.page && d.page.ask ? departurePicker(d) : ""}
+      <h3 class="or">Or paste or pick a file</h3>
       <p>Paste the itinerary — from the cruise line's website, your booking or an email — or pick a file. One port per line with its date, plus arrival and departure times if you have them. Sea days are skipped.</p>
       <div class="form">
         <label><span>Cruise name</span><input id="cname" type="text" value="${esc(d.name)}" placeholder="e.g. Mediterranean Odyssey"></label>
@@ -505,6 +517,14 @@ Basel    the first day filled in above)</pre></details>
     const bind = (id, k) => { const i = $("#" + id); i.oninput = () => { d[k] = i.value; }; };
     bind("cname", "name"); bind("cship", "ship"); bind("cstart", "start"); bind("ctext", "text");
     $("#cread").onclick = () => readItinerary(d.text);
+    const vs = $("#vsite"), vm = $("#vmvj");
+    if (vs) vs.onclick = () => native.postMessage({ cmd: "viking", url: VIKING });
+    if (vm) vm.onclick = () => native.postMessage({ cmd: "viking", url: MVJ });
+    el.querySelectorAll("[data-dep]").forEach(b => b.onclick = () => {
+      d.start = b.dataset.dep; if (b.dataset.ship) d.ship = b.dataset.ship;
+      readItinerary(d.page.text, { title: d.page.title });
+    });
+    const dd = $("#depdate"); if (dd) dd.onchange = () => { if (dd.value) { d.start = dd.value; readItinerary(d.page.text, { title: d.page.title }); } };
     $("#cfile").onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { d.text = t; if (!d.name) d.name = f.name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " "); readItinerary(t); }); };
     el.querySelectorAll(".rows input").forEach(i => i.oninput = () => { d.rows[+i.dataset.i][i.dataset.k] = i.value; });
     el.querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { d.rows.splice(+b.dataset.rm, 1); renderAdd(); });
@@ -520,10 +540,21 @@ Basel    the first day filled in above)</pre></details>
       toast("Removed " + c.voyage.name + "."); render();
     });
   }
-  function readItinerary(text) {
+  function departurePicker(d) {
+    const deps = d.page.departures;
+    return `<div class="callout"><b>Which departure are you on?</b> ${esc(d.page.title || "This cruise")} lists days without dates.
+      ${deps.length ? `<div class="deps">${deps.slice(0, 40).map(x => `<button class="f" data-dep="${x.date}" data-ship="${esc(x.ship || "")}">${P.dayLabel(x.date).replace(/^\w+, /, "")}, ${x.date.slice(0, 4)}${x.ship ? `<small>${esc(x.ship.replace("Viking ", ""))}</small>` : ""}</button>`).join("")}</div>` : ""}
+      <label class="fine">${deps.length ? "Not listed? " : ""}First day of your cruise: <input id="depdate" type="date"></label></div>`;
+  }
+  // text: pasted text, a file, or a page read from Viking's site (opts.title = the page's title)
+  function readItinerary(text, opts) {
     const d = state.draft;
     if (!text || !text.trim()) { toast("Paste the itinerary in the box first, or pick a file."); return; }
-    const res = I.parseAny(text, { start: d.start || null, today: now() });
+    const res = /BEGIN:VCALENDAR/.test(text) ? I.parseICS(text) : I.parsePage(text, { start: d.start || null, today: now(), title: opts && opts.title });
+    if (res.title && !d.name) d.name = res.title;
+    if (res.ship && !d.ship && !(res.hasDays && !res.rows.length && (res.departures || []).some(x => x.ship))) d.ship = res.ship;
+    d.page = res.hasDays && !res.rows.length ? { ask: true, text, title: res.title || (opts && opts.title) || "", departures: res.departures || [] } : null;
+    if (d.page) { d.rows = []; d.log = []; renderAdd(); const c = $("#add .callout"); if (c && c.scrollIntoView) c.scrollIntoView({ block: "center" }); return; }
     if (!res.rows.length) {
       d.log = [{ cls: "bad", html: res.skipped.length ? `Found "Day 1, Day 2…" lines without dates — fill in <b>First day</b> above and tap Read itinerary again.`
         : "Couldn't find any dates with ports in that text. Each port needs a date on its line (or a Day number plus the first day above)." }];
@@ -534,6 +565,20 @@ Basel    the first day filled in above)</pre></details>
     }
     renderAdd();
     const t = $(".rows"); if (t && t.scrollIntoView) t.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+  // A page read by the iPhone app's Viking browser: { title, url, text (what's on screen), nodes (all text, including folded sections) }
+  function gotVikingPage(m) {
+    if (state.mode !== "add") { state.mode = "add"; render(); }
+    const d = state.draft || (state.draft = newDraft());
+    d.start = d.editing ? d.start : "";
+    const tries = [m.text, m.nodes].filter(Boolean);
+    const ok = tries.find(t => { const r = I.parsePage(t, { today: now() }); return r.rows.length || r.hasDays; });
+    if (!ok) {
+      d.log = [{ cls: "bad", html: `Couldn't find a day-by-day itinerary on that page${m.title ? " (" + esc(m.title) + ")" : ""}. Open the cruise, go to its <b>Itinerary</b> section, and tap <b>Use this itinerary</b> again.` }];
+      renderAdd(); return;
+    }
+    if (!d.editing) { d.name = ""; d.ship = ""; }
+    readItinerary(ok, { title: m.title });
   }
   function editCruise(id) {
     const c = CRUISES.find(c => c.voyage.id === id), v = c.voyage;

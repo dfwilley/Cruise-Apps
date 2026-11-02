@@ -37,7 +37,7 @@ def classify(t):
     if tour == "attraction": return "sight", "attraction"
     if t.get("aerialway") == "station" or t.get("station") == "funicular": return "sight", "cable car"
     if hist in ("castle", "fort", "fortress", "monument", "ruins", "archaeological_site", "ship", "building", "memorial", "church", "city_gate", "manor"):
-        if hist == "memorial" and not t.get("wikidata"): return None
+        if hist == "memorial" and (not t.get("wikidata") or t.get("memorial") in ("stolperstein", "plaque", "stone", "bench")): return None
         return "sight", "historic"
     if am == "place_of_worship":
         if t.get("wikidata") or CHURCH.search(t.get("name", "")): return "sight", "church"
@@ -72,7 +72,8 @@ for path in sys.argv[1:]:
             pt = point_of(ft["geometry"])
             if not pt: continue
             for p in PORTS:
-                if any(km(pt[0], pt[1], a["lat"], a["lon"]) <= a["r"] for a in areas(p)):
+                main = km(pt[0], pt[1], p["area"]["lat"], p["area"]["lon"]) <= p["area"]["r"]
+                if main or (c[0] != "sight" and any(km(pt[0], pt[1], a["lat"], a["lon"]) <= a["r"] for a in areas(p))):
                     key = (p["id"], name, c[1], round(pt[0], 3), round(pt[1], 3))
                     if key in seen: break
                     seen.add(key)
@@ -85,8 +86,9 @@ for path in sys.argv[1:]:
                     break
 
 def near_pier(p):
-    pier = next(x for x in p["piers"] if x.get("primary")) if p.get("piers") else None
-    return pier or p["center"]
+    pier = next((x for x in p["piers"] if x.get("primary")), None)
+    if not pier or pier.get("walkFromPier") is False: return p["center"]   # out-of-town terminal: measure from the city
+    return pier
 
 out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"), "ports": {}}
 for p in PORTS:
@@ -102,14 +104,21 @@ for p in PORTS:
         if match:
             b = next(b for b in items if b["group"] == "berth" and b["name"] == match[0][1])
             note(f"   → {match[0][1]} at {b['lat']:.4f}, {b['lon']:.4f}")
-    sights = [i for i in items if i["group"] == "sight"]
-    # Prefer well-known places (with a Wikidata entry), then the nearest ones.
-    sights.sort(key=lambda i: (0 if i.get("wikidata") else 1, i["fromPier"]))
+    sights, names = [], set()
+    for i in sorted((i for i in items if i["group"] == "sight"), key=lambda i: i["fromPier"]):
+        if i["name"].lower() in names: continue     # one entry per name (several outlines of the same place)
+        names.add(i["name"].lower()); sights.append(i)
+    # Prefer well-known places (with a Wikidata entry), museums and sights over churches and memorials, then the nearest.
+    sights.sort(key=lambda i: ((0 if i.get("wikidata") else 2) + (1 if i["kind"] == "church" else 0), i["fromPier"]))
     sights = sorted(sights[:45], key=lambda i: i["fromPier"])
     practical = []
     for kind in ("tourist info", "pharmacy", "cash", "groceries", "toilets", "shopping centre", "outdoor gear", "train station", "taxi"):
         ks = sorted((i for i in items if i["kind"] == kind), key=lambda i: i["fromPier"])
         practical += ks[:6 if kind == "train station" else 3]
+        if p.get("extraAreas") and kind in ("train station", "taxi"):
+            pr0 = p["piers"][0]
+            extra = sorted((i for i in items if i["kind"] == kind and i not in practical), key=lambda i: km(pr0["lat"], pr0["lon"], i["lat"], i["lon"]))
+            practical += extra[:2]
     out["ports"][p["id"]] = {"sights": sights, "practical": practical}
     note(f"{p['name']}: {len(sights)} sights, {len(practical)} practical places (of {len(items)} found)")
 
@@ -121,11 +130,15 @@ def get_json(url):
 climate = {}
 for p in PORTS:
     c = p["center"]
-    try:
+    d = None
+    for attempt in range(3):
+      try:
         d = get_json(f"https://archive-api.open-meteo.com/v1/archive?latitude={c['lat']}&longitude={c['lon']}&start_date=2016-01-01&end_date=2025-12-31"
                      "&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,snowfall_sum,wind_speed_10m_max,wind_gusts_10m_max&timezone=auto")["daily"]
-    except Exception as e:
-        warn(f"Weather history for {p['name']} failed: {e}"); continue
+        break
+      except Exception as e:
+        warn(f"Weather history for {p['name']} failed (try {attempt + 1}): {e}")
+    if d is None: continue
     day = datetime.date.fromisoformat(p["days"][0]["date"])
     idx = []
     for i, s in enumerate(d["time"]):

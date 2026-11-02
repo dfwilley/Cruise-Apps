@@ -1,0 +1,155 @@
+{
+  "about": "Port facts for Viking Libra, In Search of Northern Lights, Tromsø to London (Tilbury), January 30 – February 11, 2027. Which berth the ship uses is decided close to arrival: check Viking's daily program. Sights, coordinates and opening hours come from OpenStreetMap; typical weather from 10 years of records (Open-Meteo / ERA5).",
+  "ports": [
+    {
+      "id": "tromso", "name": "Tromsø", "country": "NO", "tz": 1,
+      "days": [{ "date": "2027-01-30", "from": "12:00", "to": null }, { "date": "2027-01-31", "from": null, "to": "23:00" }],
+      "center": { "name": "Storgata, city centre", "lat": 69.6489, "lon": 18.9551 },
+      "area": { "lat": 69.6496, "lon": 18.9560, "r": 4.5 },
+      "piers": [
+        { "id": "prostneset", "name": "Prostneset (city centre)", "osm": "Prostneset", "lat": 69.6475, "lon": 18.9610, "note": "Right downtown, steps from Storgata. Walk everywhere in the centre; the Arctic Cathedral is across the Tromsø Bridge (about 1 mile, windy and icy in winter, or bus 26 / taxi).", "primary": true },
+        { "id": "breivika", "name": "Breivika (north of town)", "osm": "Breivika", "lat": 69.6795, "lon": 18.9790, "note": "Industrial cargo port about 2–3 miles north; not walkable. Ships usually run a shuttle into the centre. The Arctic-Alpine Botanic Garden is across the main road." }
+      ],
+      "transport": "City buses take bank cards via the Svipper app or on board. Taxis: Tromsø Taxi.",
+      "sources": [
+        { "title": "Store norske leksikon: Tromsø havn (Breivika 3 km north; most passenger traffic at Prostneset)", "url": "https://snl.no/Tromsø_havn" },
+        { "title": "Visit Tromsø: opening hours (all shops except service stations, convenience stores and garden centres closed on Sundays)", "url": "https://www.visittromso.no/holiday-opening-hours" }
+      ]
+    },
+    {
+      "id": "alta", "name": "Alta", "country": "NO", "tz": 1,
+      "days": [{ "date": "2027-02-01", "from": "12:00", "to": null }, { "date": "2027-02-02", "from": null, "to": "23:00" }],
+      "center": { "name": "Alta sentrum (Northern Lights Cathedral)", "lat": 69.9689, "lon": 23.2716 },
+      "area": { "lat": 69.9689, "lon": 23.2716, "r": 6.5 },
+      "piers": [
+        { "id": "terminalkaia", "name": "Terminalkaia (cruise quay by the airport)", "osm": "Terminalkaia", "lat": 69.977, "lon": 23.386, "note": "About 2.5 miles from the town centre through an industrial area; plan on the ship's shuttle or a taxi. Walking takes 45–50 minutes with some hills.", "primary": true }
+      ],
+      "transport": "Shuttle or taxi to the centre. The Alta Museum rock carvings are about 2.5 miles west of the centre — taxi or tour.",
+      "sources": [
+        { "title": "Cruise Norway port sheet: Alta (Terminalkaia, 4 km to town centre)", "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Alta.pdf" }
+      ]
+    },
+    {
+      "id": "harstad", "name": "Harstad", "country": "NO", "tz": 1,
+      "days": [{ "date": "2027-02-03", "from": "13:00", "to": "23:00" }],
+      "center": { "name": "Torget (town square)", "lat": 68.7990, "lon": 16.5410 },
+      "area": { "lat": 68.7990, "lon": 16.5410, "r": 4.5 },
+      "piers": [
+        { "id": "larsneset", "name": "Larsneset (town centre)", "osm": "Larsneset", "lat": 68.7998, "lon": 16.5462, "note": "About 100–150 m from the town centre and the tourist office. Trondenes Church is about 2 miles north along the shore.", "primary": true },
+        { "id": "stangnes", "name": "Stangnes (south of town)", "osm": "Stangnes", "lat": 68.7680, "lon": 16.6050, "note": "About 3 miles from the centre; shuttle bus." }
+      ],
+      "transport": "Taxi rank about 100 m from Larsneset; bus stop about 150 m.",
+      "sources": [
+        { "title": "Cruise Norway port sheet: Harstad (Larsneset 100 m / Stangnes 4.5 km to centre)", "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Harstad-1.pdf" }
+      ]
+    },
+    {
+      "id": "narvik", "name": "Narvik", "country": "NO", "tz": 1,
+      "days": [{ "date": "2027-02-04", "from": "08:00", "to": "23:00" }],
+      "center": { "name": "Narvik sentrum (War Museum)", "lat": 68.4385, "lon": 17.4273 },
+      "area": { "lat": 68.4340, "lon": 17.4250, "r": 4 },
+      "piers": [
+        { "id": "central", "name": "Central cruise quay (Pier 3)", "osm": "Narvik", "lat": 68.4335, "lon": 17.4250, "note": "The newer central cruise quay is about 500 m from the town centre and the War Museum.", "primary": true },
+        { "id": "fagernes", "name": "Fagernes (ore and container port)", "osm": "Fagernes", "lat": 68.4135, "lon": 17.4290, "note": "South of town, a little over a mile; shuttle or taxi." }
+      ],
+      "transport": "Narvikfjellet cable car's base station is up the hill above the town. Taxi: Narvik Taxi.",
+      "sources": [
+        { "title": "Cruise Norway port sheet: Narvik (Pier 3, 500 m to town centre)", "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Narvik-1.pdf" },
+        { "title": "Visit Narvik: cruise ships (port centrally located)", "url": "https://www.visitnarvik.com/en/plan-your-trip/travel-narvik/cruise-ship-narvik" },
+        { "title": "Wikipedia: Fagernes (Narvik) — coordinates of the Fagernes terminal area", "url": "https://en.wikipedia.org/wiki/Fagernes_(Narvik)" }
+      ]
+    },
+    {
+      "id": "bergen", "name": "Bergen", "country": "NO", "tz": 1,
+      "days": [{ "date": "2027-02-06", "from": "18:00", "to": null }, { "date": "2027-02-07", "from": null, "to": "18:00" }],
+      "center": { "name": "Fish Market (Fisketorget)", "lat": 60.3946, "lon": 5.3252 },
+      "area": { "lat": 60.3943, "lon": 5.3259, "r": 2.8 },
+      "piers": [
+        { "id": "skolten", "name": "Skolten / Bontelabo (by Bergenhus Fortress)", "osm": "Skolten", "lat": 60.3985, "lon": 5.3170, "note": "About 900 m along UNESCO-listed Bryggen to the Fish Market, and about 1,400 m to Torgallmenningen, the main square.", "primary": true },
+        { "id": "dokken", "name": "Jekteviken / Dokken (west side)", "osm": "Dokken", "lat": 60.3925, "lon": 5.3105, "note": "Industrial piers; the Port of Bergen runs free shuttle buses to the city side. About a 20-minute walk otherwise." }
+      ],
+      "transport": "Fløibanen funicular to Mount Fløyen starts a few minutes' walk from the Fish Market.",
+      "sources": [
+        { "title": "Port of Bergen cruise information (Skolten/Bontelabo ~900 m to Fish Market; free shuttles from Dokken/Jekteviken)", "url": "https://en.visitbergen.com/dbimgs/Port-of-Bergen-Cruise-info-2018-brochure.pdf" }
+      ]
+    },
+    {
+      "id": "edinburgh", "name": "Edinburgh (Rosyth)", "country": "GB", "tz": 0,
+      "days": [{ "date": "2027-02-09", "from": "07:00", "to": "16:00" }],
+      "center": { "name": "Royal Mile (St Giles' Cathedral)", "lat": 55.9495, "lon": -3.1909 },
+      "area": { "lat": 55.9500, "lon": -3.1900, "r": 2.2 },
+      "extraAreas": [{ "lat": 56.030, "lon": -3.420, "r": 4 }],
+      "piers": [
+        { "id": "rosyth", "name": "Rosyth cruise terminal", "osm": "Rosyth", "lat": 56.0215, "lon": -3.4415, "note": "Industrial dockyard with no public transport at the terminal. Taxi about 3 miles (around £10) to Inverkeithing station, then ScotRail about 25 minutes to Edinburgh Waverley. By road Edinburgh is about 40 minutes. Viking usually runs coaches.", "primary": true, "walkFromPier": false }
+      ],
+      "transport": "Edinburgh's Old Town is steep and cobbled: Waverley station sits right below the Royal Mile.",
+      "sources": [
+        { "title": "ScotRail: cruise ship passengers (Inverkeithing 3 miles from Rosyth; taxi about £10)", "url": "https://www.scotrail.co.uk/scotland-by-rail/things-do/cruise-ship-passengers" },
+        { "title": "Fred Olsen: The Port of Rosyth (about 40 minutes from Edinburgh; no direct public transport)", "url": "https://faqs.fredolsencruises.com/portal/en/kb/articles/the-port-of-rosyth" }
+      ]
+    },
+    {
+      "id": "london", "name": "London (Tilbury)", "country": "GB", "tz": 0,
+      "days": [{ "date": "2027-02-11", "from": "05:00", "to": null }],
+      "center": { "name": "Tower of London (from Fenchurch Street station)", "lat": 51.5081, "lon": -0.0759 },
+      "area": { "lat": 51.5100, "lon": -0.0790, "r": 1.8 },
+      "extraAreas": [{ "lat": 51.460, "lon": 0.365, "r": 3 }],
+      "piers": [
+        { "id": "tilbury", "name": "London International Cruise Terminal, Tilbury", "osm": "London International Cruise Terminal", "lat": 51.4537, "lon": 0.3611, "note": "Disembarkation day. Tilbury Town station (c2c) is about a mile away — about 20 minutes on foot, or taxi. Trains to London Fenchurch Street take about 40 minutes; Fenchurch Street is a few hundred yards from the Tower of London.", "primary": true, "walkFromPier": false }
+      ],
+      "transport": "Taxis: Tilbury Taxis 01375 855555.",
+      "sources": [
+        { "title": "Ambassador Cruise Line: London Tilbury port information (Tilbury Town about a 20-minute walk; c2c to Fenchurch Street)", "url": "https://ambassadorcruiseline.com/before-you-sail/travelling-to-port/london-tilbury-port-information" },
+        { "title": "Reid's Guides: Tilbury cruise port (train 39–41 minutes)", "url": "https://reidsguides.com/reidsengland/places/london/plan/getting-to-london/cruise-to-london/tilbury-cruise-port" }
+      ]
+    }
+  ],
+  "countries": {
+    "NO": {
+      "name": "Norway", "currency": "NOK", "currencyName": "Norwegian krone", "symbol": "kr",
+      "money": "Cards (Visa/Mastercard, Apple Pay) are accepted almost everywhere, including buses and market stalls; many places don't take cash. Prices include VAT.",
+      "tipping": "Not expected — wages are high. For good service, round up or add 5–10%. If a service charge is on the bill, nothing more is needed.",
+      "sunday": "Most shops are closed on Sundays by law. Restaurants, cafés, museums, petrol stations, kiosks and small grocery shops (under about 100 m²) may open. Wine and spirits are sold only at Vinmonopolet, which is closed Sundays.",
+      "hours": "Shops typically about 10:00–18:00 weekdays (malls later), shorter on Saturday.",
+      "winter": "Pavements are often packed snow or ice. Slip-on ice cleats (brodder, sold in Norwegian shops) make a big difference; locals use them all winter. Dress in layers, with a hat, gloves and a windproof outer layer.",
+      "phrases": [
+        { "en": "Hello", "local": "Hei", "say": "hi", "lang": "nb-NO" },
+        { "en": "Thank you", "local": "Takk", "say": "tahk", "lang": "nb-NO" },
+        { "en": "Thank you very much", "local": "Tusen takk", "say": "TOO-sen tahk", "lang": "nb-NO" },
+        { "en": "Excuse me / sorry", "local": "Unnskyld", "say": "OON-shool", "lang": "nb-NO" },
+        { "en": "Do you speak English?", "local": "Snakker du engelsk?", "say": "SNAH-ker doo ENG-elsk", "lang": "nb-NO" },
+        { "en": "How much does it cost?", "local": "Hva koster det?", "say": "vah KOS-ter deh", "lang": "nb-NO" },
+        { "en": "The bill, please", "local": "Regningen, takk", "say": "RYE-ning-en, tahk", "lang": "nb-NO" },
+        { "en": "Where is …?", "local": "Hvor er …?", "say": "voor ar", "lang": "nb-NO" },
+        { "en": "Cheers!", "local": "Skål!", "say": "skawl", "lang": "nb-NO" },
+        { "en": "Goodbye", "local": "Ha det!", "say": "HAH-deh", "lang": "nb-NO" },
+        { "en": "Northern lights", "local": "Nordlys", "say": "NOOR-lees", "lang": "nb-NO" },
+        { "en": "Hello (Northern Sámi, used in Alta and Finnmark)", "local": "Bures", "say": "BOO-res", "lang": "se" }
+      ],
+      "sources": [
+        { "title": "Visit Tromsø: opening hours", "url": "https://www.visittromso.no/holiday-opening-hours" },
+        { "title": "The Local Norway: why is everything closed on Sundays", "url": "https://www.thelocal.no/20221102/why-is-everything-in-norway-closed-on-sundays" },
+        { "title": "The Local Norway: how much should tourists tip", "url": "https://www.thelocal.no/20240702/how-much-should-tourists-really-tip-in-norway" }
+      ]
+    },
+    "GB": {
+      "name": "United Kingdom", "currency": "GBP", "currencyName": "British pound", "symbol": "£",
+      "money": "Contactless cards and Apple Pay work almost everywhere, including trains and London buses.",
+      "tipping": "Restaurants: 10–12.5% if no service charge is on the bill (many London restaurants add 12.5% automatically). Pubs: not expected. Taxis: round up.",
+      "sunday": "Not an issue on these days (Tuesday in Edinburgh, Thursday in London).",
+      "hours": "Shops typically about 09:00–17:30, later in city centres.",
+      "winter": "Cool, damp and windy rather than icy; waterproof shoes and a rain layer.",
+      "phrases": [
+        { "en": "Small", "local": "wee", "say": "wee", "lang": "en-GB", "note": "Scotland" },
+        { "en": "Yes", "local": "aye", "say": "eye", "lang": "en-GB", "note": "Scotland" },
+        { "en": "Sea fog rolling in off the North Sea", "local": "haar", "say": "har", "lang": "en-GB", "note": "Edinburgh" },
+        { "en": "Narrow alley off the Royal Mile", "local": "close / wynd", "say": "klohss / wynd", "lang": "en-GB", "note": "Edinburgh" },
+        { "en": "Line (to queue = to wait in line)", "local": "queue", "say": "kyoo", "lang": "en-GB", "note": "UK" },
+        { "en": "Pharmacy", "local": "chemist", "say": "KEM-ist", "lang": "en-GB", "note": "UK" }
+      ],
+      "sources": [
+        { "title": "Europe tipping guide (UK 10–15% if no service charge; many London restaurants add 12.5%)", "url": "https://tipcalculator.it.com/guides/europe-tipping-guide/" }
+      ]
+    }
+  }
+}

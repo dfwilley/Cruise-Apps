@@ -36,3 +36,13 @@ Cruise tabs: **Pier & walking** (berth options with sources, walking time to the
 - `native/fjord-spotter/` — the iPhone shell: GPS, true-north compass and camera.
 - `tests/fjord.test.js` — `node tests/fjord.test.js`
 - `port-guide/`, `native/port-guide/`, `tests/port.test.js` — Port Pocket Guide (logic in `port.js`; itinerary import and Near me sorting in `import.js`).
+
+## The Hour Between
+
+Web app: https://dfwilley.github.io/Cruise-Apps/hour-between/
+
+One-stop free-time planner for both saved voyages. Reuses the shared port and OpenStreetMap place records. Enter your own ready/return times, confirm the return dock, choose a walking pace, visit duration, contingency, and protected return buffer. Results show estimated out/visit/back timing and a saved device-local outing card. Optional manually verified travel-time overrides are available.
+
+Distances are straight-line distances multiplied by a user-selected allowance, not routed pedestrian distances. The app does not claim a place is currently open, confirm berths, track the ship, or guarantee a timely return. Verify hours, routes, transport, conditions, and your actual ship/guide instructions. Opening the app online primes its offline cache; saved outings/settings remain in this browser. No Viking booking or account integration.
+
+Tests: `node tests/hour.test.js`. Shared data attribution remains as documented under Port Pocket Guide (OpenStreetMap contributors, ODbL).

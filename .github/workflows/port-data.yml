@@ -31,6 +31,14 @@ jobs:
           get scotland europe/united-kingdom/scotland europe/great-britain/scotland
           get london europe/united-kingdom/england/greater-london europe/great-britain/england/greater-london
           get essex europe/united-kingdom/england/essex europe/great-britain/england/essex
+          get switzerland europe/switzerland
+          get alsace europe/france/alsace europe/france/grand-est
+          get freiburg europe/germany/baden-wuerttemberg/freiburg-regbez
+          get karlsruhe europe/germany/baden-wuerttemberg/karlsruhe-regbez
+          get hessen europe/germany/hessen
+          get unterfranken europe/germany/bayern/unterfranken
+          get oberfranken europe/germany/bayern/oberfranken
+          get mittelfranken europe/germany/bayern/mittelfranken
       - name: Keep only sights and practical places
         run: |
           cd osm

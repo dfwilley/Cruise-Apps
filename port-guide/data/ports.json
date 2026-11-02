@@ -1,373 +1,1272 @@
 {
-  "about": "Port facts for Viking Libra, In Search of Northern Lights, Tromsø to London (Tilbury), January 30 – February 11, 2027. Which berth the ship uses is decided close to arrival: check Viking's daily program. Sights, coordinates and opening hours come from OpenStreetMap; typical weather from 10 years of records (Open-Meteo / ERA5).",
-  "ports": [
+  "about": "Port facts for two Viking voyages. Which berth a ship uses is decided close to arrival: check Viking's daily program. Sights, coordinates and opening hours come from OpenStreetMap; typical weather from 10 years of records (Open-Meteo / ERA5).",
+  "voyages": [
     {
-      "id": "tromso",
-      "name": "Tromsø",
-      "country": "NO",
-      "tz": 1,
-      "days": [
+      "id": "norway",
+      "name": "Norway: In Search of Northern Lights",
+      "short": "Norway",
+      "dates": "Jan 30 – Feb 11, 2027",
+      "ship": "Viking Libra",
+      "about": "Ocean voyage, Tromsø to London (Tilbury). Times from Viking's itinerary.",
+      "ports": [
         {
-          "date": "2027-01-30",
-          "from": "12:00",
-          "to": null
+          "id": "tromso",
+          "name": "Tromsø",
+          "country": "NO",
+          "tz": 1,
+          "days": [
+            {
+              "date": "2027-01-30",
+              "from": "12:00",
+              "to": null
+            },
+            {
+              "date": "2027-01-31",
+              "from": null,
+              "to": "23:00"
+            }
+          ],
+          "center": {
+            "name": "Storgata, city centre",
+            "lat": 69.6489,
+            "lon": 18.9551
+          },
+          "area": {
+            "lat": 69.6496,
+            "lon": 18.956,
+            "r": 4.5
+          },
+          "piers": [
+            {
+              "id": "prostneset",
+              "name": "Prostneset (city centre)",
+              "osm": "Prostneset",
+              "lat": 69.6475,
+              "lon": 18.961,
+              "note": "Right downtown, steps from Storgata. Walk everywhere in the centre; the Arctic Cathedral is across the Tromsø Bridge (about 1 mile, windy and icy in winter, or bus 26 / taxi).",
+              "primary": true
+            },
+            {
+              "id": "breivika",
+              "name": "Breivika (north of town)",
+              "osm": "Breivika",
+              "lat": 69.6795,
+              "lon": 18.979,
+              "note": "Industrial cargo port about 2–3 miles north; not walkable. Ships usually run a shuttle into the centre. The Arctic-Alpine Botanic Garden is across the main road."
+            }
+          ],
+          "transport": "City buses take bank cards via the Svipper app or on board. Taxis: Tromsø Taxi.",
+          "sources": [
+            {
+              "title": "Store norske leksikon: Tromsø havn (Breivika 3 km north; most passenger traffic at Prostneset)",
+              "url": "https://snl.no/Tromsø_havn"
+            },
+            {
+              "title": "Visit Tromsø: opening hours (all shops except service stations, convenience stores and garden centres closed on Sundays)",
+              "url": "https://www.visittromso.no/holiday-opening-hours"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Fjellheisen cable car",
+              "what": "Ride up to Storsteinen for the view over the city and fjord; at night it's a northern-lights spot if the sky clears. Across the bridge — bus 26 or taxi.",
+              "time": "1½–2 h",
+              "q": "Fjellheisen"
+            },
+            {
+              "title": "Arctic Cathedral",
+              "what": "The white triangular church across the Tromsø Bridge; the glass mosaic fills the east wall.",
+              "time": "45 min + walk",
+              "q": "Ishavskatedralen"
+            },
+            {
+              "title": "Polaria",
+              "what": "Arctic aquarium near the centre with bearded seals and short films on the Arctic.",
+              "time": "1–1½ h",
+              "q": "Polaria"
+            },
+            {
+              "title": "Polar Museum",
+              "what": "Trappers, sealers and polar explorers (Amundsen, Nansen) in an old customs warehouse on the harbour.",
+              "time": "1 h",
+              "q": "Polarmuseet"
+            },
+            {
+              "title": "Mack Ølhallen",
+              "what": "The brewery's beer hall, opened in 1928 — dozens of taps and a classic Tromsø stop.",
+              "time": "45 min",
+              "q": "Ølhallen"
+            }
+          ]
         },
         {
-          "date": "2027-01-31",
-          "from": null,
-          "to": "23:00"
-        }
-      ],
-      "center": {
-        "name": "Storgata, city centre",
-        "lat": 69.6489,
-        "lon": 18.9551
-      },
-      "area": {
-        "lat": 69.6496,
-        "lon": 18.956,
-        "r": 4.5
-      },
-      "piers": [
-        {
-          "id": "prostneset",
-          "name": "Prostneset (city centre)",
-          "osm": "Prostneset",
-          "lat": 69.6475,
-          "lon": 18.961,
-          "note": "Right downtown, steps from Storgata. Walk everywhere in the centre; the Arctic Cathedral is across the Tromsø Bridge (about 1 mile, windy and icy in winter, or bus 26 / taxi).",
-          "primary": true
+          "id": "alta",
+          "name": "Alta",
+          "country": "NO",
+          "tz": 1,
+          "days": [
+            {
+              "date": "2027-02-01",
+              "from": "12:00",
+              "to": null
+            },
+            {
+              "date": "2027-02-02",
+              "from": null,
+              "to": "23:00"
+            }
+          ],
+          "center": {
+            "name": "Alta sentrum (Northern Lights Cathedral)",
+            "lat": 69.9689,
+            "lon": 23.2716
+          },
+          "area": {
+            "lat": 69.9689,
+            "lon": 23.2716,
+            "r": 6.5
+          },
+          "piers": [
+            {
+              "id": "terminalkaia",
+              "name": "Terminalkaia (cruise quay, east of town)",
+              "osm": "Terminalkaia",
+              "lat": 69.98,
+              "lon": 23.3346,
+              "note": "About 1½ miles from the town centre (about 2.5 miles by road) through an industrial area; plan on the ship's shuttle or a taxi. Walking takes 45–50 minutes with some hills.",
+              "primary": true
+            }
+          ],
+          "transport": "Shuttle or taxi to the centre. The Alta Museum rock carvings are about 2.5 miles west of the centre — taxi or tour.",
+          "sources": [
+            {
+              "title": "Cruise Norway port sheet: Alta (Terminalkaia, 4 km to town centre)",
+              "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Alta.pdf"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Alta Museum rock carvings",
+              "what": "UNESCO-listed carvings 2,000–7,000 years old. In winter the outdoor trail is under snow, so the indoor museum is the visit.",
+              "time": "1½ h + taxi",
+              "q": "Alta Museum"
+            },
+            {
+              "title": "Northern Lights Cathedral",
+              "what": "The spiral titanium-clad cathedral in the centre, with a northern-lights exhibition in the basement.",
+              "time": "45 min",
+              "q": "Nordlyskatedralen"
+            },
+            {
+              "title": "Sorrisniva Igloo Hotel",
+              "what": "Ice hotel and ice bar on the Alta River, rebuilt every winter — usually a tour.",
+              "time": "Tour",
+              "q": "Sorrisniva"
+            }
+          ]
         },
         {
-          "id": "breivika",
-          "name": "Breivika (north of town)",
-          "osm": "Breivika",
-          "lat": 69.6795,
-          "lon": 18.979,
-          "note": "Industrial cargo port about 2–3 miles north; not walkable. Ships usually run a shuttle into the centre. The Arctic-Alpine Botanic Garden is across the main road."
-        }
-      ],
-      "transport": "City buses take bank cards via the Svipper app or on board. Taxis: Tromsø Taxi.",
-      "sources": [
-        {
-          "title": "Store norske leksikon: Tromsø havn (Breivika 3 km north; most passenger traffic at Prostneset)",
-          "url": "https://snl.no/Tromsø_havn"
+          "id": "harstad",
+          "name": "Harstad",
+          "country": "NO",
+          "tz": 1,
+          "days": [
+            {
+              "date": "2027-02-03",
+              "from": "13:00",
+              "to": "23:00"
+            }
+          ],
+          "center": {
+            "name": "Torget (town square)",
+            "lat": 68.799,
+            "lon": 16.541
+          },
+          "area": {
+            "lat": 68.799,
+            "lon": 16.541,
+            "r": 4.5
+          },
+          "piers": [
+            {
+              "id": "larsneset",
+              "name": "Larsneset (town centre)",
+              "osm": "Larsneset",
+              "lat": 68.7998,
+              "lon": 16.5462,
+              "note": "About 100–150 m from the town centre and the tourist office. Trondenes Church is about 2 miles north along the shore.",
+              "primary": true
+            },
+            {
+              "id": "stangnes",
+              "name": "Stangnes (south of town)",
+              "osm": "Stangnes",
+              "lat": 68.7769,
+              "lon": 16.591,
+              "note": "About 3 miles from the centre; shuttle bus."
+            }
+          ],
+          "transport": "Taxi rank about 100 m from Larsneset; bus stop about 150 m.",
+          "sources": [
+            {
+              "title": "Cruise Norway port sheet: Harstad (Larsneset 100 m / Stangnes 4.5 km to centre)",
+              "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Harstad-1.pdf"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Trondenes Church",
+              "what": "Norway's northernmost medieval stone church, about 2 miles north of the centre, with the historical centre next door.",
+              "time": "1½ h + taxi",
+              "q": "Trondenes kirke"
+            },
+            {
+              "title": "Adolf Gun",
+              "what": "A huge WWII German coastal gun at Trondenes, one of the largest land-based guns ever built. Access is by guided visit; check whether it's open in winter.",
+              "time": "Tour",
+              "q": "Adolfkanonen"
+            },
+            {
+              "title": "Town and harbour walk",
+              "what": "Compact centre right by the pier; the cultural centre Harstad Kulturhus sits on the waterfront.",
+              "time": "1 h",
+              "q": "Harstad"
+            }
+          ]
         },
         {
-          "title": "Visit Tromsø: opening hours (all shops except service stations, convenience stores and garden centres closed on Sundays)",
-          "url": "https://www.visittromso.no/holiday-opening-hours"
+          "id": "narvik",
+          "name": "Narvik",
+          "country": "NO",
+          "tz": 1,
+          "days": [
+            {
+              "date": "2027-02-04",
+              "from": "08:00",
+              "to": "23:00"
+            }
+          ],
+          "center": {
+            "name": "Narvik sentrum (War Museum)",
+            "lat": 68.4385,
+            "lon": 17.4273
+          },
+          "area": {
+            "lat": 68.434,
+            "lon": 17.425,
+            "r": 4
+          },
+          "piers": [
+            {
+              "id": "central",
+              "name": "Central cruise quay (Pier 3)",
+              "osm": "Narvik",
+              "lat": 68.4335,
+              "lon": 17.425,
+              "note": "The newer central cruise quay is about 500 m from the town centre and the War Museum.",
+              "primary": true
+            },
+            {
+              "id": "fagernes",
+              "name": "Fagernes (ore and container port)",
+              "osm": "Fagernes",
+              "lat": 68.4135,
+              "lon": 17.429,
+              "note": "South of town, a little over a mile; shuttle or taxi."
+            }
+          ],
+          "transport": "Narvikfjellet cable car's base station is up the hill above the town. Taxi: Narvik Taxi.",
+          "sources": [
+            {
+              "title": "Cruise Norway port sheet: Narvik (Pier 3, 500 m to town centre)",
+              "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Narvik-1.pdf"
+            },
+            {
+              "title": "Visit Narvik: cruise ships (port centrally located)",
+              "url": "https://www.visitnarvik.com/en/plan-your-trip/travel-narvik/cruise-ship-narvik"
+            },
+            {
+              "title": "Wikipedia: Fagernes (Narvik) — coordinates of the Fagernes terminal area",
+              "url": "https://en.wikipedia.org/wiki/Fagernes_(Narvik)"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Narvik War Museum",
+              "what": "The 1940 battles for Narvik, by land and sea — a short walk from the quay.",
+              "time": "1–1½ h",
+              "q": "Narvik War Museum"
+            },
+            {
+              "title": "Narvikfjellet cable car",
+              "what": "Up the mountain above town for views down the Ofotfjord, where the naval battles were fought.",
+              "time": "1–1½ h",
+              "q": "Narvikfjellet"
+            },
+            {
+              "title": "Ofoten Railway",
+              "what": "The iron-ore line to Sweden; the scenic train to Riksgränsen is usually an excursion.",
+              "time": "Excursion",
+              "q": "Narvik stasjon"
+            }
+          ]
+        },
+        {
+          "id": "bergen",
+          "name": "Bergen",
+          "country": "NO",
+          "tz": 1,
+          "days": [
+            {
+              "date": "2027-02-06",
+              "from": "18:00",
+              "to": null
+            },
+            {
+              "date": "2027-02-07",
+              "from": null,
+              "to": "18:00"
+            }
+          ],
+          "center": {
+            "name": "Fish Market (Fisketorget)",
+            "lat": 60.3946,
+            "lon": 5.3252
+          },
+          "area": {
+            "lat": 60.3943,
+            "lon": 5.3259,
+            "r": 2.8
+          },
+          "piers": [
+            {
+              "id": "skolten",
+              "name": "Skolten / Bontelabo (by Bergenhus Fortress)",
+              "osm": "Skolten",
+              "lat": 60.3985,
+              "lon": 5.317,
+              "note": "About 900 m along UNESCO-listed Bryggen to the Fish Market, and about 1,400 m to Torgallmenningen, the main square.",
+              "primary": true
+            },
+            {
+              "id": "dokken",
+              "name": "Jekteviken / Dokken (west side)",
+              "osm": "Dokken",
+              "lat": 60.3925,
+              "lon": 5.3105,
+              "note": "Industrial piers; the Port of Bergen runs free shuttle buses to the city side. About a 20-minute walk otherwise."
+            }
+          ],
+          "transport": "Fløibanen funicular to Mount Fløyen starts a few minutes' walk from the Fish Market.",
+          "sources": [
+            {
+              "title": "Port of Bergen cruise information (Skolten/Bontelabo ~900 m to Fish Market; free shuttles from Dokken/Jekteviken)",
+              "url": "https://en.visitbergen.com/dbimgs/Port-of-Bergen-Cruise-info-2018-brochure.pdf"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Bryggen",
+              "what": "The UNESCO-listed Hanseatic wharf; wander the wooden passages behind the facades.",
+              "time": "1 h",
+              "q": "Bryggen"
+            },
+            {
+              "title": "Fløibanen to Mount Fløyen",
+              "what": "Funicular from near the Fish Market up to the classic view over Bergen.",
+              "time": "1–1½ h",
+              "q": "Fløibanen"
+            },
+            {
+              "title": "Bergenhus Fortress & Haakon's Hall",
+              "what": "Medieval royal hall and Rosenkrantz Tower, right next to the Skolten berth.",
+              "time": "1 h",
+              "q": "Håkonshallen"
+            },
+            {
+              "title": "Fish Market",
+              "what": "Seafood stalls at the head of the harbour — fish soup or a shrimp sandwich.",
+              "time": "45 min",
+              "q": "Fisketorget"
+            },
+            {
+              "title": "KODE art museums",
+              "what": "Four buildings by the lake, including a large Edvard Munch collection.",
+              "time": "1½ h",
+              "q": "KODE"
+            }
+          ]
+        },
+        {
+          "id": "edinburgh",
+          "name": "Edinburgh (Rosyth)",
+          "country": "GB",
+          "tz": 0,
+          "days": [
+            {
+              "date": "2027-02-09",
+              "from": "07:00",
+              "to": "16:00"
+            }
+          ],
+          "center": {
+            "name": "Royal Mile (St Giles' Cathedral)",
+            "lat": 55.9495,
+            "lon": -3.1909
+          },
+          "area": {
+            "lat": 55.95,
+            "lon": -3.19,
+            "r": 2.2
+          },
+          "extraAreas": [
+            {
+              "lat": 56.03,
+              "lon": -3.42,
+              "r": 4
+            }
+          ],
+          "piers": [
+            {
+              "id": "rosyth",
+              "name": "Rosyth cruise terminal",
+              "osm": "Rosyth",
+              "lat": 56.0215,
+              "lon": -3.4415,
+              "note": "Industrial dockyard with no public transport at the terminal. Taxi about 3 miles (around £10) to Inverkeithing station, then ScotRail about 25 minutes to Edinburgh Waverley. By road Edinburgh is about 40 minutes. Viking usually runs coaches.",
+              "primary": true,
+              "walkFromPier": false
+            }
+          ],
+          "transport": "Edinburgh's Old Town is steep and cobbled: Waverley station sits right below the Royal Mile.",
+          "sources": [
+            {
+              "title": "ScotRail: cruise ship passengers (Inverkeithing 3 miles from Rosyth; taxi about £10)",
+              "url": "https://www.scotrail.co.uk/scotland-by-rail/things-do/cruise-ship-passengers"
+            },
+            {
+              "title": "Fred Olsen: The Port of Rosyth (about 40 minutes from Edinburgh; no direct public transport)",
+              "url": "https://faqs.fredolsencruises.com/portal/en/kb/articles/the-port-of-rosyth"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Edinburgh Castle",
+              "what": "At the top of the Royal Mile — the Crown Jewels of Scotland and the One O'Clock Gun. Book ahead.",
+              "time": "2 h",
+              "q": "Edinburgh Castle"
+            },
+            {
+              "title": "Royal Mile & St Giles'",
+              "what": "Walk downhill from the castle past the closes to St Giles' Cathedral.",
+              "time": "1–2 h",
+              "q": "St Giles' Cathedral"
+            },
+            {
+              "title": "National Museum of Scotland",
+              "what": "Free; the roof terrace has a fine view of the castle.",
+              "time": "1–2 h",
+              "q": "National Museum of Scotland"
+            },
+            {
+              "title": "Calton Hill",
+              "what": "Short climb at the east end of Princes Street for a view over the city and the Forth.",
+              "time": "45 min",
+              "q": "Calton Hill"
+            }
+          ]
+        },
+        {
+          "id": "london",
+          "name": "London (Tilbury)",
+          "country": "GB",
+          "tz": 0,
+          "days": [
+            {
+              "date": "2027-02-11",
+              "from": "05:00",
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Tower of London (from Fenchurch Street station)",
+            "lat": 51.5081,
+            "lon": -0.0759
+          },
+          "area": {
+            "lat": 51.51,
+            "lon": -0.079,
+            "r": 1.8
+          },
+          "extraAreas": [
+            {
+              "lat": 51.46,
+              "lon": 0.365,
+              "r": 3
+            }
+          ],
+          "piers": [
+            {
+              "id": "tilbury",
+              "name": "London International Cruise Terminal, Tilbury",
+              "osm": "London International Cruise Terminal",
+              "lat": 51.4537,
+              "lon": 0.3611,
+              "note": "Disembarkation day. Tilbury Town station (c2c) is about a mile away — about 20 minutes on foot, or taxi. Trains to London Fenchurch Street take about 40 minutes; Fenchurch Street is a few hundred yards from the Tower of London.",
+              "primary": true,
+              "walkFromPier": false
+            }
+          ],
+          "transport": "Taxis: Tilbury Taxis 01375 855555.",
+          "sources": [
+            {
+              "title": "Ambassador Cruise Line: London Tilbury port information (Tilbury Town about a 20-minute walk; c2c to Fenchurch Street)",
+              "url": "https://ambassadorcruiseline.com/before-you-sail/travelling-to-port/london-tilbury-port-information"
+            },
+            {
+              "title": "Reid's Guides: Tilbury cruise port (train 39–41 minutes)",
+              "url": "https://reidsguides.com/reidsengland/places/london/plan/getting-to-london/cruise-to-london/tilbury-cruise-port"
+            }
+          ],
+          "disembark": true,
+          "ideas": [
+            {
+              "title": "Tower of London",
+              "what": "A few hundred yards from Fenchurch Street station — the Crown Jewels and the Yeoman Warders.",
+              "time": "2–3 h",
+              "q": "Tower of London"
+            },
+            {
+              "title": "Tower Bridge",
+              "what": "Walk across, or go up to the glass-floor walkways.",
+              "time": "45 min",
+              "q": "Tower Bridge"
+            },
+            {
+              "title": "St Katharine Docks",
+              "what": "Marina tucked just east of the Tower, with cafés and pubs.",
+              "time": "30 min",
+              "q": "St Katharine Docks"
+            },
+            {
+              "title": "Sky Garden",
+              "what": "Free garden and viewing floor high above Fenchurch Street; book a time slot online.",
+              "time": "1 h",
+              "q": "Sky Garden"
+            }
+          ]
         }
       ]
     },
     {
-      "id": "alta",
-      "name": "Alta",
-      "country": "NO",
-      "tz": 1,
-      "days": [
+      "id": "rhine",
+      "name": "Rhine & Main Explorer",
+      "short": "Rhine & Main",
+      "dates": "May 4 – 14, 2027",
+      "ship": "Viking Skirnir",
+      "about": "River voyage, Basel to Nuremberg. Viking publishes the ports but not the docking times; the daily program has them.",
+      "timesKnown": false,
+      "ports": [
         {
-          "date": "2027-02-01",
-          "from": "12:00",
-          "to": null
+          "id": "basel",
+          "name": "Basel",
+          "country": "CH",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-04",
+              "from": null,
+              "to": null,
+              "note": "Embarkation day"
+            },
+            {
+              "date": "2027-05-05",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Marktplatz (Town Hall)",
+            "lat": 47.5582,
+            "lon": 7.5878
+          },
+          "area": {
+            "lat": 47.56,
+            "lon": 7.588,
+            "r": 2.5
+          },
+          "piers": [
+            {
+              "id": "stjohann",
+              "name": "St. Johann landing stage",
+              "osm": "St. Johann",
+              "lat": 47.566,
+              "lon": 7.5815,
+              "primary": true,
+              "note": "The most central landing, at St. Johanns-Rheinweg — about a 10–15 minute walk along the river to the old town. An elevator connects the landing to the promenade."
+            },
+            {
+              "id": "klybeck",
+              "name": "Klybeck",
+              "osm": "Klybeck",
+              "lat": 47.5795,
+              "lon": 7.5885,
+              "note": "Across the river in a port district; tram 8 into town."
+            },
+            {
+              "id": "dreilaendereck",
+              "name": "Dreiländereck (Three Countries Corner)",
+              "osm": "Dreiländereck",
+              "lat": 47.59,
+              "lon": 7.589,
+              "note": "Farthest downstream, where Switzerland, France and Germany meet; tram 8 into town (about 25–30 minutes)."
+            }
+          ],
+          "transport": "Basel's trams are frequent; hotel guests get a free BaselCard for public transport.",
+          "sources": [
+            {
+              "title": "Basel Tourism: river cruises (St. Johann landing ten minutes' walk from the centre)",
+              "url": "https://www.basel.com/de/business/travel-trade/flusskreuzfahrten"
+            },
+            {
+              "title": "Celebrity River Cruises: Basel river cruise port (St. Johann, Klybeck, Dreiländereck)",
+              "url": "https://www.celebritycruises.com/blog/basel-river-cruise-port"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Basel Minster & the Pfalz",
+              "what": "The red-sandstone cathedral; the terrace behind it looks over the Rhine to Germany.",
+              "time": "45 min",
+              "q": "Basler Münster"
+            },
+            {
+              "title": "Marktplatz & Town Hall",
+              "what": "The bright red Rathaus with its painted courtyard; the market runs most mornings.",
+              "time": "30 min",
+              "q": "Rathaus Basel"
+            },
+            {
+              "title": "Rhine ferry (Fähri)",
+              "what": "Small reaction ferries pushed across by the current alone — a classic Basel ride.",
+              "time": "20 min",
+              "q": "Münsterfähre"
+            },
+            {
+              "title": "Kunstmuseum Basel",
+              "what": "One of the oldest public art collections in the world, Holbein to Picasso.",
+              "time": "1½–2 h",
+              "q": "Kunstmuseum Basel"
+            },
+            {
+              "title": "Spalentor",
+              "what": "The finest of the old city gates, a short walk from St. Johann.",
+              "time": "20 min",
+              "q": "Spalentor"
+            }
+          ],
+          "ship": "Viking Skirnir"
         },
         {
-          "date": "2027-02-02",
-          "from": null,
-          "to": "23:00"
-        }
-      ],
-      "center": {
-        "name": "Alta sentrum (Northern Lights Cathedral)",
-        "lat": 69.9689,
-        "lon": 23.2716
-      },
-      "area": {
-        "lat": 69.9689,
-        "lon": 23.2716,
-        "r": 6.5
-      },
-      "piers": [
+          "id": "breisach",
+          "name": "Breisach",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-06",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Marktplatz",
+            "lat": 48.0296,
+            "lon": 7.5822
+          },
+          "area": {
+            "lat": 48.03,
+            "lon": 7.581,
+            "r": 2.5
+          },
+          "piers": [
+            {
+              "id": "breisach",
+              "name": "Rhine embankment (Rheinuferstraße)",
+              "osm": "Breisach",
+              "lat": 48.031,
+              "lon": 7.576,
+              "primary": true,
+              "note": "Ships berth on the Rhine bank next to the town. About 5 minutes on the flat to the Marktplatz, then 10–15 minutes uphill to St. Stephen's Minster."
+            }
+          ],
+          "transport": "Regional trains to Freiburg take about 30 minutes; Colmar is across the border in France.",
+          "sources": [
+            {
+              "title": "CruiseMapper: Breisach am Rhein port (berths, Münsterberg walk, Freiburg trains)",
+              "url": "https://www.cruisemapper.com/ports/breisach-am-rhein-port-3973"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "St. Stephen's Minster",
+              "what": "Up the Münsterberg for the church, its late-Gothic frescoes and views to the Black Forest and the Vosges.",
+              "time": "1 h",
+              "q": "St. Stephansmünster Breisach"
+            },
+            {
+              "title": "Rhine Gate museum",
+              "what": "The town history museum in the 1678 Rheintor.",
+              "time": "45 min",
+              "q": "Rheintor Breisach"
+            },
+            {
+              "title": "Colmar",
+              "what": "Half-timbered Alsatian town across the border — usually Viking's tour or a taxi.",
+              "time": "Half day",
+              "q": "Colmar"
+            },
+            {
+              "title": "Freiburg",
+              "what": "Regional trains run from Breisach in about half an hour; cathedral square and the little street streams (Bächle).",
+              "time": "Half day",
+              "q": "Freiburg Münster"
+            }
+          ],
+          "extraSights": [
+            {
+              "lat": 48.079,
+              "lon": 7.358,
+              "r": 1.2,
+              "name": "Colmar"
+            }
+          ]
+        },
         {
-          "id": "terminalkaia",
-          "name": "Terminalkaia (cruise quay, east of town)",
-          "osm": "Terminalkaia",
-          "lat": 69.98,
-          "lon": 23.3346,
-          "note": "About 1½ miles from the town centre (about 2.5 miles by road) through an industrial area; plan on the ship's shuttle or a taxi. Walking takes 45–50 minutes with some hills.",
-          "primary": true
+          "id": "strasbourg",
+          "name": "Strasbourg",
+          "country": "FR",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-07",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Cathedral square",
+            "lat": 48.5818,
+            "lon": 7.7509
+          },
+          "area": {
+            "lat": 48.581,
+            "lon": 7.748,
+            "r": 2.0
+          },
+          "piers": [
+            {
+              "id": "belges",
+              "name": "Quai des Belges (Port du Rhin)",
+              "osm": "Quai des Belges",
+              "lat": 48.576,
+              "lon": 7.779,
+              "primary": true,
+              "walkFromPier": false,
+              "note": "River-cruise berths in the port basins about 1.8 miles from the centre. Viking normally runs shuttle buses into town during the day."
+            },
+            {
+              "id": "minoterie",
+              "name": "Bassin du Commerce (Rue de la Minoterie)",
+              "osm": "Minoterie",
+              "lat": 48.5822,
+              "lon": 7.7725,
+              "walkFromPier": false,
+              "note": "Also used by Viking; near Parc de la Citadelle, still a long walk — use the shuttle or tram."
+            }
+          ],
+          "transport": "Trams C and E run from the port area towards the centre.",
+          "sources": [
+            {
+              "title": "Cruise Critic: Strasbourg (river ships dock at Quai des Belges, about 1.8 miles from the centre)",
+              "url": "https://www.cruisecritic.com/find-a-cruise/port-strasbourg"
+            },
+            {
+              "title": "Lüftner Cruises: docking locations (Strasbourg Quai des Belges and Rue de la Minoterie)",
+              "url": "https://lueftner-cruises.com/en/your-cruise/docking-locations.html"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Strasbourg Cathedral",
+              "what": "Gothic masterpiece; the astronomical clock's figures parade at 12:30 (separate ticket).",
+              "time": "1 h",
+              "q": "Cathédrale Notre-Dame de Strasbourg"
+            },
+            {
+              "title": "Petite France",
+              "what": "Canals, half-timbered tanners' houses and the covered bridges.",
+              "time": "1 h",
+              "q": "Petite France Strasbourg"
+            },
+            {
+              "title": "Batorama boat tour",
+              "what": "Round the old town island by boat, on to the European Parliament district.",
+              "time": "1¼ h",
+              "q": "Batorama"
+            },
+            {
+              "title": "Tarte flambée",
+              "what": "Alsatian flatbread with cream, onions and bacon — try it in a winstub.",
+              "time": "1 h",
+              "q": "Winstub Strasbourg"
+            }
+          ]
+        },
+        {
+          "id": "karlsruhe",
+          "name": "Karlsruhe & Baden-Baden",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-08",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Karlsruhe Palace / Marktplatz",
+            "lat": 49.0093,
+            "lon": 8.4037
+          },
+          "area": {
+            "lat": 49.011,
+            "lon": 8.403,
+            "r": 2.0
+          },
+          "piers": [
+            {
+              "id": "rheinhafen",
+              "name": "Karlsruhe Rhine harbour (Rheinhafen)",
+              "osm": "Rheinhafen",
+              "lat": 49.0135,
+              "lon": 8.316,
+              "primary": true,
+              "walkFromPier": false,
+              "note": "A working port about 4 miles from the city centre. Viking's tour goes by coach to the spa town of Baden-Baden; for Karlsruhe, tram 5 runs from the harbour to the Marktplatz in about 20 minutes."
+            }
+          ],
+          "transport": "Baden-Baden's Kurhaus, Trinkhalle and Friedrichsbad are all within a 10-minute walk of each other.",
+          "sources": [
+            {
+              "title": "Viking 2026–2028 river brochure: Baden-Baden tour from Karlsruhe",
+              "url": "https://viewer.e-digitaleditions.com/i/1542577/118"
+            },
+            {
+              "title": "CruiseCompete: Rhine & Main Explorer, May 4, 2027 (day 5 Baden-Baden)",
+              "url": "https://www.cruisecompete.com/itins/viking_skirnir_cruises_caaghdff.html"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Baden-Baden Kurhaus & Lichtentaler Allee",
+              "what": "The spa town's casino and park promenade along the Oos — Viking's tour goes here.",
+              "time": "Tour",
+              "q": "Kurhaus Baden-Baden"
+            },
+            {
+              "title": "Friedrichsbad",
+              "what": "Historic Roman-Irish bath in Baden-Baden; allow 3 hours.",
+              "time": "3 h",
+              "q": "Friedrichsbad"
+            },
+            {
+              "title": "Karlsruhe Palace",
+              "what": "The palace the whole fan-shaped city radiates from, with the state museum and gardens. Tram 5 from the harbour.",
+              "time": "1½ h",
+              "q": "Schloss Karlsruhe"
+            }
+          ],
+          "extraSights": [
+            {
+              "lat": 48.762,
+              "lon": 8.241,
+              "r": 1.6,
+              "name": "Baden-Baden"
+            }
+          ]
+        },
+        {
+          "id": "frankfurt",
+          "name": "Frankfurt",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-09",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Römerberg",
+            "lat": 50.1105,
+            "lon": 8.6822
+          },
+          "area": {
+            "lat": 50.11,
+            "lon": 8.683,
+            "r": 2.5
+          },
+          "piers": [
+            {
+              "id": "mainkai",
+              "name": "Mainkai (Eiserner Steg)",
+              "osm": "Mainkai",
+              "lat": 50.109,
+              "lon": 8.683,
+              "primary": true,
+              "note": "River ships tie up along the Main embankment in the centre; the Römer is a 5-minute walk up from the river."
+            }
+          ],
+          "transport": "Sunday: shops are closed, but museums, cafés and restaurants are open.",
+          "sources": [
+            {
+              "title": "Primus-Linie / KD landing stages at Mainkai, below the Römer (5 minutes' walk)",
+              "url": "https://www.travelocity.com/things-to-do/frankfurt-1-hour-panorama-boat-cruise-on-the-river-main.a5251851.activity-details"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Römerberg & New Old Town",
+              "what": "The old town hall square and the rebuilt half-timbered lanes to the cathedral.",
+              "time": "1 h",
+              "q": "Römerberg"
+            },
+            {
+              "title": "Main Tower",
+              "what": "Open-air deck about 650 ft up; check the Sunday hours.",
+              "time": "45 min",
+              "q": "Main Tower"
+            },
+            {
+              "title": "Städel Museum",
+              "what": "Across the Eiserner Steg footbridge on the Museumsufer — 700 years of European art.",
+              "time": "2 h",
+              "q": "Städel Museum"
+            },
+            {
+              "title": "Apple wine in Sachsenhausen",
+              "what": "Ebbelwoi taverns across the river; order it in a 'Bembel' jug.",
+              "time": "1 h",
+              "q": "Sachsenhausen"
+            }
+          ]
+        },
+        {
+          "id": "marktheidenfeld",
+          "name": "Marktheidenfeld",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-10",
+              "from": null,
+              "to": null,
+              "note": "Scenic sailing on the Main the same day"
+            }
+          ],
+          "center": {
+            "name": "Old town",
+            "lat": 49.8458,
+            "lon": 9.604
+          },
+          "area": {
+            "lat": 49.846,
+            "lon": 9.603,
+            "r": 2.0
+          },
+          "piers": [
+            {
+              "id": "mkf",
+              "name": "Riverside quay",
+              "osm": "Marktheidenfeld",
+              "lat": 49.8465,
+              "lon": 9.601,
+              "primary": true,
+              "note": "Ships dock at the riverside quay, within walking distance of the old town."
+            }
+          ],
+          "transport": "Small Franconian wine town, about 15 miles west of Würzburg.",
+          "sources": [
+            {
+              "title": "CruiseMapper: Marktheidenfeld port",
+              "url": "https://www.cruisemapper.com/ports/marktheidenfeld-port-3993"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Old town walk",
+              "what": "Half-timbered houses and the old Main bridge, right by the quay.",
+              "time": "1 h",
+              "q": "Marktheidenfeld Altstadt"
+            },
+            {
+              "title": "Franconian wine",
+              "what": "Try a Silvaner in the round Bocksbeutel bottle.",
+              "time": "45 min",
+              "q": "Weinstube Marktheidenfeld"
+            },
+            {
+              "title": "Lohr am Main",
+              "what": "The 'Snow White town' nearby, with the Spessart Museum — an optional excursion.",
+              "time": "Excursion",
+              "q": "Lohr am Main Schloss"
+            }
+          ]
+        },
+        {
+          "id": "wurzburg",
+          "name": "Würzburg",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-11",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Marktplatz",
+            "lat": 49.7944,
+            "lon": 9.9294
+          },
+          "area": {
+            "lat": 49.793,
+            "lon": 9.93,
+            "r": 2.2
+          },
+          "piers": [
+            {
+              "id": "ludwigkai",
+              "name": "Ludwigkai (south of the Ludwig Bridge)",
+              "osm": "Ludwigkai",
+              "lat": 49.788,
+              "lon": 9.9265,
+              "primary": true,
+              "note": "Most river ships dock on the east bank just south of the Ludwigsbrücke — about 10 minutes' walk to the Old Main Bridge."
+            },
+            {
+              "id": "alterhafen",
+              "name": "Old Port (Alter Hafen, by the Congress Centre)",
+              "osm": "Alter Hafen",
+              "lat": 49.802,
+              "lon": 9.924,
+              "note": "North of the centre; walk in along the river to the Old Main Bridge."
+            }
+          ],
+          "transport": "The Residenz is uphill on the east side of the old town, about 15–20 minutes from the river.",
+          "sources": [
+            {
+              "title": "Yahoo / Telegraph: Würzburg cruise port guide (Ludwigkai; 10 minutes to the Old Bridge)",
+              "url": "https://news.yahoo.com/w-rzburg-cruise-port-guide-140506629.html"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Würzburg Residenz",
+              "what": "UNESCO-listed palace with Tiepolo's huge staircase fresco; book the tour.",
+              "time": "1½–2 h",
+              "q": "Würzburger Residenz"
+            },
+            {
+              "title": "Old Main Bridge",
+              "what": "Statues of saints and a glass of wine on the bridge (Brückenschoppen) at sunset.",
+              "time": "30 min",
+              "q": "Alte Mainbrücke"
+            },
+            {
+              "title": "Marienberg Fortress",
+              "what": "Climb up through the vineyards for the view over the town.",
+              "time": "1½ h",
+              "q": "Festung Marienberg"
+            },
+            {
+              "title": "Bürgerspital wine tavern",
+              "what": "Centuries-old wine estate with a cosy Weinstube.",
+              "time": "1 h",
+              "q": "Bürgerspital Würzburg"
+            }
+          ]
+        },
+        {
+          "id": "bamberg",
+          "name": "Bamberg",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-12",
+              "from": null,
+              "to": null
+            }
+          ],
+          "center": {
+            "name": "Old Town Hall",
+            "lat": 49.8915,
+            "lon": 10.8867
+          },
+          "area": {
+            "lat": 49.892,
+            "lon": 10.886,
+            "r": 2.0
+          },
+          "piers": [
+            {
+              "id": "bamberghafen",
+              "name": "Bamberg harbour (river-cruise quay)",
+              "osm": "Hafen Bamberg",
+              "lat": 49.906,
+              "lon": 10.874,
+              "primary": true,
+              "walkFromPier": false,
+              "note": "The cruise quay is in the freight harbour on the Main–Danube Canal, northwest of the old town — not a pleasant walk. Coaches drop off near the Konzerthalle; city bus 919 stops nearby."
+            }
+          ],
+          "transport": "Bamberg's old town is compact and walkable once you're there; the cathedral hill is a short climb.",
+          "sources": [
+            {
+              "title": "What's in Port: Bamberg (special river-cruise dock in the freight harbour)",
+              "url": "https://www.whatsinport.com/Bamberg-de.htm"
+            },
+            {
+              "title": "Cruise Critic forum: Bamberg dock in an industrial area, not within walking distance",
+              "url": "https://boards.cruisecritic.com.au/topic/1271526-question-on-bamberg/"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Old Town Hall",
+              "what": "Painted town hall built on an island in the Regnitz.",
+              "time": "30 min",
+              "q": "Altes Rathaus Bamberg"
+            },
+            {
+              "title": "Cathedral & rose garden",
+              "what": "Imperial cathedral, then the New Residence rose garden for the view over the rooftops.",
+              "time": "1 h",
+              "q": "Bamberger Dom"
+            },
+            {
+              "title": "Schlenkerla",
+              "what": "The classic smoked-beer (Rauchbier) tavern.",
+              "time": "45 min",
+              "q": "Schlenkerla"
+            },
+            {
+              "title": "Little Venice",
+              "what": "Fishermen's houses along the river; best seen from the Untere Brücke.",
+              "time": "30 min",
+              "q": "Klein Venedig Bamberg"
+            }
+          ]
+        },
+        {
+          "id": "nuremberg",
+          "name": "Nuremberg",
+          "country": "DE",
+          "tz": 2,
+          "days": [
+            {
+              "date": "2027-05-13",
+              "from": null,
+              "to": null
+            },
+            {
+              "date": "2027-05-14",
+              "from": null,
+              "to": null,
+              "note": "Disembarkation day"
+            }
+          ],
+          "center": {
+            "name": "Hauptmarkt",
+            "lat": 49.4539,
+            "lon": 11.0775
+          },
+          "area": {
+            "lat": 49.453,
+            "lon": 11.078,
+            "r": 2.5
+          },
+          "piers": [
+            {
+              "id": "nbghafen",
+              "name": "Nuremberg harbour (Europakai, Main–Danube Canal)",
+              "osm": "Europakai",
+              "lat": 49.408,
+              "lon": 11.042,
+              "primary": true,
+              "walkFromPier": false,
+              "note": "The landing is on the canal in the port south of the city, nowhere near the old town — taxi (about €15+) or Viking's coaches."
+            }
+          ],
+          "transport": "The Nazi Party Rally Grounds and Documentation Center are southeast of the old town; tram 8 goes there.",
+          "sources": [
+            {
+              "title": "Lüftner Cruises: docking locations (Nuremberg, Europakai 10)",
+              "url": "https://lueftner-cruises.com/en/your-cruise/docking-locations.html"
+            },
+            {
+              "title": "Cruise Critic forum: where is the dock in Nuremberg (south of the old town, €15+ taxi)",
+              "url": "https://boards.cruisecritic.co.uk/topic/2535102-where-is-the-dock-in-nuremburg/"
+            }
+          ],
+          "ideas": [
+            {
+              "title": "Imperial Castle",
+              "what": "The Kaiserburg above the old town; the Sinwell Tower has the best view.",
+              "time": "1½ h",
+              "q": "Kaiserburg Nürnberg"
+            },
+            {
+              "title": "Hauptmarkt & Beautiful Fountain",
+              "what": "Market square with the gilded Schöner Brunnen and the Frauenkirche clock.",
+              "time": "30 min",
+              "q": "Hauptmarkt Nürnberg"
+            },
+            {
+              "title": "Memorium Nuremberg Trials",
+              "what": "Courtroom 600 in the Palace of Justice, where the trials were held.",
+              "time": "1½ h",
+              "q": "Memorium Nürnberger Prozesse"
+            },
+            {
+              "title": "Documentation Center",
+              "what": "The Nazi Party Rally Grounds and the museum about them.",
+              "time": "2 h",
+              "q": "Dokumentationszentrum Reichsparteitagsgelände"
+            },
+            {
+              "title": "Nuremberg bratwurst",
+              "what": "Small grilled sausages, three in a roll ('Drei im Weggla').",
+              "time": "45 min",
+              "q": "Bratwurst Röslein"
+            }
+          ],
+          "disembark": true
         }
       ],
-      "transport": "Shuttle or taxi to the centre. The Alta Museum rock carvings are about 2.5 miles west of the centre — taxi or tour.",
       "sources": [
         {
-          "title": "Cruise Norway port sheet: Alta (Terminalkaia, 4 km to town centre)",
-          "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Alta.pdf"
-        }
-      ]
-    },
-    {
-      "id": "harstad",
-      "name": "Harstad",
-      "country": "NO",
-      "tz": 1,
-      "days": [
-        {
-          "date": "2027-02-03",
-          "from": "13:00",
-          "to": "23:00"
-        }
-      ],
-      "center": {
-        "name": "Torget (town square)",
-        "lat": 68.799,
-        "lon": 16.541
-      },
-      "area": {
-        "lat": 68.799,
-        "lon": 16.541,
-        "r": 4.5
-      },
-      "piers": [
-        {
-          "id": "larsneset",
-          "name": "Larsneset (town centre)",
-          "osm": "Larsneset",
-          "lat": 68.7998,
-          "lon": 16.5462,
-          "note": "About 100–150 m from the town centre and the tourist office. Trondenes Church is about 2 miles north along the shore.",
-          "primary": true
+          "title": "iCruise: 10-night Rhine & Main Explorer, Viking Skirnir, May 4, 2027 (day by day)",
+          "url": "https://m.icruise.com/itineraries/10-night-rhine-and-main-explorer-cruise_viking-skirnir_5-4-2027.html"
         },
         {
-          "id": "stangnes",
-          "name": "Stangnes (south of town)",
-          "osm": "Stangnes",
-          "lat": 68.7769,
-          "lon": 16.591,
-          "note": "About 3 miles from the centre; shuttle bus."
-        }
-      ],
-      "transport": "Taxi rank about 100 m from Larsneset; bus stop about 150 m.",
-      "sources": [
-        {
-          "title": "Cruise Norway port sheet: Harstad (Larsneset 100 m / Stangnes 4.5 km to centre)",
-          "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Harstad-1.pdf"
-        }
-      ]
-    },
-    {
-      "id": "narvik",
-      "name": "Narvik",
-      "country": "NO",
-      "tz": 1,
-      "days": [
-        {
-          "date": "2027-02-04",
-          "from": "08:00",
-          "to": "23:00"
-        }
-      ],
-      "center": {
-        "name": "Narvik sentrum (War Museum)",
-        "lat": 68.4385,
-        "lon": 17.4273
-      },
-      "area": {
-        "lat": 68.434,
-        "lon": 17.425,
-        "r": 4
-      },
-      "piers": [
-        {
-          "id": "central",
-          "name": "Central cruise quay (Pier 3)",
-          "osm": "Narvik",
-          "lat": 68.4335,
-          "lon": 17.425,
-          "note": "The newer central cruise quay is about 500 m from the town centre and the War Museum.",
-          "primary": true
-        },
-        {
-          "id": "fagernes",
-          "name": "Fagernes (ore and container port)",
-          "osm": "Fagernes",
-          "lat": 68.4135,
-          "lon": 17.429,
-          "note": "South of town, a little over a mile; shuttle or taxi."
-        }
-      ],
-      "transport": "Narvikfjellet cable car's base station is up the hill above the town. Taxi: Narvik Taxi.",
-      "sources": [
-        {
-          "title": "Cruise Norway port sheet: Narvik (Pier 3, 500 m to town centre)",
-          "url": "https://cruise-norway.no/wp-content/uploads/2021/09/Narvik-1.pdf"
-        },
-        {
-          "title": "Visit Narvik: cruise ships (port centrally located)",
-          "url": "https://www.visitnarvik.com/en/plan-your-trip/travel-narvik/cruise-ship-narvik"
-        },
-        {
-          "title": "Wikipedia: Fagernes (Narvik) — coordinates of the Fagernes terminal area",
-          "url": "https://en.wikipedia.org/wiki/Fagernes_(Narvik)"
-        }
-      ]
-    },
-    {
-      "id": "bergen",
-      "name": "Bergen",
-      "country": "NO",
-      "tz": 1,
-      "days": [
-        {
-          "date": "2027-02-06",
-          "from": "18:00",
-          "to": null
-        },
-        {
-          "date": "2027-02-07",
-          "from": null,
-          "to": "18:00"
-        }
-      ],
-      "center": {
-        "name": "Fish Market (Fisketorget)",
-        "lat": 60.3946,
-        "lon": 5.3252
-      },
-      "area": {
-        "lat": 60.3943,
-        "lon": 5.3259,
-        "r": 2.8
-      },
-      "piers": [
-        {
-          "id": "skolten",
-          "name": "Skolten / Bontelabo (by Bergenhus Fortress)",
-          "osm": "Skolten",
-          "lat": 60.3985,
-          "lon": 5.317,
-          "note": "About 900 m along UNESCO-listed Bryggen to the Fish Market, and about 1,400 m to Torgallmenningen, the main square.",
-          "primary": true
-        },
-        {
-          "id": "dokken",
-          "name": "Jekteviken / Dokken (west side)",
-          "osm": "Dokken",
-          "lat": 60.3925,
-          "lon": 5.3105,
-          "note": "Industrial piers; the Port of Bergen runs free shuttle buses to the city side. About a 20-minute walk otherwise."
-        }
-      ],
-      "transport": "Fløibanen funicular to Mount Fløyen starts a few minutes' walk from the Fish Market.",
-      "sources": [
-        {
-          "title": "Port of Bergen cruise information (Skolten/Bontelabo ~900 m to Fish Market; free shuttles from Dokken/Jekteviken)",
-          "url": "https://en.visitbergen.com/dbimgs/Port-of-Bergen-Cruise-info-2018-brochure.pdf"
-        }
-      ]
-    },
-    {
-      "id": "edinburgh",
-      "name": "Edinburgh (Rosyth)",
-      "country": "GB",
-      "tz": 0,
-      "days": [
-        {
-          "date": "2027-02-09",
-          "from": "07:00",
-          "to": "16:00"
-        }
-      ],
-      "center": {
-        "name": "Royal Mile (St Giles' Cathedral)",
-        "lat": 55.9495,
-        "lon": -3.1909
-      },
-      "area": {
-        "lat": 55.95,
-        "lon": -3.19,
-        "r": 2.2
-      },
-      "extraAreas": [
-        {
-          "lat": 56.03,
-          "lon": -3.42,
-          "r": 4
-        }
-      ],
-      "piers": [
-        {
-          "id": "rosyth",
-          "name": "Rosyth cruise terminal",
-          "osm": "Rosyth",
-          "lat": 56.0215,
-          "lon": -3.4415,
-          "note": "Industrial dockyard with no public transport at the terminal. Taxi about 3 miles (around £10) to Inverkeithing station, then ScotRail about 25 minutes to Edinburgh Waverley. By road Edinburgh is about 40 minutes. Viking usually runs coaches.",
-          "primary": true,
-          "walkFromPier": false
-        }
-      ],
-      "transport": "Edinburgh's Old Town is steep and cobbled: Waverley station sits right below the Royal Mile.",
-      "sources": [
-        {
-          "title": "ScotRail: cruise ship passengers (Inverkeithing 3 miles from Rosyth; taxi about £10)",
-          "url": "https://www.scotrail.co.uk/scotland-by-rail/things-do/cruise-ship-passengers"
-        },
-        {
-          "title": "Fred Olsen: The Port of Rosyth (about 40 minutes from Edinburgh; no direct public transport)",
-          "url": "https://faqs.fredolsencruises.com/portal/en/kb/articles/the-port-of-rosyth"
-        }
-      ]
-    },
-    {
-      "id": "london",
-      "name": "London (Tilbury)",
-      "country": "GB",
-      "tz": 0,
-      "days": [
-        {
-          "date": "2027-02-11",
-          "from": "05:00",
-          "to": null
-        }
-      ],
-      "center": {
-        "name": "Tower of London (from Fenchurch Street station)",
-        "lat": 51.5081,
-        "lon": -0.0759
-      },
-      "area": {
-        "lat": 51.51,
-        "lon": -0.079,
-        "r": 1.8
-      },
-      "extraAreas": [
-        {
-          "lat": 51.46,
-          "lon": 0.365,
-          "r": 3
-        }
-      ],
-      "piers": [
-        {
-          "id": "tilbury",
-          "name": "London International Cruise Terminal, Tilbury",
-          "osm": "London International Cruise Terminal",
-          "lat": 51.4537,
-          "lon": 0.3611,
-          "note": "Disembarkation day. Tilbury Town station (c2c) is about a mile away — about 20 minutes on foot, or taxi. Trains to London Fenchurch Street take about 40 minutes; Fenchurch Street is a few hundred yards from the Tower of London.",
-          "primary": true,
-          "walkFromPier": false
-        }
-      ],
-      "transport": "Taxis: Tilbury Taxis 01375 855555.",
-      "sources": [
-        {
-          "title": "Ambassador Cruise Line: London Tilbury port information (Tilbury Town about a 20-minute walk; c2c to Fenchurch Street)",
-          "url": "https://ambassadorcruiseline.com/before-you-sail/travelling-to-port/london-tilbury-port-information"
-        },
-        {
-          "title": "Reid's Guides: Tilbury cruise port (train 39–41 minutes)",
-          "url": "https://reidsguides.com/reidsengland/places/london/plan/getting-to-london/cruise-to-london/tilbury-cruise-port"
+          "title": "Cruise Insider: Rhine & Main Explorer, May 4, 2027",
+          "url": "https://cruiseinsider.com/itinerary/10-night-rhine-and-main-explorer-cruise/684291/1560390"
         }
       ]
     }
@@ -470,7 +1369,9 @@
           "title": "The Local Norway: how much should tourists tip",
           "url": "https://www.thelocal.no/20240702/how-much-should-tourists-really-tip-in-norway"
         }
-      ]
+      ],
+      "holidays": {},
+      "currencyPlural": "Norwegian kroner"
     },
     "GB": {
       "name": "United Kingdom",
@@ -530,6 +1431,224 @@
         {
           "title": "Europe tipping guide (UK 10–15% if no service charge; many London restaurants add 12.5%)",
           "url": "https://tipcalculator.it.com/guides/europe-tipping-guide/"
+        }
+      ],
+      "holidays": {},
+      "currencyPlural": "British pounds"
+    },
+    "CH": {
+      "name": "Switzerland",
+      "currency": "CHF",
+      "currencyName": "Swiss franc",
+      "currencyPlural": "Swiss francs",
+      "symbol": "CHF",
+      "money": "Cards and Apple Pay work almost everywhere. Many places also take euros but give change in francs at a poor rate.",
+      "tipping": "Service is included by law. Round up or leave a few francs for good service.",
+      "sunday": "Most shops are closed on Sundays; shops in the railway station stay open.",
+      "hours": "Shops typically about 09:00–18:30 weekdays, to about 17:00 on Saturday.",
+      "winter": "May is mild but changeable: layers and a light rain jacket. Old-town streets are cobbled and steep in places.",
+      "holidays": {
+        "2027-05-06": "Ascension Day",
+        "2027-05-17": "Whit Monday"
+      },
+      "phrases": [
+        {
+          "en": "Hello (Swiss German)",
+          "local": "Grüezi",
+          "say": "GREW-ets-ee",
+          "lang": "de-CH"
+        },
+        {
+          "en": "Thank you (Swiss German)",
+          "local": "Merci vielmal",
+          "say": "MARE-see FEEL-mahl",
+          "lang": "de-CH"
+        },
+        {
+          "en": "Goodbye (Swiss German)",
+          "local": "Uf Widerluege",
+          "say": "oof VEE-der-loo-eh-geh",
+          "lang": "de-CH"
+        }
+      ],
+      "sources": [
+        {
+          "title": "UBS: tipping in Switzerland (service included in prices since the 1970s)",
+          "url": "https://www.ubs.com/ch/en/services/guide/accounts-and-cards/articles/tipping-culture-switzerland.html"
+        },
+        {
+          "title": "Deutschland-Rechner: Ascension (Auffahrt) May 6, 2027 is a holiday in every Swiss canton",
+          "url": "https://www.deutschland-rechner.de/christi-himmelfahrt-2027"
+        }
+      ]
+    },
+    "DE": {
+      "name": "Germany",
+      "currency": "EUR",
+      "currencyName": "euro",
+      "currencyPlural": "euros",
+      "symbol": "€",
+      "money": "Cards and Apple Pay are now widely taken, but small bakeries, beer gardens and market stalls may be cash only — carry some euros.",
+      "tipping": "Round up or add 5–10% in restaurants. Say the total you want to pay as you hand over the money (\"Make it 30\") rather than leaving it on the table.",
+      "sunday": "Shops are closed on Sundays and public holidays by law (bakeries open for a few hours in the morning). Museums, restaurants and cafés are open.",
+      "hours": "Shops typically about 10:00–20:00 in cities, earlier in small towns. In Bavaria (Würzburg, Bamberg, Nuremberg) shops must close by 20:00.",
+      "winter": "May is mild but changeable: layers and a light rain jacket. Cobblestones everywhere — wear comfortable shoes.",
+      "holidays": {
+        "2027-05-06": "Ascension Day (Christi Himmelfahrt) — a national holiday, shops closed",
+        "2027-05-17": "Whit Monday"
+      },
+      "phrases": [
+        {
+          "en": "Good day / hello",
+          "local": "Guten Tag",
+          "say": "GOO-ten tahk",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Hello (Bavaria and Franconia)",
+          "local": "Grüß Gott",
+          "say": "grooss gott",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Please / you're welcome",
+          "local": "Bitte",
+          "say": "BIT-teh",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Thank you",
+          "local": "Danke schön",
+          "say": "DAHN-keh shurn",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Excuse me",
+          "local": "Entschuldigung",
+          "say": "ent-SHOOL-dee-goong",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Do you speak English?",
+          "local": "Sprechen Sie Englisch?",
+          "say": "SHPREKH-en zee ENG-lish",
+          "lang": "de-DE"
+        },
+        {
+          "en": "The bill, please",
+          "local": "Die Rechnung, bitte",
+          "say": "dee REKH-noong, BIT-teh",
+          "lang": "de-DE"
+        },
+        {
+          "en": "A beer, please",
+          "local": "Ein Bier, bitte",
+          "say": "ine beer, BIT-teh",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Cheers!",
+          "local": "Prost!",
+          "say": "prohst",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Where is the toilet?",
+          "local": "Wo ist die Toilette?",
+          "say": "voh ist dee toy-LET-teh",
+          "lang": "de-DE"
+        },
+        {
+          "en": "Goodbye",
+          "local": "Auf Wiedersehen",
+          "say": "owf VEE-der-zane",
+          "lang": "de-DE"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Berlin.de (official city site): tipping — tell the server the total including the tip",
+          "url": "https://berlin.de/en/tourism/travel-information/1758234-2862820-tipping.en.html"
+        },
+        {
+          "title": "Library of Congress: shop-closing laws in Germany (retail closed on Sundays)",
+          "url": "https://blogs.loc.gov/law/2025/11/shop-closing-laws-in-germany/"
+        },
+        {
+          "title": "Kalenderpedia: Ascension Day May 6, 2027 — holiday in all German states, shops closed as on Sunday",
+          "url": "https://www.kalenderpedia.de/feiertage/christi-himmelfahrt.html?jahr=2027"
+        }
+      ]
+    },
+    "FR": {
+      "name": "France",
+      "currency": "EUR",
+      "currencyName": "euro",
+      "currencyPlural": "euros",
+      "symbol": "€",
+      "money": "Cards and Apple Pay work almost everywhere.",
+      "tipping": "Service is included in the bill (service compris). Leave a euro or two, or round up, for good service.",
+      "sunday": "Many shops close on Sundays; in Strasbourg's centre some open.",
+      "hours": "Shops typically about 10:00–19:00, Monday to Saturday.",
+      "winter": "May is mild but changeable: layers and a light rain jacket.",
+      "holidays": {
+        "2027-05-06": "Ascension Day",
+        "2027-05-08": "Victory in Europe Day"
+      },
+      "phrases": [
+        {
+          "en": "Hello / good day",
+          "local": "Bonjour",
+          "say": "bohn-ZHOOR",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Thank you",
+          "local": "Merci",
+          "say": "mair-SEE",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Please",
+          "local": "S'il vous plaît",
+          "say": "seel voo PLAY",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Excuse me",
+          "local": "Excusez-moi",
+          "say": "ex-kew-ZAY mwah",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Do you speak English?",
+          "local": "Parlez-vous anglais ?",
+          "say": "par-LAY voo ahn-GLAY",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "The bill, please",
+          "local": "L'addition, s'il vous plaît",
+          "say": "lah-dee-SYOHN, seel voo PLAY",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Alsatian flatbread",
+          "local": "Tarte flambée",
+          "say": "tart flahm-BAY",
+          "lang": "fr-FR"
+        },
+        {
+          "en": "Goodbye",
+          "local": "Au revoir",
+          "say": "oh ruh-VWAHR",
+          "lang": "fr-FR"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Taste of France: tipping and 'service compris'",
+          "url": "https://tasteoffrancemag.com/trending/tipping-in-france-what-you-need-to-know-about-service-compris/"
         }
       ]
     }

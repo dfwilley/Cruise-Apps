@@ -7,7 +7,7 @@ Data © OpenStreetMap contributors (ODbL); weather from Open-Meteo.com (CC BY 4.
 import json, math, sys, re, pathlib, datetime, urllib.request, statistics
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PORTS = json.loads((ROOT / "port-guide/data/ports.json").read_text())["ports"]
+PORTS = [p for v in json.loads((ROOT / "port-guide/data/ports.json").read_text())["voyages"] for p in v["ports"]]
 
 def note(m): print(f"::notice::{m}", flush=True)
 def warn(m): print(f"::warning::{m}", flush=True)
@@ -55,8 +55,8 @@ def classify(t):
         return "berth", "berth"
     return None
 
-def areas(p):
-    return [p["area"]] + p.get("extraAreas", [])
+def areas(p):   # where practical places and berths are collected: the town, extra areas, and around every listed pier
+    return [p["area"]] + p.get("extraAreas", []) + [{"lat": x["lat"], "lon": x["lon"], "r": 1.2} for x in p["piers"]]
 
 found = {p["id"]: [] for p in PORTS}
 seen = set()
@@ -72,7 +72,7 @@ for path in sys.argv[1:]:
             pt = point_of(ft["geometry"])
             if not pt: continue
             for p in PORTS:
-                main = km(pt[0], pt[1], p["area"]["lat"], p["area"]["lon"]) <= p["area"]["r"]
+                main = any(km(pt[0], pt[1], a["lat"], a["lon"]) <= a["r"] for a in [p["area"]] + p.get("extraSights", []))
                 if main or (c[0] != "sight" and any(km(pt[0], pt[1], a["lat"], a["lon"]) <= a["r"] for a in areas(p))):
                     key = (p["id"], name, c[1], round(pt[0], 3), round(pt[1], 3))
                     if key in seen: break
@@ -115,7 +115,7 @@ for p in PORTS:
     for kind in ("tourist info", "pharmacy", "cash", "groceries", "toilets", "shopping centre", "outdoor gear", "train station", "taxi"):
         ks = sorted((i for i in items if i["kind"] == kind), key=lambda i: i["fromPier"])
         practical += ks[:6 if kind == "train station" else 3]
-        if p.get("extraAreas") and kind in ("train station", "taxi"):
+        if (p.get("extraAreas") or any(x.get("walkFromPier") is False for x in p["piers"])) and kind in ("train station", "taxi", "tourist info"):
             pr0 = p["piers"][0]
             extra = sorted((i for i in items if i["kind"] == kind and i not in practical), key=lambda i: km(pr0["lat"], pr0["lon"], i["lat"], i["lon"]))
             practical += extra[:2]
@@ -162,11 +162,11 @@ for p in PORTS:
 out["climate"] = climate
 
 rates = None
-for url in ("https://api.frankfurter.dev/v1/latest?base=USD&symbols=NOK,GBP", "https://api.frankfurter.app/latest?from=USD&to=NOK,GBP"):
+for url in ("https://api.frankfurter.dev/v1/latest?base=USD&symbols=NOK,GBP,EUR,CHF", "https://api.frankfurter.app/latest?from=USD&to=NOK,GBP,EUR,CHF"):
     try:
-        r = get_json(url); rates = {"date": r["date"], "NOK": r["rates"]["NOK"], "GBP": r["rates"]["GBP"]}; break
+        r = get_json(url); rates = {"date": r["date"], **{k: r["rates"][k] for k in ("NOK", "GBP", "EUR", "CHF")}}; break
     except Exception as e: warn(f"Rates from {url} failed: {e}")
-if rates: note(f"Rates {rates['date']}: $1 = {rates['NOK']} NOK, £{rates['GBP']}")
+if rates: note(f"Rates {rates['date']}: $1 = {rates['NOK']} NOK, £{rates['GBP']}, €{rates['EUR']}, CHF {rates['CHF']}")
 out["rates"] = rates
 
 dst = ROOT / "port-guide/data"

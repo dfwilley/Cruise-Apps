@@ -42,76 +42,6 @@
 "fromPier": 0.17
 },
 {
-"name": "Rebekka Sakolsky født Shotland",
-"group": "sight",
-"kind": "historic",
-"lat": 69.6482,
-"lon": 18.95688,
-"website": "https://www.snublestein.no/Rebekka-Sakolsky-f-Shotland/p=24/",
-"wikidata": "Q44177728",
-"fromPier": 0.18
-},
-{
-"name": "Selik Sakolsky",
-"group": "sight",
-"kind": "historic",
-"lat": 69.6482,
-"lon": 18.95688,
-"website": "https://www.snublestein.no/Selik-Sakolsky/p=23/",
-"wikidata": "Q44177714",
-"fromPier": 0.18
-},
-{
-"name": "Ruth Sakolsky",
-"group": "sight",
-"kind": "historic",
-"lat": 69.6482,
-"lon": 18.95688,
-"website": "https://www.snublestein.no/Ruth-Sakolsky/p=30/",
-"wikidata": "Q44177740",
-"fromPier": 0.18
-},
-{
-"name": "Daniel Caplan",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64804,
-"lon": 18.95623,
-"website": "https://www.snublestein.no/Daniel-Caplan/p=14/",
-"wikidata": "Q44177486",
-"fromPier": 0.19
-},
-{
-"name": "Solly Caplan",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64804,
-"lon": 18.95624,
-"website": "https://www.snublestein.no/Solly-Caplan/p=16/",
-"wikidata": "Q44177515",
-"fromPier": 0.19
-},
-{
-"name": "Hertze Caplan",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64804,
-"lon": 18.95624,
-"website": "https://www.snublestein.no/Hertze-Caplan/p=15/",
-"wikidata": "Q44177499",
-"fromPier": 0.19
-},
-{
-"name": "Chone Moses (Conrad) Caplan",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64804,
-"lon": 18.95625,
-"website": "https://www.snublestein.no/Chone-Konrad-Moses-Caplan/p=17/",
-"wikidata": "Q44177528",
-"fromPier": 0.19
-},
-{
 "name": "Street Art",
 "group": "sight",
 "kind": "attraction",
@@ -130,56 +60,6 @@
 "wikidata": "Q2296475",
 "wheelchair": "limited",
 "fromPier": 0.21
-},
-{
-"name": "Meyer Leib Shotland",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64849,
-"lon": 18.95589,
-"website": "https://www.snublestein.no/Meyer-Leib-Shotland/p=33/",
-"wikidata": "Q44177783",
-"fromPier": 0.23
-},
-{
-"name": "Eva Shotland",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64849,
-"lon": 18.95589,
-"website": "https://www.snublestein.no/Eva-Shotland/p=32/",
-"wikidata": "Q44177769",
-"fromPier": 0.23
-},
-{
-"name": "Salomon Shotland",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64849,
-"lon": 18.95589,
-"website": "https://www.snublestein.no/Salomon-Chaim-Shotland/p=31/",
-"wikidata": "Q44177753",
-"fromPier": 0.23
-},
-{
-"name": "Rosa Shotland født Becker",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64849,
-"lon": 18.95589,
-"website": "https://www.snublestein.no/Rosa-Shotland-f-Bekker/p=34/",
-"wikidata": "Q44177797",
-"fromPier": 0.23
-},
-{
-"name": "Moritz Klein",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64907,
-"lon": 18.95513,
-"website": "https://www.snublestein.no/Moritz-Klein/p=12/",
-"wikidata": "Q44177460",
-"fromPier": 0.29
 },
 {
 "name": "Baptistkirka",
@@ -234,16 +114,6 @@
 "fromPier": 0.49
 },
 {
-"name": "Zemack Resnick",
-"group": "sight",
-"kind": "historic",
-"lat": 69.64916,
-"lon": 18.94901,
-"website": "https://www.snublestein.no/Zemack-Resnick/p=13/",
-"wikidata": "Q44177474",
-"fromPier": 0.5
-},
-{
 "name": "Polarmuseet",
 "group": "sight",
 "kind": "museum",
@@ -276,16 +146,6 @@
 "wikidata": "Q19380732",
 "fee": "yes",
 "fromPier": 0.56
-},
-{
-"name": "Herman Smith",
-"group": "sight",
-"kind": "historic",
-"lat": 69.6526,
-"lon": 18.95955,
-"website": "https://www.snublestein.no/Herman-Smith/p=11/",
-"wikidata": "Q44177444",
-"fromPier": 0.57
 },
 {
 "name": "iNkundla",
@@ -378,15 +238,6 @@
 "fromPier": 1.29
 },
 {
-"name": "Tromsø Kunstforening (Tromsø Centre for Contemporary Art)",
-"group": "sight",
-"kind": "gallery",
-"lat": 69.64092,
-"lon": 18.93349,
-"hours": "We-Su 12:00-17:00",
-"fromPier": 1.29
-},
-{
 "name": "Elverhøy Parish Church",
 "group": "sight",
 "kind": "attraction",
@@ -442,6 +293,36 @@
 "fromPier": 2.57
 },
 {
+"name": "Ropes Course",
+"group": "sight",
+"kind": "attraction",
+"lat": 69.6726,
+"lon": 18.92934,
+"fromPier": 3.05
+},
+{
+"name": "OKS Tromsøkirka",
+"group": "sight",
+"kind": "church",
+"lat": 69.67762,
+"lon": 18.95922,
+"website": "http://tromsokirka.no",
+"wheelchair": "yes",
+"fromPier": 3.35
+},
+{
+"name": "Geologi walk",
+"group": "sight",
+"kind": "museum",
+"lat": 69.67867,
+"lon": 18.97052,
+"local": "Geologivandring",
+"hours": "24/7",
+"fee": "no",
+"wheelchair": "yes",
+"fromPier": 3.49
+},
+{
 "name": "Grønnåsen kirke",
 "group": "sight",
 "kind": "church",
@@ -449,6 +330,22 @@
 "lon": 18.96047,
 "wikidata": "Q893240",
 "fromPier": 3.54
+},
+{
+"name": "Monument to the victims of the Brattholm Tragedy",
+"group": "sight",
+"kind": "historic",
+"lat": 69.68016,
+"lon": 18.96677,
+"fromPier": 3.64
+},
+{
+"name": "Tromsø Forsvarsmuseum",
+"group": "sight",
+"kind": "museum",
+"lat": 69.61048,
+"lon": 18.94069,
+"fromPier": 4.19
 }
 ],
 "practical": [
@@ -653,22 +550,12 @@
 "alta": {
 "sights": [
 {
-"name": "Elvebakken kirke",
-"group": "sight",
-"kind": "church",
-"lat": 69.9717,
-"lon": 23.36947,
-"wikidata": "Q3612479",
-"wheelchair": "yes",
-"fromPier": 0.86
-},
-{
 "name": "St. Josefs kirke",
 "group": "sight",
 "kind": "church",
 "lat": 69.9739,
 "lon": 23.35666,
-"fromPier": 1.17
+"fromPier": 1.08
 },
 {
 "name": "St. Josefs kapell",
@@ -676,7 +563,17 @@
 "kind": "church",
 "lat": 69.97358,
 "lon": 23.35655,
-"fromPier": 1.18
+"fromPier": 1.1
+},
+{
+"name": "Elvebakken kirke",
+"group": "sight",
+"kind": "church",
+"lat": 69.9717,
+"lon": 23.36947,
+"wikidata": "Q3612479",
+"wheelchair": "yes",
+"fromPier": 1.62
 },
 {
 "name": "The Rock Art of Alta",
@@ -684,7 +581,7 @@
 "kind": "historic",
 "lat": 69.99241,
 "lon": 23.29829,
-"fromPier": 3.75
+"fromPier": 1.95
 },
 {
 "name": "Alta frikirke",
@@ -692,24 +589,7 @@
 "kind": "church",
 "lat": 69.9722,
 "lon": 23.27455,
-"fromPier": 4.28
-},
-{
-"name": "Lille Raipas",
-"group": "sight",
-"kind": "viewpoint",
-"lat": 69.93867,
-"lon": 23.36021,
-"description": "View of Alta",
-"fromPier": 4.37
-},
-{
-"name": "The Rock Art of Alta",
-"group": "sight",
-"kind": "historic",
-"lat": 69.93861,
-"lon": 23.36028,
-"fromPier": 4.38
+"fromPier": 2.45
 },
 {
 "name": "Alta Central Park",
@@ -718,7 +598,15 @@
 "lat": 69.96679,
 "lon": 23.27296,
 "local": "Sentrumsparken",
-"fromPier": 4.45
+"fromPier": 2.77
+},
+{
+"name": "Kjerringa",
+"group": "sight",
+"kind": "historic",
+"lat": 69.98973,
+"lon": 23.2633,
+"fromPier": 2.92
 },
 {
 "name": "Northern Lights Cathedral",
@@ -729,15 +617,7 @@
 "local": "Alta Kirkekontor",
 "hours": "Aug 15-Jun14:Mo-Fr 11:00-15:00;Sa-Su off;Jun 15-Aug 14: Mo-Sa 09:00-19:00;Su 13:00-19:00",
 "phone": "+47 78 44 42 70",
-"fromPier": 4.73
-},
-{
-"name": "Kjerringa",
-"group": "sight",
-"kind": "historic",
-"lat": 69.98973,
-"lon": 23.2633,
-"fromPier": 4.88
+"fromPier": 3.07
 },
 {
 "name": "Alta kirke",
@@ -746,15 +626,16 @@
 "lat": 69.96459,
 "lon": 23.25182,
 "wikidata": "Q3612508",
-"fromPier": 5.29
+"fromPier": 3.59
 },
 {
-"name": "The Rock Art of Alta",
+"name": "Lille Raipas",
 "group": "sight",
-"kind": "historic",
-"lat": 69.96548,
-"lon": 23.24435,
-"fromPier": 5.54
+"kind": "viewpoint",
+"lat": 69.93867,
+"lon": 23.36021,
+"description": "View of Alta",
+"fromPier": 4.7
 },
 {
 "name": "Holmen Husky Lodge",
@@ -763,7 +644,7 @@
 "lat": 69.94068,
 "lon": 23.27312,
 "local": "Hundekjøring",
-"fromPier": 5.9
+"fromPier": 4.96
 },
 {
 "name": "Alta river",
@@ -772,7 +653,7 @@
 "lat": 69.93324,
 "lon": 23.2539,
 "local": "Altaelva",
-"fromPier": 7.0
+"fromPier": 6.04
 },
 {
 "name": "Sami Siida",
@@ -783,17 +664,7 @@
 "hours": "Tu-Th 15:00-20:00; Fr-Sa 15:00-23:00; Su 15:00-20:00",
 "website": "https://www.samisiida.no/",
 "phone": "+47 468 38 645",
-"fromPier": 7.18
-},
-{
-"name": "The Rock Art of Alta",
-"group": "sight",
-"kind": "attraction",
-"lat": 69.94802,
-"lon": 23.18648,
-"local": "Bergkunsten i Alta",
-"wikidata": "Q433634",
-"fromPier": 8.26
+"fromPier": 6.27
 },
 {
 "name": "Alta Museum World Heritage Rock Art Centre",
@@ -806,7 +677,7 @@
 "website": "https://www.altamuseum.no/",
 "fee": "yes",
 "phone": "+47 41 75 63 30",
-"fromPier": 8.29
+"fromPier": 6.71
 },
 {
 "name": "Utsiktspunktet i Hjemmeluft",
@@ -814,7 +685,7 @@
 "kind": "viewpoint",
 "lat": 69.9457,
 "lon": 23.17128,
-"fromPier": 8.89
+"fromPier": 7.3
 },
 {
 "name": "Utsiktspunkt på Skoddevarre",
@@ -822,15 +693,7 @@
 "kind": "viewpoint",
 "lat": 69.91871,
 "lon": 23.20085,
-"fromPier": 9.58
-},
-{
-"name": "The Rock Art of Alta",
-"group": "sight",
-"kind": "historic",
-"lat": 69.96383,
-"lon": 23.1134,
-"fromPier": 10.48
+"fromPier": 8.51
 }
 ],
 "practical": [
@@ -842,7 +705,7 @@
 "lon": 23.3707,
 "hours": "Mo-Fr 09:00-17:00, Sa 10:00-14:00",
 "phone": "+47 78 45 70 10",
-"fromPier": 0.75
+"fromPier": 1.59
 },
 {
 "name": "Apotek 1 Nordlys",
@@ -852,7 +715,7 @@
 "lon": 23.27292,
 "hours": "Mo-Fr 10:00-20:00, Sa 10:00-18:00",
 "phone": "+47 78 44 68 20",
-"fromPier": 4.49
+"fromPier": 2.85
 },
 {
 "name": "Apotek 1 Alta",
@@ -862,7 +725,7 @@
 "lon": 23.27059,
 "hours": "Mo-Fr 08:30-18:00, Sa 10:00-15:00",
 "phone": "+47 78 44 96 10",
-"fromPier": 4.63
+"fromPier": 3.02
 },
 {
 "name": "DNB Alta",
@@ -870,17 +733,7 @@
 "kind": "cash",
 "lat": 69.9667,
 "lon": 23.27158,
-"fromPier": 4.51
-},
-{
-"name": "Kiwi Østre Elvebakken",
-"group": "practical",
-"kind": "groceries",
-"lat": 69.97277,
-"lon": 23.37223,
-"hours": "Mo-Sa 07:00-23:00",
-"phone": "+47 78440010",
-"fromPier": 0.7
+"fromPier": 2.82
 },
 {
 "name": "Extra Elvebakken",
@@ -891,7 +744,17 @@
 "hours": "Mo-Sa 07:00-23:00",
 "website": "https://www.coop.no/butikker/extra/extra-elvebakken-2002",
 "phone": "+47 97 57 74 57",
-"fromPier": 0.77
+"fromPier": 1.51
+},
+{
+"name": "Kiwi Østre Elvebakken",
+"group": "practical",
+"kind": "groceries",
+"lat": 69.97277,
+"lon": 23.37223,
+"hours": "Mo-Sa 07:00-23:00",
+"phone": "+47 78440010",
+"fromPier": 1.64
 },
 {
 "name": "Rema 1000 Elvebakken",
@@ -901,7 +764,7 @@
 "lon": 23.37188,
 "hours": "Mo-Sa 07:00-23:00",
 "phone": "+47 78450760",
-"fromPier": 0.87
+"fromPier": 1.75
 },
 {
 "name": "Circle K Elvebakken",
@@ -909,7 +772,7 @@
 "kind": "toilets",
 "lat": 69.97374,
 "lon": 23.36582,
-"fromPier": 0.85
+"fromPier": 1.38
 },
 {
 "name": "Olavsbakken",
@@ -918,7 +781,7 @@
 "lat": 69.96494,
 "lon": 23.44006,
 "fee": "no",
-"fromPier": 2.46
+"fromPier": 4.35
 },
 {
 "name": "Circle K Alta",
@@ -926,7 +789,7 @@
 "kind": "toilets",
 "lat": 69.95918,
 "lon": 23.22504,
-"fromPier": 6.44
+"fromPier": 4.77
 },
 {
 "name": "Parksenteret Shopping Mall",
@@ -936,7 +799,7 @@
 "lon": 23.27447,
 "local": "Parksenteret",
 "website": "http://www.park.no/",
-"fromPier": 4.39
+"fromPier": 2.7
 },
 {
 "name": "Alta Amphitheater",
@@ -948,7 +811,7 @@
 "hours": "Mo-Fr 10:00-20:00; Sa 10:00-18:00",
 "website": "https://amfi.no/alta",
 "wheelchair": "yes",
-"fromPier": 4.52
+"fromPier": 2.87
 },
 {
 "name": "Downtown South Shopping Mall",
@@ -957,7 +820,7 @@
 "lat": 69.96381,
 "lon": 23.27112,
 "local": "Sentrum Syd",
-"fromPier": 4.61
+"fromPier": 3.01
 },
 {
 "name": "MX-sport Canyon Jakt og Fiske",
@@ -966,7 +829,7 @@
 "lat": 69.97256,
 "lon": 23.37167,
 "hours": "Mo-Fr 10:00-19:00;Sa 10:00-17:00",
-"fromPier": 0.74
+"fromPier": 1.64
 },
 {
 "name": "Intersport",
@@ -977,7 +840,7 @@
 "hours": "Mo-Fr 10:00-18:00; Sa 10:00-17:00",
 "website": "https://www.intersport.no/storedetail?storeID=262",
 "phone": "+47 46 88 22 11",
-"fromPier": 4.36
+"fromPier": 2.67
 },
 {
 "name": "Sport1",
@@ -988,7 +851,7 @@
 "hours": "Mo-Fr 10:00-20:00; Su 10:00-18:00",
 "website": "https://amfi.no/amfi-alta/butikker/sport-1/",
 "phone": "+47 78 44 05 00",
-"fromPier": 4.5
+"fromPier": 2.85
 },
 {
 "name": "Bossekop",
@@ -996,7 +859,7 @@
 "kind": "taxi",
 "lat": 69.961,
 "lon": 23.2315,
-"fromPier": 6.15
+"fromPier": 4.46
 }
 ]
 },
@@ -1064,15 +927,6 @@
 "fromPier": 2.17
 },
 {
-"name": "Kanebogen kirke",
-"group": "sight",
-"kind": "church",
-"lat": 68.78054,
-"lon": 16.5688,
-"wheelchair": "yes",
-"fromPier": 2.33
-},
-{
 "name": "Trondenes historiske senter",
 "group": "sight",
 "kind": "museum",
@@ -1113,14 +967,6 @@
 "fromPier": 3.55
 },
 {
-"name": "Adolf Gun",
-"group": "sight",
-"kind": "attraction",
-"lat": 68.83208,
-"lon": 16.57551,
-"fromPier": 3.78
-},
-{
 "name": "Trondenes kystfort",
 "group": "sight",
 "kind": "historic",
@@ -1129,29 +975,12 @@
 "fromPier": 3.85
 },
 {
-"name": "Adolf Gun",
-"group": "sight",
-"kind": "attraction",
-"lat": 68.83316,
-"lon": 16.57965,
-"fromPier": 3.95
-},
-{
 "name": "Adolfkanon",
 "group": "sight",
 "kind": "museum",
 "lat": 68.83417,
 "lon": 16.58415,
 "fromPier": 4.11
-},
-{
-"name": "Adolf Gun",
-"group": "sight",
-"kind": "attraction",
-"lat": 68.83447,
-"lon": 16.58449,
-"local": "Adolfkanonen",
-"fromPier": 4.15
 }
 ],
 "practical": [
@@ -1860,21 +1689,21 @@
 "fromPier": 0.88
 },
 {
-"name": "Sandvikskirken",
-"group": "sight",
-"kind": "church",
-"lat": 60.40539,
-"lon": 5.32546,
-"wikidata": "Q17195037",
-"fromPier": 0.9
-},
-{
 "name": "Musikkpaviljongen",
 "group": "sight",
 "kind": "historic",
 "lat": 60.39136,
 "lon": 5.32484,
 "wikidata": "Q19382057",
+"fromPier": 0.9
+},
+{
+"name": "Sandvikskirken",
+"group": "sight",
+"kind": "church",
+"lat": 60.40539,
+"lon": 5.32546,
+"wikidata": "Q17195037",
 "fromPier": 0.9
 },
 {
@@ -1888,18 +1717,6 @@
 "wikidata": "Q819531",
 "wheelchair": "yes",
 "fromPier": 0.92
-},
-{
-"name": "Permanenten",
-"group": "sight",
-"kind": "gallery",
-"lat": 60.39056,
-"lon": 5.32406,
-"website": "https://www.kodebergen.no/",
-"wikidata": "Q14915214",
-"wheelchair": "yes",
-"description": "kunstmuseum",
-"fromPier": 0.96
 },
 {
 "name": "Stenersen",
@@ -1968,15 +1785,6 @@
 "website": "https://ptb.no",
 "wikidata": "Q11995734",
 "wheelchair": "yes",
-"fromPier": 1.14
-},
-{
-"name": "St. Jørgen hospitalkirke",
-"group": "sight",
-"kind": "church",
-"lat": 60.39172,
-"lon": 5.33266,
-"wikidata": "Q7593126",
 "fromPier": 1.14
 },
 {
@@ -2087,26 +1895,6 @@
 "fromPier": 1.31
 },
 {
-"name": "Frelsesarmeen Bergen 1. korps",
-"group": "sight",
-"kind": "church",
-"lat": 60.38856,
-"lon": 5.33001,
-"website": "https://frelsesarmeen.no/lokalavdeling/bergen-sentrum-korps",
-"wikidata": "Q11960636",
-"phone": "+47 55 31 32 30",
-"fromPier": 1.32
-},
-{
-"name": "St. Jakob kirke",
-"group": "sight",
-"kind": "church",
-"lat": 60.38669,
-"lon": 5.33159,
-"wikidata": "Q12002504",
-"fromPier": 1.54
-},
-{
 "name": "Bergen Technical Museum",
 "group": "sight",
 "kind": "museum",
@@ -2121,13 +1909,68 @@
 "fromPier": 1.64
 },
 {
-"name": "Laksevåg kirke",
+"name": "Treet",
 "group": "sight",
-"kind": "church",
-"lat": 60.3856,
-"lon": 5.30069,
-"wikidata": "Q11982996",
-"fromPier": 1.69
+"kind": "attraction",
+"lat": 60.38279,
+"lon": 5.31655,
+"website": "https://www.bob.no/prosjekter/nye-prosjekter/treet",
+"wikidata": "Q19392968",
+"wheelchair": "yes",
+"fromPier": 1.75
+},
+{
+"name": "Damsgård Manor",
+"group": "sight",
+"kind": "museum",
+"lat": 60.38326,
+"lon": 5.30211,
+"local": "Damsgård hovedgård",
+"website": "https://www.bymuseet.no/?vis=82",
+"wikidata": "Q5212972",
+"fee": "yes",
+"phone": "+47 47 97 95 84",
+"fromPier": 1.88
+},
+{
+"name": "VilVite",
+"group": "sight",
+"kind": "museum",
+"lat": 60.38162,
+"lon": 5.32955,
+"hours": "Tu-Fr 09:00-15:00; Sa-Su 10:00-17:00; PH 10:00-17:00",
+"website": "https://www.vilvite.no/",
+"wikidata": "Q11118693",
+"fee": "yes",
+"wheelchair": "yes",
+"description": "Vitenskapsmuseum / Aktivitetssenter",
+"phone": "+47 55 59 45 00",
+"fromPier": 2.0
+},
+{
+"name": "Old Bergen",
+"group": "sight",
+"kind": "museum",
+"lat": 60.41794,
+"lon": 5.31114,
+"local": "Gamle Bergen",
+"hours": "May 12-Sep 8 09:00-16:00; May 17 closed",
+"website": "https://www.bymuseet.no/?vis=79",
+"wikidata": "Q4027116",
+"fee": "yes",
+"wheelchair": "limited",
+"phone": "+47 479 79 576",
+"fromPier": 2.19
+},
+{
+"name": "Jesus Lever-steinen",
+"group": "sight",
+"kind": "attraction",
+"lat": 60.3746,
+"lon": 5.32637,
+"wikidata": "Q56405542",
+"wheelchair": "no",
+"fromPier": 2.71
 }
 ],
 "practical": [
@@ -2412,463 +2255,491 @@
 "edinburgh": {
 "sights": [
 {
-"name": "Rosyth Castle",
+"name": "St Giles' Cathedral",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94943,
+"lon": -3.19084,
+"hours": "Mo-We,Fr 10:00-18:00; Th 10:00-17:30; Sa 09:00-17:00; Su 13:00-17:00",
+"website": "https://www.stgilescathedral.org.uk/",
+"wikidata": "Q1547466",
+"wheelchair": "yes",
+"fromPier": 0.01
+},
+{
+"name": "Charles II of England",
 "group": "sight",
 "kind": "historic",
-"lat": 56.02346,
-"lon": -3.43137,
-"wikidata": "Q6980281",
-"description": "Sign exists which states private property, however, Freedom to Roam is likely to apply here, and there are no barriers preventing entry to the site.",
-"fromPier": 0.67
+"lat": 55.94923,
+"lon": -3.19052,
+"wikidata": "Q17570718",
+"fromPier": 0.04
 },
 {
-"name": "Rosyth Old Kirk",
+"name": "Fifth Duke of Buccleuch Memorial",
 "group": "sight",
 "kind": "historic",
-"lat": 56.02966,
-"lon": -3.46941,
-"website": "https://canmore.org.uk/site/49515/rosyth-church",
-"wikidata": "Q56668031",
-"description": "Pre-reformation church ruins, abandoned 1630-48.",
-"fromPier": 1.96
+"lat": 55.94949,
+"lon": -3.19171,
+"wikidata": "Q17570712",
+"fromPier": 0.05
 },
 {
-"name": "Rosyth Parish Church",
+"name": "Mercat Cross",
 "group": "sight",
-"kind": "church",
-"lat": 56.03895,
-"lon": -3.42131,
-"wikidata": "Q17816664",
-"fromPier": 2.31
+"kind": "historic",
+"lat": 55.94965,
+"lon": -3.19018,
+"wikidata": "Q6818041",
+"fromPier": 0.05
 },
 {
-"name": "St Peter's Parish Church",
+"name": "David Hume Memorial",
 "group": "sight",
-"kind": "church",
-"lat": 56.03158,
-"lon": -3.3969,
-"wikidata": "Q17793984",
-"fromPier": 2.99
+"kind": "historic",
+"lat": 55.94955,
+"lon": -3.19244,
+"wikidata": "Q55842333",
+"fromPier": 0.1
+},
+{
+"name": "Gladstone's Land",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94943,
+"lon": -3.19368,
+"website": "https://www.nts.org.uk/visit/places/gladstones-land",
+"wikidata": "Q5566312",
+"fee": "yes",
+"fromPier": 0.17
+},
+{
+"name": "Museum on the Mound",
+"group": "sight",
+"kind": "museum",
+"lat": 55.95019,
+"lon": -3.19325,
+"hours": "Mo,Su off; Tu-Fr 10:00-17:00; Sa,PH 13:00-17:00",
+"website": "https://www.museumonthemound.com/",
+"wikidata": "Q6941127",
+"fee": "no",
+"wheelchair": "yes",
+"phone": "+44 131 243 5464",
+"fromPier": 0.17
+},
+{
+"name": "The Edinburgh Dungeon",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.95108,
+"lon": -3.19088,
+"website": "https://www.thedungeons.com/edinburgh/en/",
+"wikidata": "Q55076772",
+"fee": "yes",
+"wheelchair": "limited",
+"fromPier": 0.18
+},
+{
+"name": "Writers' Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 55.94969,
+"lon": -3.19374,
+"hours": "Mo-Su 10:00-17:00",
+"website": "https://www.edinburghmuseums.org.uk/venue/writers-museum",
+"wikidata": "Q8038444",
+"fee": "no",
+"wheelchair": "no",
+"fromPier": 0.18
+},
+{
+"name": "City Art Centre",
+"group": "sight",
+"kind": "gallery",
+"lat": 55.95103,
+"lon": -3.18916,
+"website": "https://www.edinburghmuseums.org.uk/venue/city-art-centre",
+"wikidata": "Q17569430",
+"fee": "no",
+"wheelchair": "yes",
+"fromPier": 0.2
+},
+{
+"name": "Fruitmarket",
+"group": "sight",
+"kind": "gallery",
+"lat": 55.95124,
+"lon": -3.18969,
+"hours": "11:00-18:00",
+"website": "https://www.fruitmarket.co.uk/",
+"wikidata": "Q4402028",
+"fee": "no",
+"wheelchair": "yes",
+"fromPier": 0.21
+},
+{
+"name": "Black Watch Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95013,
+"lon": -3.19454,
+"wikidata": "Q17569383",
+"fromPier": 0.24
+},
+{
+"name": "William Chambers Statue",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94739,
+"lon": -3.18979,
+"wikidata": "Q17813191",
+"wheelchair": "yes",
+"fromPier": 0.24
+},
+{
+"name": "W.H. Playfair Statue",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94758,
+"lon": -3.18893,
+"wikidata": "Q66602371",
+"fromPier": 0.25
+},
+{
+"name": "John Knox Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94964,
+"lon": -3.19508,
+"wikidata": "Q77776488",
+"fromPier": 0.26
+},
+{
+"name": "West Bow Well",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94799,
+"lon": -3.19447,
+"wikidata": "Q17570786",
+"fromPier": 0.28
+},
+{
+"name": "St Cecilia's Hall",
+"group": "sight",
+"kind": "museum",
+"lat": 55.94902,
+"lon": -3.18647,
+"website": "https://www.stcecilias.ed.ac.uk/",
+"wikidata": "Q7592777",
+"fromPier": 0.28
+},
+{
+"name": "Greyfriars Bobby",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94692,
+"lon": -3.1913,
+"website": "https://greyfriarsbobby.org/",
+"wikidata": "Q17570789",
+"wheelchair": "yes",
+"fromPier": 0.29
+},
+{
+"name": "Camera Obscura & World of Illusions",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94903,
+"lon": -3.1956,
+"hours": "08:00-22:00",
+"website": "https://www.camera-obscura.co.uk/",
+"wikidata": "Q4211494",
+"wheelchair": "no",
+"phone": "+44 131 226 3709",
+"fromPier": 0.3
+},
+{
+"name": "National Museum of Scotland",
+"group": "sight",
+"kind": "museum",
+"lat": 55.94691,
+"lon": -3.18967,
+"hours": "Mo-Su 10:00-17:00; Jan 01 12:00-17:00; Dec 25 off; Dec 26 12:00-17:00",
+"website": "https://www.nms.ac.uk/national-museum-of-scotland",
+"wikidata": "Q1633842",
+"fee": "no",
+"wheelchair": "yes",
+"fromPier": 0.3
+},
+{
+"name": "The Scotch Whisky Experience",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94874,
+"lon": -3.19587,
+"website": "https://www.scotchwhiskyexperience.co.uk/",
+"wikidata": "Q4526278",
+"fee": "yes",
+"wheelchair": "yes",
+"phone": "+44 131 220 0441",
+"fromPier": 0.32
+},
+{
+"name": "Old College",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94742,
+"lon": -3.18726,
+"hours": "Mo-Su 08:00-21:30",
+"website": "https://www.ed.ac.uk/",
+"wikidata": "Q4283940",
+"wheelchair": "yes",
+"fromPier": 0.32
+},
+{
+"name": "Talbot Rice Gallery",
+"group": "sight",
+"kind": "museum",
+"lat": 55.94707,
+"lon": -3.18777,
+"hours": "Tu-Sa 10:00-17:00",
+"website": "https://www.trg.ed.ac.uk/",
+"wikidata": "Q7679039",
+"fee": "no",
+"wheelchair": "yes",
+"phone": "+44 131 650 2210",
+"fromPier": 0.33
+},
+{
+"name": "National Gallery",
+"group": "sight",
+"kind": "gallery",
+"lat": 55.95089,
+"lon": -3.19562,
+"hours": "Mo-Su 10:00-17:00; Th 10:00-19:00",
+"website": "https://www.nationalgalleries.org/",
+"wikidata": "Q942713",
+"fee": "no",
+"fromPier": 0.33
+},
+{
+"name": "Greyfriars Kirk",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.94662,
+"lon": -3.1923,
+"website": "https://greyfriarskirk.com/",
+"wikidata": "Q2113456",
+"wheelchair": "yes",
+"phone": "+44 131 225 1900",
+"fromPier": 0.33
+},
+{
+"name": "David Livingstone Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95247,
+"lon": -3.19275,
+"wikidata": "Q17570753",
+"fromPier": 0.35
+},
+{
+"name": "Museum of Childhood",
+"group": "sight",
+"kind": "museum",
+"lat": 55.95033,
+"lon": -3.18551,
+"hours": "Mo-Su 10:00-17:00",
+"website": "https://www.edinburghmuseums.org.uk/venue/museum-childhood",
+"wikidata": "Q15122172",
+"fee": "no",
+"wheelchair": "yes",
+"phone": "+44 131 529 4142",
+"fromPier": 0.35
+},
+{
+"name": "Scott Monument",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.95236,
+"lon": -3.19326,
+"hours": "Mo-Su 10:00-21:00",
+"website": "https://www.edinburghmuseums.org.uk/venue/scott-monument",
+"wikidata": "Q2502213",
+"wheelchair": "no",
+"description": "The Scott Monument is a Victorian Gothic monument to Scottish author Sir Walter Scott. It is the second largest monument to a writer in the world.",
+"phone": "+44 131 529 4068",
+"fromPier": 0.35
+},
+{
+"name": "Trinity Apse",
+"group": "sight",
+"kind": "museum",
+"lat": 55.95097,
+"lon": -3.18557,
+"hours": "\"on appointment\"",
+"wikidata": "Q7842704",
+"fromPier": 0.37
+},
+{
+"name": "Adam Black Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95218,
+"lon": -3.19443,
+"wikidata": "Q17570709",
+"fromPier": 0.37
+},
+{
+"name": "78th Highlanders Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94896,
+"lon": -3.19692,
+"wikidata": "Q17795306",
+"fromPier": 0.38
+},
+{
+"name": "John Knox House",
+"group": "sight",
+"kind": "attraction",
+"lat": 55.95062,
+"lon": -3.18511,
+"website": "https://www.scottishstorytellingcentre.com/john-knox-house/",
+"wikidata": "Q6243358",
+"fee": "yes",
+"fromPier": 0.38
+},
+{
+"name": "John Wilson Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95201,
+"lon": -3.19546,
+"wikidata": "Q17570768",
+"fromPier": 0.4
+},
+{
+"name": "Colonel Mackenzie Statue",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94892,
+"lon": -3.1974,
+"wikidata": "Q17795478",
+"fromPier": 0.41
 },
 {
 "name": "War Memorial",
 "group": "sight",
 "kind": "historic",
-"lat": 56.03193,
-"lon": -3.39668,
-"wikidata": "Q77780845",
-"fromPier": 3.02
+"lat": 55.94591,
+"lon": -3.19305,
+"wikidata": "Q17794974",
+"fromPier": 0.42
 },
 {
-"name": "Inverkeithing Parish Church",
+"name": "Scottish Horse Memorial",
 "group": "sight",
-"kind": "church",
-"lat": 56.03383,
-"lon": -3.39691,
-"wikidata": "Q17794098",
-"fromPier": 3.09
+"kind": "historic",
+"lat": 55.94893,
+"lon": -3.19759,
+"wikidata": "Q77776444",
+"fromPier": 0.42
 },
 {
-"name": "Willie's Well",
-"group": "sight",
-"kind": "attraction",
-"lat": 56.01006,
-"lon": -3.39567,
-"wikidata": "Q17794327",
-"fromPier": 3.12
-},
-{
-"name": "North Queensferry Lighthouse",
-"group": "sight",
-"kind": "attraction",
-"lat": 56.00828,
-"lon": -3.39475,
-"wikidata": "Q17569458",
-"fromPier": 3.26
-},
-{
-"name": "Modern Two",
+"name": "Royal Scottish Academy",
 "group": "sight",
 "kind": "gallery",
-"lat": 55.95183,
-"lon": -3.22421,
-"hours": "Mo-Su 10:00-17:00",
-"wikidata": "Q2679817",
-"fee": "yes",
-"fromPier": 15.58
-},
-{
-"name": "Bristo Baptist Church",
-"group": "sight",
-"kind": "church",
-"lat": 55.95469,
-"lon": -3.2212,
-"website": "https://www.bristobaptist.org",
-"wikidata": "Q17805686",
-"fromPier": 15.59
-},
-{
-"name": "RBGE Inverleith House",
-"group": "sight",
-"kind": "gallery",
-"lat": 55.96502,
-"lon": -3.21022,
-"website": "http://www.rbge.org.uk/the-gardens/edinburgh/inverleith-house",
-"wikidata": "Q16931444",
+"lat": 55.9517,
+"lon": -3.19629,
+"website": "https://www.royalscottishacademy.org/",
+"wikidata": "Q7374813",
 "fee": "no",
-"fromPier": 15.69
+"fromPier": 0.42
 },
 {
-"name": "St Bernard's Well",
+"name": "Royal Scots Monument",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95113,
+"lon": -3.19706,
+"wikidata": "Q17795453",
+"fromPier": 0.42
+},
+{
+"name": "Frederick, Duke of York Statue",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94888,
+"lon": -3.19785,
+"wikidata": "Q17791177",
+"fromPier": 0.44
+},
+{
+"name": "Duke of Wellington Statue",
+"group": "sight",
+"kind": "historic",
+"lat": 55.95347,
+"lon": -3.18916,
+"wikidata": "Q17570765",
+"fromPier": 0.45
+},
+{
+"name": "72nd Highlanders Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94882,
+"lon": -3.19813,
+"wikidata": "Q77776441",
+"fromPier": 0.46
+},
+{
+"name": "Allan Ramsay Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 55.9517,
+"lon": -3.19732,
+"wikidata": "Q17570763",
+"fromPier": 0.47
+},
+{
+"name": "McEwan Lantern Pillar",
+"group": "sight",
+"kind": "historic",
+"lat": 55.94534,
+"lon": -3.18826,
+"website": "https://canmore.org.uk/site/125296/edinburgh-teviot-place-bristo-square-mcewan-lantern-pillar",
+"wikidata": "Q17791706",
+"fromPier": 0.49
+},
+{
+"name": "Gatehouse",
 "group": "sight",
 "kind": "attraction",
-"lat": 55.95528,
-"lon": -3.21148,
-"wikidata": "Q17570795",
-"wheelchair": "no",
-"fromPier": 16.09
+"lat": 55.94852,
+"lon": -3.19866,
+"wikidata": "Q17569927",
+"fromPier": 0.5
 },
 {
-"name": "First Church of Christ Scientist",
+"name": "Brassfounders Column",
 "group": "sight",
 "kind": "historic",
-"lat": 55.96324,
-"lon": -3.20449,
-"wikidata": "Q17807208",
-"description": "This building was built as a Christian Science Church in 1911, but is now offices.(wikipedia)",
-"fromPier": 16.1
-},
-{
-"name": "First Church of Christ Scientist",
-"group": "sight",
-"kind": "historic",
-"lat": 55.96325,
-"lon": -3.2045,
-"wikidata": "Q17807208",
-"description": "This building was built as a Christian Science Church in 1911, but is now offices.(wikipedia)",
-"fromPier": 16.1
-},
-{
-"name": "Old Stockbridge Market Entrance",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95796,
-"lon": -3.2072,
-"wikidata": "Q17812263",
-"fromPier": 16.19
-},
-{
-"name": "St Mary's Episcopal Cathedral",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.94859,
-"lon": -3.21626,
-"website": "https://www.cathedral.net/",
-"wikidata": "Q2324015",
-"wheelchair": "yes",
-"phone": "+44 131 225 6293",
-"fromPier": 16.19
-},
-{
-"name": "Robert Viscount Melville",
-"group": "sight",
-"kind": "historic",
-"lat": 55.94966,
-"lon": -3.21394,
-"wikidata": "Q17570757",
-"fromPier": 16.25
-},
-{
-"name": "Palmerston Place Church",
-"group": "sight",
-"kind": "church",
-"lat": 55.94735,
-"lon": -3.21627,
-"website": "https://www.palmerstonplacechurch.com/",
-"wikidata": "Q17809170",
-"fromPier": 16.26
-},
-{
-"name": "Heart Of Midlothian War Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.94628,
-"lon": -3.2165,
-"wikidata": "Q56631065",
-"fromPier": 16.3
-},
-{
-"name": "St Stephen's Church",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95854,
-"lon": -3.20348,
-"website": "http://saintstephensstockbridge.com/",
-"wikidata": "Q7595476",
-"phone": "+44 131 556 2661",
-"fromPier": 16.38
-},
-{
-"name": "William Gladstone Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.94854,
-"lon": -3.21228,
-"wikidata": "Q17570728",
-"fromPier": 16.4
-},
-{
-"name": "Georgian House",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95249,
-"lon": -3.20821,
-"website": "https://www.nts.org.uk/Property/Georgian-House/",
-"wikidata": "Q7736202",
-"fromPier": 16.41
-},
-{
-"name": "Catherine Sinclair Monument",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95317,
-"lon": -3.20759,
-"wikidata": "Q17570693",
-"fromPier": 16.41
-},
-{
-"name": "Charlotte Chapel",
-"group": "sight",
-"kind": "church",
-"lat": 55.94941,
-"lon": -3.2106,
-"website": "https://www.charlottechapel.org/",
-"wikidata": "Q17570498",
-"fromPier": 16.45
-},
-{
-"name": "Albert Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95176,
-"lon": -3.20766,
-"wikidata": "Q17570702",
-"fromPier": 16.48
-},
-{
-"name": "Church of St John the Evangelist",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95004,
-"lon": -3.20648,
-"website": "https://www.stjohns-edinburgh.org.uk/",
-"wikidata": "Q5117460",
-"phone": "+44 131 229 7565",
-"fromPier": 16.64
-},
-{
-"name": "Dean Ramsay Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.9503,
-"lon": -3.20565,
-"wikidata": "Q114153227",
-"fromPier": 16.67
-},
-{
-"name": "Dr Thomas Chalmers Statue",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95246,
-"lon": -3.20351,
-"wikidata": "Q17570715",
-"fromPier": 16.68
-},
-{
-"name": "Sir James Young Simpson Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95039,
-"lon": -3.20505,
-"wikidata": "Q17813295",
-"fromPier": 16.7
-},
-{
-"name": "The Parish Church of St Cuthbert",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.94967,
-"lon": -3.20499,
-"website": "https://www.st-cuthberts.net/",
-"wikidata": "Q7756122",
-"phone": "+44 131 229 1142",
-"fromPier": 16.74
-},
-{
-"name": "Bellevue Chapel",
-"group": "sight",
-"kind": "church",
-"lat": 55.96141,
-"lon": -3.19477,
-"wikidata": "Q4883924",
-"wheelchair": "yes",
-"fromPier": 16.74
-},
-{
-"name": "Thomas Guthrie Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95081,
-"lon": -3.20263,
-"wikidata": "Q17813224",
-"fromPier": 16.81
-},
-{
-"name": "William Pitt Statue",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95298,
-"lon": -3.20039,
-"wikidata": "Q17570760",
-"description": "Born MDCCLIX, Died MDCCCVI",
-"fromPier": 16.82
-},
-{
-"name": "Ross Fountain",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95006,
-"lon": -3.20304,
-"wikidata": "Q7369346",
-"fromPier": 16.83
-},
-{
-"name": "Wojtek Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95077,
-"lon": -3.20214,
-"wikidata": "Q66604758",
-"fromPier": 16.84
-},
-{
-"name": "Robert Louis Stevenson Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95004,
-"lon": -3.20246,
-"wikidata": "Q17569970",
-"fromPier": 16.86
-},
-{
-"name": "Scottish Norwegian Training Areas Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95022,
-"lon": -3.20198,
-"wikidata": "Q114167541",
-"fromPier": 16.88
-},
-{
-"name": "Scottish American War Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95105,
-"lon": -3.20104,
-"wikidata": "Q7435775",
-"fromPier": 16.88
-},
-{
-"name": "Earl Haig",
-"group": "sight",
-"kind": "historic",
-"lat": 55.9489,
-"lon": -3.20172,
-"wikidata": "Q17813234",
-"fromPier": 16.96
-},
-{
-"name": "Royal Scots Greys Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95137,
-"lon": -3.19942,
-"wikidata": "Q17813285",
-"fromPier": 16.96
-},
-{
-"name": "George IV statue",
-"group": "sight",
-"kind": "historic",
-"lat": 55.95352,
-"lon": -3.19726,
-"wikidata": "Q17570721",
-"description": "George IV visited Scotland MDCCCXXII",
-"fromPier": 16.97
-},
-{
-"name": "National War Museum",
-"group": "sight",
-"kind": "museum",
-"lat": 55.94875,
-"lon": -3.20174,
-"hours": "Apr-Sep: Mo-Su 09:45-17:45; Oct-Mar: Mo-Su 09:45-16:45",
-"website": "https://www.nms.ac.uk/national-war-museum/",
-"wikidata": "Q6979345",
-"fee": "no",
-"fromPier": 16.97
-},
-{
-"name": "New Town Church",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.95405,
-"lon": -3.19587,
-"wikidata": "Q7592411",
-"website": "https://www.edinburghnewtownchurch.org.uk/",
-"fromPier": 17.02
-},
-{
-"name": "Edinburgh Castle",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.94868,
-"lon": -3.20055,
-"hours": "Apr 01-Sep 30 09:30-18:00; Oct 01-Dec 23,Dec 27-31,Jan 02-Mar 31 09:30-17:00; Dec 24 09:30-16:00; Jan 01 11:00-17:00; Dec 25-26 off",
-"website": "https://www.edinburghcastle.scot/",
-"wikidata": "Q212065",
-"fee": "yes",
-"wheelchair": "limited",
-"phone": "+44 131 225 9846",
-"fromPier": 17.04
-},
-{
-"name": "Mons Meg",
-"group": "sight",
-"kind": "attraction",
-"lat": 55.94879,
-"lon": -3.20016,
-"website": "https://www.edinburghcastle.scot/see-and-do/highlights/mons-meg",
-"wikidata": "Q952412",
-"fromPier": 17.05
+"lat": 55.94602,
+"lon": -3.1854,
+"wikidata": "Q17812523",
+"fromPier": 0.52
 }
 ],
 "practical": [
 {
-"name": "John Hope Gateway, Royal Botanic Garden Edinburgh",
+"name": "Discover Scotland",
 "group": "practical",
 "kind": "tourist info",
-"lat": 55.9644,
-"lon": -3.21235,
-"fromPier": 15.6
-},
-{
-"name": "East Gate",
-"group": "practical",
-"kind": "tourist info",
-"lat": 55.96478,
-"lon": -3.20399,
-"fromPier": 16.06
+"lat": 55.95001,
+"lon": -3.18985,
+"hours": "Mo-Sa 09:00-20:00; Su 10:00-18:00",
+"website": "https://www.discover-scotland.co.uk/",
+"fromPier": 0.09
 },
 {
 "name": "Edinburgh Castle Information",
@@ -2876,90 +2747,119 @@
 "kind": "tourist info",
 "lat": 55.94853,
 "lon": -3.19896,
-"fromPier": 17.13
+"fromPier": 0.51
 },
 {
-"name": "Well Pharmacy",
+"name": "Edinburgh Bus Tours",
 "group": "practical",
-"kind": "pharmacy",
-"lat": 56.03639,
-"lon": -3.41664,
-"hours": "Mo-Fr 08:45-17:45; Sa 09:00-13:00",
-"website": "https://finder.well.co.uk/store/rosyth-crosslands-place",
-"phone": "+44 1383 413 425",
-"fromPier": 2.26
+"kind": "tourist info",
+"lat": 55.95375,
+"lon": -3.18748,
+"wheelchair": "no",
+"fromPier": 0.52
 },
 {
-"name": "Rowlands Pharmacy",
+"name": "Royal Mile Pharmacy",
 "group": "practical",
 "kind": "pharmacy",
-"lat": 56.0409,
-"lon": -3.42256,
-"website": "https://rowlandspharmacy.co.uk/find-local-pharmacy#!/l/dunfermline/6-queensferry-road/1465",
-"fromPier": 2.46
+"lat": 55.95059,
+"lon": -3.18565,
+"hours": "Mo-Fr 09:00-18:00; Sa 09:00-17:00",
+"wheelchair": "yes",
+"fromPier": 0.35
 },
 {
-"name": "Lindsay & Gilmour Pharmacy",
+"name": "Mackenzie & Co. Chemists",
 "group": "practical",
 "kind": "pharmacy",
-"lat": 56.03054,
-"lon": -3.3984,
-"fromPier": 2.86
+"lat": 55.94561,
+"lon": -3.19137,
+"hours": "Mo-Fr 08:30-18:00; Sa 08:30-17:00",
+"fromPier": 0.43
+},
+{
+"name": "Bristo Square Pharmacy",
+"group": "practical",
+"kind": "pharmacy",
+"lat": 55.94578,
+"lon": -3.18818,
+"hours": "Mo-Fr 09:00-18:00; Sa 09:00-17:00",
+"website": "https://bristosquarepharmacy.co.uk/",
+"wheelchair": "yes",
+"fromPier": 0.45
+},
+{
+"name": "Barclays",
+"group": "practical",
+"kind": "cash",
+"lat": 55.9533,
+"lon": -3.19027,
+"hours": "Mo-Fr 09:30-16:30; Sa 09:30-13:00; Su,PH off",
+"website": "https://www.barclays.co.uk/branch-finder/branch/edinburgh",
+"wheelchair": "yes",
+"phone": "+44 345 734 5345",
+"fromPier": 0.42
 },
 {
 "name": "Nationwide",
 "group": "practical",
 "kind": "cash",
-"lat": 56.03738,
-"lon": -3.43751,
-"website": "https://www.nationwide.co.uk/branches/rosyth/8-unwin-avenue",
-"fromPier": 1.78
-},
-{
-"name": "Handelsbanken",
-"group": "practical",
-"kind": "cash",
-"lat": 56.04802,
-"lon": -3.43257,
-"fromPier": 3.0
-},
-{
-"name": "RBS",
-"group": "practical",
-"kind": "cash",
-"lat": 55.95042,
-"lon": -3.20721,
-"website": "https://www.rbs.co.uk/search-results/locator/branch.html?sortcode=835100&name=Edinburgh%20West%20End%20Office",
+"lat": 55.95365,
+"lon": -3.19151,
+"hours": "Mo-Tu 09:00-16:30; We 10:00-16:30; Th-Fr 09:00-16:30; Sa 09:30-13:00; Su closed",
+"website": "https://www.nationwide.co.uk/branches/edinburgh/17-south-st-andrew-street",
 "wheelchair": "yes",
-"fromPier": 16.58
+"phone": "+44 345 266 0915",
+"fromPier": 0.46
 },
 {
-"name": "Morrisons Daily",
+"name": "Santander",
 "group": "practical",
-"kind": "groceries",
-"lat": 56.03008,
-"lon": -3.42926,
-"website": "https://www.morrisons.com/storefinder/61304/morrisons-daily-rosyth-sherbrook-road",
-"fromPier": 1.22
+"kind": "cash",
+"lat": 55.95275,
+"lon": -3.19657,
+"hours": "Mo-We 09:00-17:00; Th 10:00-17:00; Fr 09:00-17:00; Sa 09:00-16:00",
+"website": "https://branchlocator.santander.com/detail/Santander_UK_UK_1507",
+"wheelchair": "yes",
+"fromPier": 0.51
 },
 {
-"name": "Sainsbury's Local",
+"name": "Infusions",
 "group": "practical",
 "kind": "groceries",
-"lat": 56.03717,
-"lon": -3.43795,
-"hours": "07:00-23:00",
-"website": "https://stores.sainsburys.co.uk/6106/rosyth-admiralty-road-local",
-"phone": "+44 330 013 7717",
-"fromPier": 1.76
+"lat": 55.94842,
+"lon": -3.18913,
+"hours": "Mo-Th,Su 10:00-22:00; Fr-Sa 10:00-04:00",
+"fromPier": 0.16
 },
 {
-"name": "Nisa Local",
+"name": "Londis",
 "group": "practical",
 "kind": "groceries",
-"lat": 56.03652,
-"lon": -3.42517,
-"fromPier": 1.95
+"lat": 55.94839,
+"lon": -3.18897,
+"hours": "24/7",
+"wheelchair": "yes",
+"fromPier": 0.17
+},
+{
+"name": "City Scots",
+"group": "practical",
+"kind": "groceries",
+"lat": 55.95036,
+"lon": -3.1879,
+"hours": "24/7",
+"fromPier": 0.21
+},
+{
+"name": "Waverley Market",
+"group": "practical",
+"kind": "shopping centre",
+"lat": 55.95271,
+"lon": -3.19121,
+"website": "https://waverleymarketedin.com/",
+"wikidata": "Q7244460",
+"fromPier": 0.36
 },
 {
 "name": "Marks & Spencer",
@@ -2969,7 +2869,7 @@
 "lon": -3.19464,
 "hours": "Mo-Sa 08:00-21:00; Su 09:00-19:00",
 "website": "https://www.marksandspencer.com/stores/edinburgh-2914",
-"fromPier": 17.16
+"fromPier": 0.41
 },
 {
 "name": "TK Maxx",
@@ -2981,91 +2881,37 @@
 "website": "https://www.tkmaxx.com/uk/en/store/edinburgh/unit-1-south-david-street/666",
 "wheelchair": "yes",
 "phone": "+44 131 558 1805",
-"fromPier": 17.21
+"fromPier": 0.43
 },
 {
-"name": "Harvey Nichols",
-"group": "practical",
-"kind": "shopping centre",
-"lat": 55.95482,
-"lon": -3.19176,
-"hours": "Mo-We 10:00-18:00; Th 10:00-20:00; Fr,Sa 10:00-19:00; Su 11:00-18:00",
-"website": "https://www.harveynichols.com/",
-"fromPier": 17.21
-},
-{
-"name": "Bruntsfield Sports",
+"name": "Mountain Warehouse",
 "group": "practical",
 "kind": "outdoor gear",
-"lat": 55.95889,
-"lon": -3.21147,
-"fromPier": 15.91
+"lat": 55.95066,
+"lon": -3.18471,
+"website": "https://www.mountainwarehouse.com/stores/rme/edinburgh-royal-mile/",
+"fromPier": 0.41
 },
 {
-"name": "Up & Running",
+"name": "Cotswold Outdoor",
 "group": "practical",
 "kind": "outdoor gear",
-"lat": 55.95096,
-"lon": -3.21021,
-"fromPier": 16.39
+"lat": 55.95246,
+"lon": -3.19821,
+"hours": "Mo 09:30-18:00; Tu 09:30-18:00; We 09:30-18:00; Th 09:30-20:00; Fr 09:30-18:00; Sa 09:00-18:00; Su 11:00-17:00",
+"website": "https://www.cotswoldoutdoor.com/stores/edinburgh.html",
+"wheelchair": "yes",
+"phone": "+44 131 341 2063",
+"fromPier": 0.56
 },
 {
-"name": "Macron Sports Hub",
+"name": "Nordic Outdoor - Now Empty",
 "group": "practical",
 "kind": "outdoor gear",
-"lat": 55.96494,
-"lon": -3.1949,
-"hours": "Mo-Th 09:00-17:00; Fr 08:30-16:00",
-"fromPier": 16.58
-},
-{
-"name": "Rosyth",
-"group": "practical",
-"kind": "train station",
-"lat": 56.04538,
-"lon": -3.42633,
-"wikidata": "Q2218049",
-"fromPier": 2.82
-},
-{
-"name": "North Queensferry",
-"group": "practical",
-"kind": "train station",
-"lat": 56.01245,
-"lon": -3.39466,
-"wikidata": "Q2109115",
-"wheelchair": "yes",
-"fromPier": 3.08
-},
-{
-"name": "Inverkeithing",
-"group": "practical",
-"kind": "train station",
-"lat": 56.03524,
-"lon": -3.39542,
-"wikidata": "Q3135635",
-"wheelchair": "yes",
-"fromPier": 3.25
-},
-{
-"name": "Dalgety Bay",
-"group": "practical",
-"kind": "train station",
-"lat": 56.04227,
-"lon": -3.36725,
-"wikidata": "Q2198824",
-"wheelchair": "yes",
-"fromPier": 5.16
-},
-{
-"name": "Haymarket",
-"group": "practical",
-"kind": "train station",
-"lat": 55.94518,
-"lon": -3.21937,
-"wikidata": "Q800709",
-"wheelchair": "yes",
-"fromPier": 16.22
+"lat": 55.95468,
+"lon": -3.18859,
+"website": "https://www.nordicoutdoor.co.uk/st-james-quarter",
+"fromPier": 0.59
 },
 {
 "name": "Edinburgh Waverley",
@@ -3076,7 +2922,80 @@
 "hours": "Mo-Sa 04:00-00:45; Su 06:00-00:45",
 "wikidata": "Q800716",
 "wheelchair": "yes",
-"fromPier": 17.43
+"fromPier": 0.27
+},
+{
+"name": "Haymarket",
+"group": "practical",
+"kind": "train station",
+"lat": 55.94518,
+"lon": -3.21937,
+"wikidata": "Q800709",
+"wheelchair": "yes",
+"fromPier": 1.84
+},
+{
+"name": "North Queensferry",
+"group": "practical",
+"kind": "train station",
+"lat": 56.01245,
+"lon": -3.39466,
+"wikidata": "Q2109115",
+"wheelchair": "yes",
+"fromPier": 14.48
+},
+{
+"name": "Dalgety Bay",
+"group": "practical",
+"kind": "train station",
+"lat": 56.04227,
+"lon": -3.36725,
+"wikidata": "Q2198824",
+"wheelchair": "yes",
+"fromPier": 15.06
+},
+{
+"name": "Inverkeithing",
+"group": "practical",
+"kind": "train station",
+"lat": 56.03524,
+"lon": -3.39542,
+"wikidata": "Q3135635",
+"wheelchair": "yes",
+"fromPier": 15.9
+},
+{
+"name": "Rosyth",
+"group": "practical",
+"kind": "train station",
+"lat": 56.04538,
+"lon": -3.42633,
+"wikidata": "Q2218049",
+"fromPier": 18.11
+},
+{
+"name": "George IV Bridge",
+"group": "practical",
+"kind": "taxi",
+"lat": 55.94818,
+"lon": -3.19183,
+"fromPier": 0.16
+},
+{
+"name": "High Street",
+"group": "practical",
+"kind": "taxi",
+"lat": 55.95021,
+"lon": -3.18695,
+"fromPier": 0.26
+},
+{
+"name": "Edinburgh Waverley",
+"group": "practical",
+"kind": "taxi",
+"lat": 55.95197,
+"lon": -3.1849,
+"fromPier": 0.46
 },
 {
 "name": "Inverkeithing High Street",
@@ -3084,7 +3003,7 @@
 "kind": "taxi",
 "lat": 56.03064,
 "lon": -3.398,
-"fromPier": 2.89
+"fromPier": 15.73
 },
 {
 "name": "Inverkeithing Rail Station",
@@ -3092,178 +3011,217 @@
 "kind": "taxi",
 "lat": 56.03485,
 "lon": -3.39576,
-"fromPier": 3.21
-},
-{
-"name": "Grosvenor Street",
-"group": "practical",
-"kind": "taxi",
-"lat": 55.94669,
-"lon": -3.21693,
-"fromPier": 16.26
+"fromPier": 15.89
 }
 ]
 },
 "london": {
 "sights": [
 {
-"name": "St John the Baptist, Tilbury",
-"group": "sight",
-"kind": "church",
-"lat": 51.45908,
-"lon": 0.36189,
-"wikidata": "Q105083803",
-"fromPier": 0.6
-},
-{
-"name": "Tilbury Fort",
+"name": "White Tower",
 "group": "sight",
 "kind": "historic",
-"lat": 51.45268,
-"lon": 0.37471,
-"website": "https://www.english-heritage.org.uk/visit/places/tilbury-fort/",
-"wikidata": "Q7802074",
-"fromPier": 0.95
+"lat": 51.50811,
+"lon": -0.07596,
+"wikidata": "Q1528473",
+"wheelchair": "limited",
+"fromPier": 0.0
 },
 {
-"name": "St Mary the Virgin",
-"group": "sight",
-"kind": "church",
-"lat": 51.47572,
-"lon": 0.34037,
-"wikidata": "Q17549837",
-"phone": "+44 1375 410100",
-"fromPier": 2.84
-},
-{
-"name": "St Mary's Church",
-"group": "sight",
-"kind": "church",
-"lat": 51.48146,
-"lon": 0.36945,
-"wikidata": "Q17527977",
-"phone": "+44 1375 842176",
-"fromPier": 3.14
-},
-{
-"name": "King Edward III's Manor House",
+"name": "Coldharbour Gate",
 "group": "sight",
 "kind": "historic",
-"lat": 51.50039,
-"lon": -0.05938,
-"wikidata": "Q17644860",
-"fromPier": 29.58
+"lat": 51.50803,
+"lon": -0.07648,
+"wikidata": "Q1107906",
+"fromPier": 0.04
 },
 {
-"name": "Bermondsey and Rotherhithe War Memorial",
+"name": "Crown Jewels",
 "group": "sight",
-"kind": "historic",
-"lat": 51.49896,
-"lon": -0.06044,
-"wikidata": "Q26673006",
-"fromPier": 29.62
+"kind": "attraction",
+"lat": 51.50859,
+"lon": -0.07584,
+"website": "https://www.hrp.org.uk/tower-of-london/whats-on/the-crown-jewels/",
+"wikidata": "Q918264",
+"wheelchair": "yes",
+"fromPier": 0.05
 },
 {
-"name": "St Peter's London Docks",
-"group": "sight",
-"kind": "church",
-"lat": 51.50613,
-"lon": -0.05819,
-"wikidata": "Q15979503",
-"fromPier": 29.62
-},
-{
-"name": "St George's Gardens War Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 51.5103,
-"lon": -0.05941,
-"wikidata": "Q27085033",
-"fromPier": 29.79
-},
-{
-"name": "St George-in-the-East",
-"group": "sight",
-"kind": "church",
-"lat": 51.51006,
-"lon": -0.05965,
-"website": "http://www.stgite.org.uk",
-"wikidata": "Q7593238",
-"wheelchair": "no",
-"fromPier": 29.8
-},
-{
-"name": "East London Central Synagogue",
-"group": "sight",
-"kind": "church",
-"lat": 51.51525,
-"lon": -0.05986,
-"wikidata": "Q60746590",
-"fromPier": 29.94
-},
-{
-"name": "St Philip's Church Library",
-"group": "sight",
-"kind": "historic",
-"lat": 51.51724,
-"lon": -0.06049,
-"wikidata": "Q17531647",
-"fromPier": 30.03
-},
-{
-"name": "St James",
-"group": "sight",
-"kind": "church",
-"lat": 51.49701,
-"lon": -0.06684,
-"wikidata": "Q17531464",
-"fromPier": 30.03
-},
-{
-"name": "Royal London Hospital Museum",
+"name": "Fusiliers Museum",
 "group": "sight",
 "kind": "museum",
-"lat": 51.51727,
-"lon": -0.06049,
-"website": "https://www.museumslondon.org/museum/141/royal-london-hospital-museum",
-"wikidata": "Q111983693",
-"fromPier": 30.04
+"lat": 51.50822,
+"lon": -0.07526,
+"wikidata": "Q26318776",
+"fromPier": 0.05
 },
 {
-"name": "St Philip's Church Library",
+"name": "Tower of London",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.5079,
+"lon": -0.07648,
+"website": "https://www.hrp.org.uk/toweroflondon",
+"wikidata": "Q62378",
+"wheelchair": "yes",
+"fromPier": 0.05
+},
+{
+"name": "Waterloo Block",
+"group": "sight",
+"kind": "museum",
+"lat": 51.5086,
+"lon": -0.076,
+"wikidata": "Q2552591",
+"fee": "yes",
+"wheelchair": "yes",
+"fromPier": 0.06
+},
+{
+"name": "Traitor's Gate",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50739,
+"lon": -0.07699,
+"wikidata": "Q7833046",
+"fromPier": 0.11
+},
+{
+"name": "Tower Hill Postern",
 "group": "sight",
 "kind": "historic",
-"lat": 51.51724,
-"lon": -0.0605,
-"wikidata": "Q17531647",
-"fromPier": 30.04
+"lat": 51.50945,
+"lon": -0.07595,
+"wikidata": "Q104866081",
+"wheelchair": "yes",
+"fromPier": 0.15
 },
 {
-"name": "East London Blitz Memorial",
+"name": "The Falklands War Memorial",
 "group": "sight",
 "kind": "historic",
-"lat": 51.50456,
-"lon": -0.06802,
-"wikidata": "Q59140419",
-"fromPier": 30.25
+"lat": 51.50969,
+"lon": -0.07705,
+"wikidata": "Q51568959",
+"wheelchair": "yes",
+"description": "Commemorating merchant seamen who were killed in the 1982 Falklands War, was added to the site in 2005. It consists of a 3-metre (9.8-foot) bronze sundial, raised on a granite base; at the dial's cent",
+"fromPier": 0.19
 },
 {
-"name": "War Memorial of 22nd Battalion",
+"name": "First World War Memorial",
 "group": "sight",
 "kind": "historic",
-"lat": 51.49797,
-"lon": -0.07081,
-"wikidata": "Q26673005",
-"fromPier": 30.32
+"lat": 51.50957,
+"lon": -0.07765,
+"wikidata": "Q26263477",
+"wheelchair": "yes",
+"fromPier": 0.2
 },
 {
-"name": "East London Mosque",
+"name": "Tower Hill Memorial",
 "group": "sight",
-"kind": "church",
-"lat": 51.51737,
-"lon": -0.06534,
-"wikidata": "Q3352688",
-"fromPier": 30.36
+"kind": "historic",
+"lat": 51.50977,
+"lon": -0.07767,
+"wikidata": "Q2911428",
+"wheelchair": "yes",
+"fromPier": 0.22
+},
+{
+"name": "All Hallows-by-the-Tower",
+"group": "sight",
+"kind": "historic",
+"lat": 51.50935,
+"lon": -0.07931,
+"website": "https://www.ahbtt.org.uk/",
+"wikidata": "Q579381",
+"wheelchair": "yes",
+"fromPier": 0.27
+},
+{
+"name": "Malta Siege Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 51.50944,
+"lon": -0.07981,
+"wikidata": "Q30113410",
+"wheelchair": "yes",
+"fromPier": 0.31
+},
+{
+"name": "St. Katharine Docks",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50654,
+"lon": -0.07165,
+"website": "https://www.skdocks.co.uk/",
+"wikidata": "Q1003616",
+"wheelchair": "yes",
+"fromPier": 0.34
+},
+{
+"name": "HMS Belfast",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50651,
+"lon": -0.08096,
+"hours": "Mo-Su 10:00-17:00; Dec 24-26 off",
+"website": "https://www.iwm.org.uk/visits/hms-belfast",
+"wikidata": "Q757178",
+"fee": "yes",
+"wheelchair": "limited",
+"fromPier": 0.39
+},
+{
+"name": "City Hall",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50479,
+"lon": -0.07866,
+"wikidata": "Q1093950",
+"wheelchair": "yes",
+"description": "Former City Hall, previous home of the Greater London Authority and the Mayor of London.",
+"fromPier": 0.41
+},
+{
+"name": "Bridge Theatre",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.5041,
+"lon": -0.07732,
+"website": "https://bridgetheatre.co.uk/",
+"wikidata": "Q29831988",
+"wheelchair": "yes",
+"fromPier": 0.46
+},
+{
+"name": "All Hallows Staining",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51154,
+"lon": -0.0803,
+"website": "https://www.sanctuaryinthecity.net/",
+"wikidata": "Q4728804",
+"fromPier": 0.49
+},
+{
+"name": "St Dunstan in the East",
+"group": "sight",
+"kind": "historic",
+"lat": 51.5097,
+"lon": -0.08256,
+"wikidata": "Q12408518",
+"fromPier": 0.49
+},
+{
+"name": "Billingsgate Roman House & Baths",
+"group": "sight",
+"kind": "historic",
+"lat": 51.50926,
+"lon": -0.08309,
+"wikidata": "Q16932293",
+"fromPier": 0.51
 },
 {
 "name": "Royal Pharmaceutical Society Museum",
@@ -3273,7 +3231,25 @@
 "lon": -0.06836,
 "website": "https://www.rpharms.com/about-us/museum",
 "wikidata": "Q111983695",
-"fromPier": 30.37
+"fromPier": 0.53
+},
+{
+"name": "Ernest Bevan",
+"group": "sight",
+"kind": "historic",
+"lat": 51.50285,
+"lon": -0.07795,
+"wikidata": "Q43140419",
+"fromPier": 0.6
+},
+{
+"name": "Samuel Bourne Bevington",
+"group": "sight",
+"kind": "historic",
+"lat": 51.5029,
+"lon": -0.0781,
+"wikidata": "Q26665735",
+"fromPier": 0.6
 },
 {
 "name": "Jack the Ripper Museum",
@@ -3286,46 +3262,25 @@
 "wikidata": "Q21585359",
 "fee": "yes",
 "wheelchair": "yes",
-"fromPier": 30.38
+"fromPier": 0.63
 },
 {
-"name": "The Most Holy Trinity",
+"name": "East London Blitz Memorial",
 "group": "sight",
-"kind": "church",
-"lat": 51.50003,
-"lon": -0.07179,
-"wikidata": "Q26268223",
-"fromPier": 30.42
+"kind": "historic",
+"lat": 51.50456,
+"lon": -0.06802,
+"wikidata": "Q59140419",
+"fromPier": 0.67
 },
 {
-"name": "St Boniface German Church",
+"name": "St John's Church War Memorial",
 "group": "sight",
-"kind": "church",
-"lat": 51.51581,
-"lon": -0.06727,
-"website": "https://dkg-london.org/",
-"wikidata": "Q54006848",
-"fromPier": 30.46
-},
-{
-"name": "St. Katharine Docks",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.50654,
-"lon": -0.07165,
-"website": "https://www.skdocks.co.uk/",
-"wikidata": "Q1003616",
-"wheelchair": "yes",
-"fromPier": 30.54
-},
-{
-"name": "Kagyu Samye Dzong London",
-"group": "sight",
-"kind": "church",
-"lat": 51.49583,
-"lon": -0.0746,
-"wikidata": "Q15979026",
-"fromPier": 30.54
+"kind": "historic",
+"lat": 51.50218,
+"lon": -0.07837,
+"wikidata": "Q26314625",
+"fromPier": 0.68
 },
 {
 "name": "Jacob",
@@ -3335,26 +3290,157 @@
 "lon": -0.07433,
 "wikidata": "Q122262871",
 "description": "The circle dray horse",
-"fromPier": 30.62
+"fromPier": 0.73
 },
 {
-"name": "St. George's German Lutheran Church",
+"name": "The Monument to the Great Fire of London",
 "group": "sight",
-"kind": "church",
-"lat": 51.5142,
-"lon": -0.07044,
-"website": "https://www.stgeorgesgermanchurch.org.uk/",
-"wikidata": "Q15059607",
-"fromPier": 30.63
+"kind": "attraction",
+"lat": 51.51014,
+"lon": -0.08596,
+"hours": "Mo-Su 09:30-13:00,14:00-18:00 \"last admission 12:30 and 17:30\"; Dec 24-26 off",
+"website": "https://www.themonument.org.uk/",
+"wikidata": "Q607700",
+"fee": "yes",
+"wheelchair": "no",
+"fromPier": 0.73
 },
 {
-"name": "Saint Anne's",
+"name": "St Mary Axe",
 "group": "sight",
-"kind": "church",
-"lat": 51.52112,
-"lon": -0.06794,
-"wikidata": "Q17531804",
-"fromPier": 30.64
+"kind": "historic",
+"lat": 51.51406,
+"lon": -0.08112,
+"wikidata": "Q7594559",
+"fromPier": 0.75
+},
+{
+"name": "London Bridge",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50805,
+"lon": -0.08767,
+"wikidata": "Q130206",
+"wheelchair": "yes",
+"fromPier": 0.81
+},
+{
+"name": "View from the Shard",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50451,
+"lon": -0.08644,
+"website": "https://www.theviewfromtheshard.com",
+"wikidata": "Q17062261",
+"wheelchair": "yes",
+"phone": "+44 20 3102 3930",
+"fromPier": 0.83
+},
+{
+"name": "The Shard",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50438,
+"lon": -0.0864,
+"website": "https://www.the-shard.com/",
+"wikidata": "Q18536",
+"wheelchair": "yes",
+"fromPier": 0.84
+},
+{
+"name": "St Martin Orgar",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51078,
+"lon": -0.08761,
+"wikidata": "Q7594213",
+"fromPier": 0.86
+},
+{
+"name": "Fashion and Textile Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 51.50122,
+"lon": -0.08168,
+"hours": "Tu-Sa 11:00-18:00; Su-Mo off",
+"wikidata": "Q5436764",
+"fee": "yes",
+"website": "https://fashiontextilemuseum.org/",
+"fromPier": 0.86
+},
+{
+"name": "London Bridge Experience",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50638,
+"lon": -0.08827,
+"hours": "Mo-Fr 10:30-17:00; Sa-Su 10:00-18:00",
+"wikidata": "Q7748032",
+"phone": "+44 20 7403 6333",
+"fromPier": 0.88
+},
+{
+"name": "St Michael Cornhill War Memorial",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51328,
+"lon": -0.08563,
+"wikidata": "Q28052459",
+"fromPier": 0.89
+},
+{
+"name": "Findlater’s Corner Entrance",
+"group": "sight",
+"kind": "attraction",
+"lat": 51.50595,
+"lon": -0.08829,
+"wikidata": "Q119709275",
+"fromPier": 0.89
+},
+{
+"name": "ARTE DELUX",
+"group": "sight",
+"kind": "gallery",
+"lat": 51.51087,
+"lon": -0.08878,
+"hours": "Mo-Fr 09:00-18:00",
+"website": "https://www.artedelux.com",
+"wikidata": "Q139862599",
+"description": "Private art gallery, by appointment",
+"fromPier": 0.94
+},
+{
+"name": "Old Operating Theatre Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 51.50503,
+"lon": -0.08855,
+"hours": "Th-Su 10:30-17:00",
+"website": "https://oldoperatingtheatre.com/",
+"wikidata": "Q7084660",
+"fee": "yes",
+"wheelchair": "no",
+"fromPier": 0.94
+},
+{
+"name": "Paul Julius Reuter",
+"group": "sight",
+"kind": "historic",
+"lat": 51.5137,
+"lon": -0.08651,
+"wikidata": "Q30541433",
+"wheelchair": "yes",
+"fromPier": 0.96
+},
+{
+"name": "George Peabody",
+"group": "sight",
+"kind": "historic",
+"lat": 51.51391,
+"lon": -0.08657,
+"wikidata": "Q26489062",
+"wheelchair": "yes",
+"fromPier": 0.98
 },
 {
 "name": "Whitechapel Gallery",
@@ -3368,183 +3454,37 @@
 "fee": "yes",
 "wheelchair": "limited",
 "phone": "+44 207 522 7888",
-"fromPier": 30.67
+"fromPier": 0.98
 },
 {
-"name": "Church of the English Martyrs",
-"group": "sight",
-"kind": "church",
-"lat": 51.51129,
-"lon": -0.07198,
-"wikidata": "Q27081782",
-"fromPier": 30.67
-},
-{
-"name": "Brick Lane",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.51746,
-"lon": -0.07066,
-"wikidata": "Q1194528",
-"fromPier": 30.73
-},
-{
-"name": "Tower Bridge",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.50552,
-"lon": -0.07537,
-"website": "https://www.towerbridge.org.uk/",
-"wikidata": "Q83125",
-"wheelchair": "yes",
-"fromPier": 30.77
-},
-{
-"name": "Fusiliers Museum",
-"group": "sight",
-"kind": "museum",
-"lat": 51.50822,
-"lon": -0.07526,
-"wikidata": "Q26318776",
-"fromPier": 30.82
-},
-{
-"name": "White Tower",
+"name": "London Stone",
 "group": "sight",
 "kind": "historic",
-"lat": 51.50811,
-"lon": -0.07596,
-"wikidata": "Q1528473",
-"wheelchair": "limited",
-"fromPier": 30.86
+"lat": 51.51156,
+"lon": -0.08946,
+"wikidata": "Q738950",
+"fromPier": 1.01
 },
 {
-"name": "St John the Evangelist",
-"group": "sight",
-"kind": "church",
-"lat": 51.50797,
-"lon": -0.07589,
-"wikidata": "Q2403338",
-"fromPier": 30.86
-},
-{
-"name": "Crown Jewels",
+"name": "Golden Hinde",
 "group": "sight",
 "kind": "attraction",
-"lat": 51.50859,
-"lon": -0.07584,
-"website": "https://www.hrp.org.uk/tower-of-london/whats-on/the-crown-jewels/",
-"wikidata": "Q918264",
-"wheelchair": "yes",
-"fromPier": 30.87
+"lat": 51.50686,
+"lon": -0.09034,
+"website": "https://www.goldenhinde.co.uk",
+"wikidata": "Q20870362",
+"wheelchair": "no",
+"description": "replica sailing ship",
+"fromPier": 1.01
 },
 {
-"name": "Bridge Theatre",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.5041,
-"lon": -0.07732,
-"website": "https://bridgetheatre.co.uk/",
-"wikidata": "Q29831988",
-"wheelchair": "yes",
-"fromPier": 30.87
-},
-{
-"name": "Brick Lane Jamme Masjid",
-"group": "sight",
-"kind": "church",
-"lat": 51.51948,
-"lon": -0.07205,
-"wikidata": "Q4965928",
-"fromPier": 30.87
-},
-{
-"name": "Waterloo Block",
-"group": "sight",
-"kind": "museum",
-"lat": 51.5086,
-"lon": -0.076,
-"wikidata": "Q2552591",
-"fee": "yes",
-"wheelchair": "yes",
-"fromPier": 30.88
-},
-{
-"name": "Tower Hill Postern",
+"name": "James Henry Greathead",
 "group": "sight",
 "kind": "historic",
-"lat": 51.50945,
-"lon": -0.07595,
-"wikidata": "Q104866081",
-"wheelchair": "yes",
-"fromPier": 30.89
-},
-{
-"name": "Ernest Bevan",
-"group": "sight",
-"kind": "historic",
-"lat": 51.50285,
-"lon": -0.07795,
-"wikidata": "Q43140419",
-"fromPier": 30.89
-},
-{
-"name": "Samuel Bourne Bevington",
-"group": "sight",
-"kind": "historic",
-"lat": 51.5029,
-"lon": -0.0781,
-"wikidata": "Q26665735",
-"fromPier": 30.9
-},
-{
-"name": "Tower of London",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.5079,
-"lon": -0.07648,
-"website": "https://www.hrp.org.uk/toweroflondon",
-"wikidata": "Q62378",
-"wheelchair": "yes",
-"fromPier": 30.9
-},
-{
-"name": "Coldharbour Gate",
-"group": "sight",
-"kind": "historic",
-"lat": 51.50803,
-"lon": -0.07648,
-"wikidata": "Q1107906",
-"fromPier": 30.9
-},
-{
-"name": "The Museum of Immigration and Diversity at 19 Princelet Street",
-"group": "sight",
-"kind": "museum",
-"lat": 51.51985,
-"lon": -0.07249,
-"website": "https://www.19princeletstreet.org.uk/about/",
-"wikidata": "Q6940881",
-"fee": "donation",
-"fromPier": 30.91
-},
-{
-"name": "St John's Church War Memorial",
-"group": "sight",
-"kind": "historic",
-"lat": 51.50218,
-"lon": -0.07837,
-"wikidata": "Q26314625",
-"fromPier": 30.91
-},
-{
-"name": "Traitor's Gate",
-"group": "sight",
-"kind": "attraction",
-"lat": 51.50739,
-"lon": -0.07699,
-"wikidata": "Q7833046",
-"fromPier": 30.92
+"lat": 51.51334,
+"lon": -0.08796,
+"wikidata": "Q20786631",
+"fromPier": 1.02
 }
 ],
 "practical": [
@@ -3555,7 +3495,7 @@
 "lat": 51.51065,
 "lon": -0.07473,
 "website": "https://www.dlrdiscovery.com/",
-"fromPier": 30.84
+"fromPier": 0.29
 },
 {
 "name": "City Information Centre",
@@ -3566,93 +3506,94 @@
 "hours": "Mo-Sa 09:30-17:30, Su 10:00-16:00",
 "website": "https://www.cityoflondon.gov.uk/things-to-do/visit-the-city/visitor-info/Pages/default.aspx",
 "wheelchair": "yes",
-"fromPier": 32.53
+"fromPier": 1.68
 },
 {
-"name": "Essex Pharmacy",
+"name": "Towerbridge Wellness Pharmacy",
 "group": "practical",
 "kind": "pharmacy",
-"lat": 51.46202,
-"lon": 0.36474,
-"website": "https://essexpharmancyonline.co.uk",
-"phone": "+44 1375 859409",
-"fromPier": 0.96
+"lat": 51.50385,
+"lon": -0.07508,
+"fromPier": 0.48
 },
 {
-"name": "Asda",
+"name": "Boots",
 "group": "practical",
 "kind": "pharmacy",
-"lat": 51.46967,
-"lon": 0.34551,
-"hours": "Mo 08:00-23:00; Tu-Sa 07:00-23:00; Sa 07:00-22:00; Su 10:00-16:00",
+"lat": 51.51346,
+"lon": -0.07649,
+"hours": "Mo-Fr 07:00-19:30",
 "wheelchair": "yes",
-"website": "https://storelocator.asda.com/east-of-england/tilbury/thurrock-park-way/pharmacy",
-"fromPier": 2.08
+"website": "http://www.boots.com/stores/1480-london-aldgate-ec3n-1lh",
+"fromPier": 0.6
 },
 {
-"name": "River View Pharmacy",
+"name": "Boots",
 "group": "practical",
 "kind": "pharmacy",
-"lat": 51.48172,
-"lon": 0.36656,
-"hours": "Mo-Fr 09:00-13:00, 14:00-18:00; Sa-Su off",
-"phone": "+44 1375 842470",
-"fromPier": 3.14
+"lat": 51.51346,
+"lon": -0.0765,
+"hours": "Mo-Fr 07:00-19:30",
+"wheelchair": "yes",
+"website": "http://www.boots.com/stores/1480-london-aldgate-ec3n-1lh",
+"fromPier": 0.6
 },
 {
-"name": "Lloyds Bank",
+"name": "Santander",
 "group": "practical",
 "kind": "cash",
-"lat": 51.51455,
-"lon": -0.05957,
-"website": "https://branches.lloydsbank.com/london/210-commercial-road",
-"fromPier": 29.9
+"lat": 51.51007,
+"lon": -0.08034,
+"wheelchair": "no",
+"fromPier": 0.38
 },
 {
-"name": "Bank of Baroda",
+"name": "RBS",
 "group": "practical",
 "kind": "cash",
-"lat": 51.51458,
-"lon": -0.06364,
-"hours": "Mo-Fr 09:30-16:15",
-"fromPier": 30.18
+"lat": 51.51004,
+"lon": -0.08222,
+"fromPier": 0.49
 },
 {
-"name": "Habib Bank UK",
+"name": "Nationwide",
 "group": "practical",
 "kind": "cash",
-"lat": 51.51708,
-"lon": -0.06779,
-"fromPier": 30.52
-},
-{
-"name": "Tilbury Cash & Cary",
-"group": "practical",
-"kind": "groceries",
-"lat": 51.4614,
-"lon": 0.36288,
-"fromPier": 0.87
+"lat": 51.51327,
+"lon": -0.07693,
+"hours": "Mo-Tu 09:00-16:30; We 10:00-16:30; Th-Fr 09:00-16:30; Sa-Su closed",
+"website": "https://www.nationwide.co.uk/branches/london/1-aldgate",
+"phone": "+44 345 266 1284",
+"fromPier": 0.58
 },
 {
 "name": "Tesco Express",
 "group": "practical",
 "kind": "groceries",
-"lat": 51.46155,
-"lon": 0.3624,
-"hours": "Mo-Su 06:00-23:00",
-"phone": "+44 345 026 9732",
-"website": "https://www.tesco.com/store-locator/tilbury/calcutta-rd",
-"fromPier": 0.88
+"lat": 51.5072,
+"lon": -0.07394,
+"hours": "06:00-24:00",
+"wheelchair": "yes",
+"website": "https://www.tesco.com/store-locator/london/st-katharines-way",
+"fromPier": 0.17
 },
 {
-"name": "Eatwell Stores",
+"name": "Food&Wine",
 "group": "practical",
 "kind": "groceries",
-"lat": 51.46196,
-"lon": 0.3652,
-"website": "https://eatwellstores.com/",
-"phone": "+44 7440 779224",
-"fromPier": 0.96
+"lat": 51.51084,
+"lon": -0.0752,
+"fromPier": 0.31
+},
+{
+"name": "Co-op Minories",
+"group": "practical",
+"kind": "groceries",
+"lat": 51.51101,
+"lon": -0.07525,
+"hours": "Mo-Su 07:00-22:00",
+"website": "https://www.coop.co.uk/store-finder/EC3N-2LU/109-minories",
+"fromPier": 0.33
 },
 {
 "name": "Borough Market Toilets",
@@ -3660,7 +3601,7 @@
 "kind": "toilets",
 "lat": 51.5052,
 "lon": -0.09037,
-"fromPier": 31.79
+"fromPier": 1.05
 },
 {
 "name": "Paul's Walk",
@@ -3669,18 +3610,17 @@
 "lat": 51.51088,
 "lon": -0.10061,
 "fee": "yes",
-"fromPier": 32.6
+"fromPier": 1.74
 },
 {
-"name": "Boxpark Shoreditch",
+"name": "TK Maxx",
 "group": "practical",
 "kind": "shopping centre",
-"lat": 51.52349,
-"lon": -0.07622,
-"hours": "Mo-We 11:00-23:00; Th-Sa 11:00-23:45; Su 11:00-22:30",
-"website": "https://boxpark.co.uk/shoreditch/",
-"wheelchair": "limited",
-"fromPier": 31.26
+"lat": 51.5118,
+"lon": -0.08548,
+"hours": "Mo-Fr 08:30-20:00; Sa 10:00-19:00; Su 12:00-18:00",
+"wheelchair": "yes",
+"fromPier": 0.78
 },
 {
 "name": "Marks & Spencer",
@@ -3691,85 +3631,50 @@
 "hours": "Mo-Sa 07:00-24:00; Su 08:00-23:00",
 "wheelchair": "limited",
 "website": "https://www.marksandspencer.com/stores/london-bridge-western-arcade-arches-868",
-"fromPier": 31.48
+"fromPier": 0.79
 },
 {
-"name": "TK Maxx",
+"name": "Royal Exchange",
 "group": "practical",
 "kind": "shopping centre",
-"lat": 51.5118,
-"lon": -0.08548,
-"hours": "Mo-Fr 08:30-20:00; Sa 10:00-19:00; Su 12:00-18:00",
+"lat": 51.51361,
+"lon": -0.08707,
+"wikidata": "Q1241240",
 "wheelchair": "yes",
-"fromPier": 31.59
+"fromPier": 0.99
 },
 {
-"name": "JD Sports",
+"name": "American Golf",
 "group": "practical",
 "kind": "outdoor gear",
-"lat": 51.51924,
-"lon": -0.06034,
-"hours": "Mo-Fr 09:00-19:00; Sa 09:00-18:00; Su 11:00-17:00",
-"fromPier": 30.08
-},
-{
-"name": "Sports Direct",
-"group": "practical",
-"kind": "outdoor gear",
-"lat": 51.51551,
-"lon": -0.07173,
-"hours": "Mo-Sa 09:30-18:00; Su 11:00-17:00",
-"fromPier": 30.75
-},
-{
-"name": "Slam City Skates",
-"group": "practical",
-"kind": "outdoor gear",
-"lat": 51.52094,
-"lon": -0.07281,
-"hours": "Mo-Su 11:30-19:00",
-"website": "https://www.slamcity.com",
-"wheelchair": "no",
-"fromPier": 30.96
-},
-{
-"name": "Tilbury Town",
-"group": "practical",
-"kind": "train station",
-"lat": 51.46246,
-"lon": 0.35383,
-"wikidata": "Q3295563",
-"fromPier": 1.1
-},
-{
-"name": "Wapping",
-"group": "practical",
-"kind": "train station",
-"lat": 51.50443,
-"lon": -0.05602,
-"wikidata": "Q801580",
-"wheelchair": "no",
-"fromPier": 29.43
-},
-{
-"name": "Shadwell",
-"group": "practical",
-"kind": "train station",
-"lat": 51.51176,
-"lon": -0.05549,
-"wikidata": "Q801431",
+"lat": 51.50968,
+"lon": -0.0862,
+"hours": "Mo-Fr 10:00-19:00; Sa 09:00-17:00; Su 10:00-16:00",
+"website": "https://www.americangolf.co.uk/stores?store=S158",
 "wheelchair": "yes",
-"fromPier": 29.56
+"phone": "+44 20 3371 3349",
+"fromPier": 0.73
 },
 {
-"name": "Shadwell",
+"name": "Runners Need",
 "group": "practical",
-"kind": "train station",
-"lat": 51.51129,
-"lon": -0.05692,
-"wikidata": "Q4115037",
-"wheelchair": "no",
-"fromPier": 29.65
+"kind": "outdoor gear",
+"lat": 51.51054,
+"lon": -0.08649,
+"hours": "Mo-Fr 08:00-19:00, Sa 10:00-18:00, Su,PH 11:00-17:00",
+"wheelchair": "yes",
+"fromPier": 0.78
+},
+{
+"name": "Snow+Rock",
+"group": "practical",
+"kind": "outdoor gear",
+"lat": 51.51056,
+"lon": -0.0865,
+"hours": "Mo-Fr 09:00-19:00; Sa 10:00-18:00; Su 11:00-17:00",
+"wheelchair": "yes",
+"website": "https://www.snowandrock.com/stores/london-monument.html",
+"fromPier": 0.78
 },
 {
 "name": "Tower Gateway",
@@ -3779,7 +3684,7 @@
 "lon": -0.07395,
 "wikidata": "Q1702680",
 "wheelchair": "yes",
-"fromPier": 30.78
+"fromPier": 0.31
 },
 {
 "name": "London Fenchurch Street",
@@ -3789,23 +3694,85 @@
 "lon": -0.07742,
 "wikidata": "Q800753",
 "wheelchair": "limited",
-"fromPier": 31.03
+"fromPier": 0.37
 },
 {
-"name": "Tilbury taxi",
+"name": "London Bridge",
 "group": "practical",
-"kind": "taxi",
-"lat": 51.46233,
-"lon": 0.35521,
-"fromPier": 1.04
+"kind": "train station",
+"lat": 51.50488,
+"lon": -0.08515,
+"wikidata": "Q801125",
+"wheelchair": "yes",
+"fromPier": 0.73
 },
 {
-"name": "Rail Station",
+"name": "London Cannon Street",
+"group": "practical",
+"kind": "train station",
+"lat": 51.51067,
+"lon": -0.0906,
+"wikidata": "Q800615",
+"wheelchair": "yes",
+"fromPier": 1.06
+},
+{
+"name": "London Liverpool Street",
+"group": "practical",
+"kind": "train station",
+"lat": 51.51821,
+"lon": -0.08143,
+"wikidata": "Q801124",
+"wheelchair": "yes",
+"fromPier": 1.19
+},
+{
+"name": "Liverpool Street",
+"group": "practical",
+"kind": "train station",
+"lat": 51.51765,
+"lon": -0.08644,
+"wikidata": "Q801124",
+"wheelchair": "yes",
+"fromPier": 1.29
+},
+{
+"name": "Tilbury Town",
+"group": "practical",
+"kind": "train station",
+"lat": 51.46246,
+"lon": 0.35383,
+"wikidata": "Q3295563",
+"fromPier": 30.19
+},
+{
+"name": "Wapping",
+"group": "practical",
+"kind": "train station",
+"lat": 51.50443,
+"lon": -0.05602,
+"wikidata": "Q801580",
+"wheelchair": "no",
+"fromPier": 1.44
+},
+{
+"name": "New Euro Carriages",
 "group": "practical",
 "kind": "taxi",
-"lat": 51.46266,
-"lon": 0.35419,
-"fromPier": 1.11
+"lat": 51.5169,
+"lon": -0.07554,
+"phone": "+44 20 7247 5479",
+"fromPier": 0.98
+},
+{
+"name": "City Man Cars",
+"group": "practical",
+"kind": "taxi",
+"lat": 51.51991,
+"lon": -0.07426,
+"description": "Mini cab office",
+"phone": "+44 20 7247 4000",
+"fromPier": 1.32
 },
 {
 "name": "Elite Cars",
@@ -3813,7 +3780,23 @@
 "kind": "taxi",
 "lat": 51.50484,
 "lon": -0.05731,
-"fromPier": 29.53
+"fromPier": 1.34
+},
+{
+"name": "Tilbury taxi",
+"group": "practical",
+"kind": "taxi",
+"lat": 51.46233,
+"lon": 0.35521,
+"fromPier": 30.28
+},
+{
+"name": "Rail Station",
+"group": "practical",
+"kind": "taxi",
+"lat": 51.46266,
+"lon": 0.35419,
+"fromPier": 30.21
 }
 ]
 }
@@ -3857,6 +3840,19 @@
 "wind": 19,
 "gust": 44,
 "freezePct": 89
+},
+"narvik": {
+"days": 150,
+"years": "2016–2025",
+"hi": -2.3,
+"lo": -7.7,
+"coldLo": -15.2,
+"warmHi": 4.9,
+"wetPct": 51,
+"snowPct": 33,
+"wind": 12,
+"gust": 45,
+"freezePct": 91
 },
 "bergen": {
 "days": 150,

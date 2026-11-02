@@ -1,5 +1,6 @@
 -- Run in a dedicated Supabase project SQL editor. Do not put service_role keys in the site.
-create extension if not exists pgcrypto;
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
 create table if not exists public.quest_trips (
  id uuid primary key default gen_random_uuid(),
  name text not null check (char_length(name) between 1 and 100),

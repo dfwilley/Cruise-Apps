@@ -251,4 +251,15 @@ test("Near me searches: typed words → map tags; barbers listed before other ha
   assert.ok(g.generic && g.filters.some(f => f.includes('name~"sushi"')));
 });
 
+test("iPhone app: Apple Maps places replace OpenStreetMap's food/shops/handy, keep sights, borrow opening hours", () => {
+  const osm = I.placesFrom([{ lat: 32.2236, lon: -110.9737, tags: { name: "Cafe Uno", amenity: "cafe", opening_hours: "Mo-Su 07:00-15:00" } },
+    { lat: 32.2256, lon: -110.9747, tags: { name: "Old Pueblo Museum", tourism: "museum" } }, { lat: 32.2226, lon: -110.9727, tags: { name: "OSM Diner", amenity: "restaurant" } }], 32.2226, -110.9747, P.km);
+  const apple = { food: I.appleToPlaces([{ name: "Café Uno", lat: 32.2236, lon: -110.9737, category: "cafe", phone: "+15205550111" }], 32.2226, -110.9747, P.km) };
+  const m = I.mergeApple(osm, apple, P.km);
+  assert.deepStrictEqual(m.map(x => x.name + "/" + (x.src || "osm")), ["Café Uno/apple", "Old Pueblo Museum/osm"]);
+  assert.strictEqual(m[0].hours, "Mo-Su 07:00-15:00");
+  const b = I.appleSearchResults([{ name: "Salon Bella", lat: 32.2236, lon: -110.9747 }, { name: "Old Pueblo Barber Shop", lat: 32.2256, lon: -110.9747 }], I.findSearch("barber shop"), 32.2226, -110.9747, P.km);
+  assert.deepStrictEqual(b.map(x => x.name + ":" + x.label), ["Old Pueblo Barber Shop:barber shop", "Salon Bella:barber shop"]);
+});
+
 console.log(`\n${n} test groups passed`);

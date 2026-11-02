@@ -1,6 +1,7 @@
 import SwiftUI
 import WebKit
 import CoreLocation
+import MapKit
 import AVFoundation
 import UserNotifications
 
@@ -59,9 +60,65 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         case "alerts": schedule((m["items"] as? [[String: Any]]) ?? [])
         case "speak": speak(m["text"] as? String ?? "", lang: m["lang"] as? String ?? "nb-NO")
         case "viking": openViking(m["url"] as? String)
+        case "poi": searchPlaces(m)
         case "shareFile": shareFile(m["name"] as? String ?? "Port-Guide-cruises.json", m["text"] as? String ?? "")
         case "saveCruises": if let j = m["json"] as? String { try? Data(j.utf8).write(to: Self.cruisesFile, options: .atomic) }
         default: break
+        }
+    }
+
+    // MARK: Apple Maps place search (free in apps: no account or key) for Near me
+    /// Short names the screens use → Apple's place categories.
+    private static let poiCategories: [String: MKPointOfInterestCategory] = [
+        "cafe": .cafe, "restaurant": .restaurant, "bakery": .bakery, "brewery": .brewery, "winery": .winery, "nightlife": .nightlife,
+        "foodMarket": .foodMarket, "store": .store, "pharmacy": .pharmacy, "atm": .atm, "bank": .bank, "postOffice": .postOffice,
+        "restroom": .restroom, "publicTransport": .publicTransport, "gasStation": .gasStation, "hospital": .hospital, "laundry": .laundry,
+        "parking": .parking, "evCharger": .evCharger, "museum": .museum, "park": .park, "beach": .beach, "campground": .campground,
+        "fitnessCenter": .fitnessCenter, "library": .library, "marina": .marina, "airport": .airport, "hotel": .hotel, "zoo": .zoo,
+        "aquarium": .aquarium, "nationalPark": .nationalPark, "theater": .theater, "movieTheater": .movieTheater, "carRental": .carRental
+    ]
+    /// { id, lat, lon, radius, categories: [short names], queries: ["barber shop", …] } → sends back { type: "poi", id, ok, items }
+    private func searchPlaces(_ m: [String: Any]) {
+        guard let id = m["id"] as? String, let lat = m["lat"] as? Double, let lon = m["lon"] as? Double else { return }
+        let radius = max(200, min((m["radius"] as? Double) ?? 1600, 20_000))
+        let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        var searches: [MKLocalSearch] = []
+        let cats = ((m["categories"] as? [String]) ?? []).compactMap { Self.poiCategories[$0] }
+        if !cats.isEmpty {
+            let r = MKLocalPointsOfInterestRequest(center: center, radius: radius)
+            r.pointOfInterestFilter = MKPointOfInterestFilter(including: cats)
+            searches.append(MKLocalSearch(request: r))
+        }
+        for q in (m["queries"] as? [String]) ?? [] where !q.isEmpty {
+            let r = MKLocalSearch.Request()
+            r.naturalLanguageQuery = q
+            r.region = MKCoordinateRegion(center: center, latitudinalMeters: radius * 2, longitudinalMeters: radius * 2)
+            r.resultTypes = .pointOfInterest
+            searches.append(MKLocalSearch(request: r))
+        }
+        guard !searches.isEmpty else { send(["type": "poi", "id": id, "ok": false, "items": []]); return }
+        var items: [[String: Any]] = []
+        var failed = 0
+        let group = DispatchGroup()
+        for search in searches {
+            group.enter()
+            search.start { response, _ in
+                defer { group.leave() }
+                guard let response = response else { failed += 1; return }
+                for it in response.mapItems {
+                    let c = it.placemark.coordinate
+                    var d: [String: Any] = ["name": it.name ?? "", "lat": c.latitude, "lon": c.longitude]
+                    if let cat = it.pointOfInterestCategory, let short = Self.poiCategories.first(where: { $0.value == cat })?.key { d["category"] = short }
+                    if let phone = it.phoneNumber { d["phone"] = phone }
+                    if let url = it.url { d["website"] = url.absoluteString }
+                    let street = [it.placemark.subThoroughfare, it.placemark.thoroughfare].compactMap { $0 }.joined(separator: " ")
+                    if !street.isEmpty { d["street"] = street }
+                    items.append(d)
+                }
+            }
+        }
+        group.notify(queue: .main) {
+            self.send(["type": "poi", "id": id, "ok": failed < searches.count, "items": items])
         }
     }
 

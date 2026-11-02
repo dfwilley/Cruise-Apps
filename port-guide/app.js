@@ -292,6 +292,7 @@
   window.__portNative = m => {
     if (m.type === "location") gotLocation(m.lat, m.lon, m.acc);
     else if (m.type === "viking") gotVikingPage(m);
+    else if (m.type === "poi") { const w = applePending[m.id]; if (w) { delete applePending[m.id]; m.ok ? w.res(m.items || []) : w.rej(new Error("Apple Maps")); } }
     else if (m.type === "error") gotError(m.message);
   };
   function toast(msg) {
@@ -385,7 +386,7 @@
   function placeItem(x, me, ck) {
     const o = x.hours ? openNow(x.hours, ck) : null, f = howFar(me, x);
     return `<li class="place"><span class="ico" aria-hidden="true">${FOOD[x.kind] || ICON[x.kind] || "•"}</span><div class="pbody"><b>${esc(x.name)}</b>${x.local ? ` <small>${esc(x.local)}</small>` : ""}
-      <div class="meta"><span>${esc(x.label || x.kind)}</span><span>${f.txt}</span></div>${o ? `<span class="hrs ${o.cls}">${esc(o.txt)}</span>` : ""}</div>
+      <div class="meta"><span>${esc(x.label || x.kind)}</span><span>${f.txt}</span>${x.phone ? `<a href="tel:${esc(x.phone.replace(/[^+\d]/g, ""))}">Call</a>` : ""}</div>${o ? `<span class="hrs ${o.cls}">${esc(o.txt)}</span>` : ""}</div>
       <a class="go" href="${P.mapsLink(x, me, f.mode)}" target="_blank" rel="noopener" aria-label="Directions to ${esc(x.name)}">Map</a></li>`;
   }
   function renderAround() {
@@ -429,7 +430,7 @@
           + (shown.length ? `<ul class="places compact">${shown.map(x => placeItem(x, me, ck)).join("")}</ul>`
               + (items.length > shown.length ? `<button class="ghost wide" id="more">Show ${Math.min(30, items.length - shown.length)} more</button>` : "")
             : a.partial ? `<p class="fine">Still getting shops, food and sights from the map…</p>` : `<p class="fine">Nothing of that kind within ${RADII.find(r => r[0] === state.radius)[1].toLowerCase()}. Try a wider distance.</p>`)
-          + `<p class="fine">${a.refreshing ? "<b>Updating…</b> " : ""}${a.cached && !a.refreshing ? "Saved list from " : a.cached ? "Showing the last list. " : "Live from "}OpenStreetMap and Wikipedia, ${new Date(a.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}. Hours shown where the map has them — check before a long walk.</p>`;
+          + `<p class="fine">${a.refreshing ? "<b>Updating…</b> " : ""}${a.cached && !a.refreshing ? "Saved list from " : a.cached ? "Showing the last list. " : "Live from "}${a.items.some(x => x.src === "apple") ? "Apple Maps (food, shops, handy), " : ""}OpenStreetMap and Wikipedia, ${new Date(a.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}. Hours shown where the map has them — check before a long walk.</p>`;
       }
       body = state.cat.startsWith("s:") ? searchBody(me, ck) : port + list;
     }
@@ -470,6 +471,18 @@
     const mo = $("#more"); if (mo) mo.onclick = () => { state.more += 30; renderAround(); };
     const op = $("#openport"); if (op) op.onclick = () => { voyage = at.v; state.port = at.p; store.set("voyage", voyage.id); setMode("voyage"); };
   }
+  // Apple Maps place search — only in the iPhone app (free there). Resolves with Apple's places, rejects if it can't answer.
+  const applePending = {};
+  function applePlaces(opts) {
+    return new Promise((res, rej) => {
+      if (!native) return rej(new Error("web"));
+      const id = "poi" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+      applePending[id] = { res, rej };
+      native.postMessage(Object.assign({ cmd: "poi", id }, opts));
+      setTimeout(() => { if (applePending[id]) { delete applePending[id]; rej(new Error("timeout")); } }, 12000);
+    });
+  }
+
   // Ask two OpenStreetMap servers at once and take whichever answers first; a third if both fail.
   async function overpass(q) {
     const ask = (url, ctl) => fetch(url, { method: "POST", body: "data=" + encodeURIComponent(q), signal: ctl && ctl.signal,
@@ -494,23 +507,29 @@
     const near = saved && saved.items && P.km(me.lat, me.lon, saved.lat, saved.lon) < 0.5;
     state.around = near ? Object.assign(saved, { cached: true, refreshing: true }) : { loading: true, items: [], notable: [], lat: me.lat, lon: me.lon, r };
     renderAround();
-    const fresh = { items: null, notable: null, at: Date.now(), r, lat: me.lat, lon: me.lon };
+    const fresh = { items: null, notable: null, apple: null, at: Date.now(), r, lat: me.lat, lon: me.lon };
+    const merged = () => fresh.apple ? I.mergeApple(fresh.items || [], fresh.apple, P.km) : fresh.items;
     const show = () => {
       if (stale()) return;
       const keep = state.around || {};
-      state.around = { items: fresh.items || keep.items || [], notable: fresh.notable || keep.notable || [], at: fresh.at, r, lat: me.lat, lon: me.lon,
+      state.around = { items: merged() || keep.items || [], notable: fresh.notable || keep.notable || [], at: fresh.at, r, lat: me.lat, lon: me.lon,
         refreshing: !(fresh.items && fresh.notable), partial: !fresh.items };
       renderAround();
     };
     const osm = overpass(I.aroundQuery(me.lat, me.lon, r)).then(j => { fresh.items = I.placesFrom(j.elements, me.lat, me.lon, P.km); show(); });
     const wiki = getJSON(wikiURL(me.lat, me.lon, r, 50)).then(j => { fresh.notable = I.notableFrom((j.query || {}).pages, me.lat, me.lon, P.km); show(); });
-    const res = await Promise.allSettled([osm, wiki]);
+    // In the iPhone app, food, shops and handy places come from Apple Maps (one request per group).
+    const apple = native ? Promise.allSettled(Object.entries(I.APPLE_GROUPS).map(([g, cats]) =>
+        applePlaces({ lat: me.lat, lon: me.lon, radius: Math.min(r, 1500), categories: cats }).then(items => [g, I.appleToPlaces(items, me.lat, me.lon, P.km)])))
+      .then(rs => { const by = {}; for (const x of rs) if (x.status === "fulfilled" && x.value[1].length) by[x.value[0]] = x.value[1];
+        if (Object.keys(by).length) { fresh.apple = by; if (fresh.items) show(); } }) : Promise.resolve();
+    const res = await Promise.allSettled([osm, wiki, apple]);
     if (stale()) return;
-    if (res.some(x => x.status === "fulfilled")) {
-      if (!fresh.items) fresh.items = near ? saved.items : [];
+    if (fresh.items || fresh.notable || fresh.apple) {
+      if (!fresh.items) fresh.items = fresh.apple ? [] : near ? saved.items : [];
       if (!fresh.notable) fresh.notable = near ? saved.notable : [];
-      show(); state.around.refreshing = false; state.around.partial = false;
-      store.set("around", { items: fresh.items, notable: fresh.notable, at: fresh.at, r, lat: me.lat, lon: me.lon });
+      show(); if (state.around) { state.around.refreshing = false; state.around.partial = false; }
+      store.set("around", { items: merged(), notable: fresh.notable, at: fresh.at, r, lat: me.lat, lon: me.lon });
     } else state.around = near ? Object.assign(saved, { cached: true, refreshing: false })
       : { error: "No connection for the map lookup right now. When you're in a cruise port, the Ideas and Pier & walking tabs still work offline." };
     renderAround();
@@ -582,9 +601,17 @@
     state.searchRes = saved && saved.key === key && P.km(me.lat, me.lon, saved.lat, saved.lon) < 0.3 ? Object.assign(saved, { refreshing: true }) : { loading: true, lat: me.lat, lon: me.lon, key };
     renderAround();
     try {
-      const j = await overpass(I.searchQuery(s, me.lat, me.lon, r));
+      let items = null, src = "osm";
+      if (native) {   // iPhone app: Apple Maps first, the way you'd search in the Maps app
+        try {
+          const raw = await applePlaces({ lat: me.lat, lon: me.lon, radius: r, queries: [sv.term] });
+          const a = I.appleSearchResults(raw, s, me.lat, me.lon, P.km).filter(x => x.d * 1000 <= r * 1.05);
+          if (a.length) { items = a; src = "apple"; }
+        } catch (e) {}
+      }
+      if (!items) { const j = await overpass(I.searchQuery(s, me.lat, me.lon, r)); items = I.searchResults(j.elements, s, me.lat, me.lon, P.km); }
       if (state.searchReq !== req) return;
-      state.searchRes = { items: I.searchResults(j.elements, s, me.lat, me.lon, P.km), at: Date.now(), lat: me.lat, lon: me.lon, r, key };
+      state.searchRes = { items, src, at: Date.now(), lat: me.lat, lon: me.lon, r, key };
       store.set("search." + sv.term, state.searchRes);
     } catch (e) {
       if (state.searchReq !== req) return;
@@ -608,7 +635,7 @@
     const list = items => `<ul class="places compact">${items.slice(0, 40).map(row).join("")}</ul>`;
     const none = `<p class="fine">None found within ${RADII.find(r => r[0] === state.radius)[1].toLowerCase()}${state.radius < 8000 ? " — try <b>Short drive</b>" : ""}. Map data is thinner in some places; a nearby town may have more.</p>`;
     return head + (within.length ? (a.length ? list(a) : "") + (b.length ? `<h4 class="sub4">${a.length ? "Also nearby" : "Nearest"}: ${esc(b[0].label)}s</h4>` + list(b) : "") : none)
-      + `<p class="fine">${res.refreshing ? "Updating… " : ""}${res.cached ? "Saved list. " : ""}From OpenStreetMap. Directions open Apple Maps (walking, or driving when it's far).</p>` + foot;
+      + `<p class="fine">${res.refreshing ? "Updating… " : ""}${res.cached ? "Saved list. " : ""}From ${res.src === "apple" ? "Apple Maps" : "OpenStreetMap"}. Directions open Apple Maps (walking, or driving when it's far).</p>` + foot;
   }
   function addSearchForm() {
     return `<div class="addsearch"><b>Add a search</b>

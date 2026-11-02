@@ -525,6 +525,62 @@
     }
     return out.sort((a, b) => (pref ? (b.pref ? 1 : 0) - (a.pref ? 1 : 0) : 0) || a.d - b.d);
   }
+  // ---- Apple Maps results (iPhone app) → the same place shape -------------------------------------------------------
+  // Apple category → [group, kind (for the icon), label]
+  const APPLE = { cafe: ["food", "cafe", "café"], restaurant: ["food", "restaurant", "restaurant"], bakery: ["food", "bakery", "bakery"],
+    brewery: ["food", "pub", "brewery"], winery: ["food", "wine", "winery"], nightlife: ["food", "bar", "bar"],
+    foodMarket: ["shop", "groceries", "groceries"], store: ["shop", "shop", "shop"],
+    pharmacy: ["handy", "pharmacy", "pharmacy"], atm: ["handy", "cash", "ATM"], bank: ["handy", "cash", "bank"], postOffice: ["handy", "post office", "post office"],
+    restroom: ["handy", "toilets", "restrooms"], publicTransport: ["handy", "train station", "transit"], gasStation: ["handy", "fuel", "gas station"],
+    hospital: ["handy", "hospital", "hospital"], laundry: ["handy", "laundry", "laundry"], parking: ["handy", "parking", "parking"] };
+  // What the iPhone app asks Apple Maps for, by Near me group.
+  const APPLE_GROUPS = { food: ["cafe", "restaurant", "bakery", "brewery", "winery", "nightlife"], shop: ["foodMarket", "store"],
+    handy: ["pharmacy", "atm", "bank", "postOffice", "restroom"] };
+  function appleToPlaces(items, lat, lon, km) {
+    const seen = new Set(), out = [];
+    for (const it of items || []) {
+      if (!it || !it.name || it.lat == null) continue;
+      const key = it.name.toLowerCase() + "|" + (+it.lat).toFixed(4) + (+it.lon).toFixed(4);
+      if (seen.has(key)) continue; seen.add(key);
+      const k = APPLE[it.category] || ["shop", "shop", ""];
+      const p = { name: it.name, g: k[0], group: "practical", kind: k[1], label: k[2] || "place", lat: +(+it.lat).toFixed(5), lon: +(+it.lon).toFixed(5),
+        d: km(lat, lon, it.lat, it.lon), src: "apple" };
+      if (it.phone) p.phone = it.phone;
+      if (it.website) p.website = it.website;
+      if (it.street) p.street = it.street;
+      out.push(p);
+    }
+    return out.sort((a, b) => a.d - b.d);
+  }
+  const simple = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  // Apple Maps has no opening hours; borrow them from the OpenStreetMap entry for the same place (same name, within ~500 ft).
+  function borrowHours(apple, osm, km) {
+    for (const a of apple) {
+      if (a.hours) continue;
+      const n = simple(a.name); if (n.length < 3) continue;
+      const m = (osm || []).find(o => o.hours && km(a.lat, a.lon, o.lat, o.lon) < 0.15 && (simple(o.name).includes(n.slice(0, 10)) || n.includes(simple(o.name).slice(0, 10))));
+      if (m) a.hours = m.hours;
+    }
+    return apple;
+  }
+  // OpenStreetMap places + Apple Maps by group: where Apple answered for a group, its places replace OpenStreetMap's.
+  function mergeApple(osm, appleByGroup, km) {
+    const groups = Object.keys(appleByGroup || {}).filter(g => (appleByGroup[g] || []).length);
+    const keep = (osm || []).filter(x => !groups.includes(x.g));
+    const add = groups.flatMap(g => borrowHours(appleByGroup[g], (osm || []).filter(x => x.g === g), km));
+    return keep.concat(add).sort((a, b) => a.d - b.d);
+  }
+  // Apple Maps results for one of your searches ("barber shop") → places, preferred ones (barbers) first.
+  function appleSearchResults(items, s, lat, lon, km) {
+    const pref = s.prefer ? new RegExp(s.prefer, "i") : null;
+    return appleToPlaces(items, lat, lon, km).map(p => {
+      if (p.label === "place" || p.label === "shop") p.label = s.label.toLowerCase();
+      p.kind = "custom";
+      if (pref) { p.pref = pref.test(p.name); if (p.pref) p.label = s.label.toLowerCase(); }
+      return p;
+    }).sort((a, b) => (pref ? (b.pref ? 1 : 0) - (a.pref ? 1 : 0) : 0) || a.d - b.d);
+  }
+
   const SEARCH_SUGGESTIONS = ["Barber shop", "Laundry", "Pharmacy", "ATM", "Groceries", "Coffee", "Gas station", "Post office", "Restrooms", "Hardware store", "Phone & SIM", "RV parks & camping"];
 
   // ---- Building a cruise from the checked itinerary ------------------------------------------------------------
@@ -583,7 +639,7 @@
       : a.slice(0, 4) === b.slice(0, 4) ? f(a) + " – " + f(b) + ", " + b.slice(0, 4) : f(a) + ", " + a.slice(0, 4) + " – " + f(b) + ", " + b.slice(0, 4);
   }
 
-  const api = { findSearch, searchQuery, searchResults, SEARCH_SUGGESTIONS, parseItinerary, parseICS, parseAny, parsePage, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
+  const api = { APPLE_GROUPS, appleToPlaces, borrowHours, mergeApple, appleSearchResults, findSearch, searchQuery, searchResults, SEARCH_SUGGESTIONS, parseItinerary, parseICS, parseAny, parsePage, groupRows, findDate, findTimes, cleanPort, tzOffset, utcToLocal, makeCountry, climateFrom, classify,
     aroundQuery, placesFrom, notableFrom, geocode, makePort, voyageDates, slug, addDays, CURRENCY, RATED };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.PortImport = api;
 })(this);

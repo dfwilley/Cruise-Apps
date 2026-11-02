@@ -19,11 +19,19 @@ jobs:
       - name: Download OpenStreetMap extracts (Geofabrik)
         run: |
           mkdir -p osm && cd osm
-          for r in europe/norway europe/great-britain/scotland europe/great-britain/england/essex europe/great-britain/england/kent; do
-            f=$(basename $r)-latest.osm.pbf
-            curl -fsSL --retry 3 -o "$f" "https://download.geofabrik.de/$r-latest.osm.pbf"
-            echo "::notice::Downloaded $f ($(du -h "$f" | cut -f1))"
-          done
+          get() { # name, then candidate paths
+            n=$1; shift
+            for r in "$@"; do
+              if curl -fsSL --retry 2 -o "$n-latest.osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"; then
+                echo "::notice::Downloaded $r ($(du -h "$n-latest.osm.pbf" | cut -f1))"; return 0; fi
+            done
+            rm -f "$n-latest.osm.pbf"; echo "::warning::Couldn't download $n; skipping it"
+          }
+          get norway europe/norway
+          get scotland europe/united-kingdom/scotland europe/great-britain/scotland
+          get essex europe/united-kingdom/england/essex europe/great-britain/england/essex
+          get kent europe/united-kingdom/england/kent europe/great-britain/england/kent
+          ls -la
       - name: Keep only landmarks and export them
         run: |
           cd osm

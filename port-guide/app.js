@@ -54,7 +54,7 @@
   const state = {
     mode: ["near", "add"].includes(qs.get("mode")) ? qs.get("mode") : "voyage",   // "voyage" (a cruise's guide), "near" (places around you), "add" (add a cruise)
     port: (qs.get("port") && voyage.ports.find(p => p.id === qs.get("port"))) || cur.port,
-    tab: (t => t === "near" ? "ideas" : TABS.includes(t) ? t : "walk")(qs.get("tab") || store.get("tab", "walk")),
+    tab: (t => t === "near" ? "ideas" : TABS.includes(t) ? t : "walk")(qs.get("tab") || (fakeNow ? "walk" : store.get("tab", "walk"))),   // previews always open on the first tab
     cat: store.get("cat", "all"), radius: store.get("radius", 1600), more: 0,
     draft: null,
     filter: "all",
@@ -485,7 +485,8 @@
   const fmtD = s => P.dayLabel(s).replace(/^(\w{3})\w*, /, "$1, ");
   function vikingMatches(q) {
     const idx = state.vindex; if (!idx || !idx.cruises) return "";
-    const words = I.slug(q || "").split("-").filter(Boolean);
+    if (!q || !q.trim()) return "";
+    const words = I.slug(q).split("-").filter(Boolean);
     if (!words.length) return "";
     const hits = idx.cruises.filter(c => { const hay = I.slug(c.name + " " + c.route + " " + c.region); return words.every(w => hay.includes(w)); }).slice(0, 12);
     if (!hits.length) return `<li class="fine">No Viking cruise matches "${esc(q)}". Try one word from the name, or a port.</li>`;

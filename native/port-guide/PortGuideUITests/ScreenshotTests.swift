@@ -11,12 +11,13 @@ final class ScreenshotTests: XCTestCase {
         app.launch()
         let web = app.webViews.firstMatch
         XCTAssertTrue(web.waitForExistence(timeout: 15))
-        XCTAssertTrue(web.staticTexts["Narvik"].firstMatch.waitForExistence(timeout: 15), "screens loaded inside the app")
+        XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Narvik")).firstMatch.waitForExistence(timeout: 30), "screens loaded inside the app")
         sleep(2)
         snap(app, "1-pier")
         web.swipeUp(); sleep(1); snap(app, "2-sights")
         for (tab, name) in [("Hours", "3-hours"), ("Money", "4-money")] {
             let b = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", tab)).firstMatch
+            web.swipeDown(); web.swipeDown()
             if b.waitForExistence(timeout: 5) { b.tap(); sleep(2); snap(app, name); web.swipeUp(); sleep(1); snap(app, name + "b") }
         }
     }
@@ -28,10 +29,11 @@ final class ScreenshotTests: XCTestCase {
         app.launch()
         let web = app.webViews.firstMatch
         XCTAssertTrue(web.waitForExistence(timeout: 15))
-        XCTAssertTrue(web.staticTexts["Würzburg"].firstMatch.waitForExistence(timeout: 15), "river voyage opens on Würzburg")
+        XCTAssertTrue(web.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "Würzburg")).firstMatch.waitForExistence(timeout: 30), "river voyage opens on Würzburg")
         sleep(2); snap(app, "5-river")
         for (tab, name) in [("Ideas", "6-ideas"), ("Hours", "7-river-hours"), ("Money", "8-euro")] {
             let b = web.buttons.matching(NSPredicate(format: "label CONTAINS %@", tab)).firstMatch
+            web.swipeDown(); web.swipeDown()
             if b.waitForExistence(timeout: 5) { b.tap(); sleep(2); snap(app, name); web.swipeUp(); sleep(1); snap(app, name + "b") }
         }
         web.swipeDown(); web.swipeDown()

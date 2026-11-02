@@ -141,3 +141,4 @@ footer ul { padding-left: 18px; }
 .idea p { font-size: .9rem; color: var(--ink); margin: 3px 0; }
 .tag { display: inline-block; font-size: .72rem; background: #efe6d3; color: var(--navy); border-radius: 6px; padding: 1px 6px; vertical-align: 1px; }
 .sub4 { margin: 12px 0 6px; color: var(--muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }
+.idea .meta span:first-child { text-transform: none; }

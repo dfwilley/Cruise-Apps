@@ -1450,6 +1450,15 @@
 "fromPier": 0.09
 },
 {
+"name": "Håkon Håkonssons second stone hall",
+"group": "sight",
+"kind": "historic",
+"lat": 60.39954,
+"lon": 5.31714,
+"local": "Håkon Håkonssons andre steinhall",
+"fromPier": 0.12
+},
+{
 "name": "Haakon's Hall",
 "group": "sight",
 "kind": "museum",
@@ -1461,6 +1470,24 @@
 "fee": "yes",
 "wheelchair": "no",
 "fromPier": 0.13
+},
+{
+"name": "Håkon Håkonssons girdle-wall",
+"group": "sight",
+"kind": "historic",
+"lat": 60.39983,
+"lon": 5.31707,
+"local": "Håkon Håkonssons ringmur",
+"fromPier": 0.15
+},
+{
+"name": "Solar ruins",
+"group": "sight",
+"kind": "historic",
+"lat": 60.39985,
+"lon": 5.31746,
+"local": "Ruiner av Solaret",
+"fromPier": 0.15
 },
 {
 "name": "Statsraad Lehmkuhl",
@@ -1489,13 +1516,48 @@
 "fromPier": 0.16
 },
 {
-"name": "Nykirken",
+"name": "christ church ruins",
 "group": "sight",
-"kind": "church",
-"lat": 60.39707,
-"lon": 5.31338,
-"wikidata": "Q1779494",
-"fromPier": 0.25
+"kind": "historic",
+"lat": 60.40026,
+"lon": 5.31673,
+"local": "Kristkirketomten",
+"fromPier": 0.2
+},
+{
+"name": "Kong Haakon VII",
+"group": "sight",
+"kind": "historic",
+"lat": 60.40054,
+"lon": 5.31625,
+"fromPier": 0.23
+},
+{
+"name": "Magic Ice Bar Bergen",
+"group": "sight",
+"kind": "attraction",
+"lat": 60.39752,
+"lon": 5.31263,
+"hours": "Mo-Su 11:00-23:00",
+"website": "https://magicice.no/",
+"fee": "yes",
+"fromPier": 0.26
+},
+{
+"name": "Troll Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 60.39905,
+"lon": 5.32159,
+"fromPier": 0.26
+},
+{
+"name": "Kanoner",
+"group": "sight",
+"kind": "attraction",
+"lat": 60.40084,
+"lon": 5.3159,
+"fromPier": 0.27
 },
 {
 "name": "Bergenhus Festningsmuseum",
@@ -1512,6 +1574,16 @@
 "fromPier": 0.28
 },
 {
+"name": "St. Catherine's Hospital",
+"group": "sight",
+"kind": "historic",
+"lat": 60.39882,
+"lon": 5.3221,
+"local": "Katarinahospitalets ruin",
+"hours": "24/7",
+"fromPier": 0.28
+},
+{
 "name": "Bryggens museum",
 "group": "sight",
 "kind": "museum",
@@ -1523,19 +1595,6 @@
 "wheelchair": "yes",
 "phone": "+47 55 308030",
 "fromPier": 0.32
-},
-{
-"name": "St Mary's Church",
-"group": "sight",
-"kind": "church",
-"lat": 60.39891,
-"lon": 5.32332,
-"local": "Mariakirken",
-"hours": "May-Sep 09:00-16:00; Oct-Apr 12:00-14:00",
-"website": "https://kirken.no/nb-no/fellesrad/bergen/menigheter/bergen-domkirke-menighet/om-oss/kirkene-vare/domkirken3/",
-"wikidata": "Q571683",
-"fee": "yes",
-"fromPier": 0.35
 },
 {
 "name": "Schøtstuene",
@@ -1654,28 +1713,6 @@
 "fromPier": 0.71
 },
 {
-"name": "Korskirken",
-"group": "sight",
-"kind": "church",
-"lat": 60.39489,
-"lon": 5.32776,
-"website": "http://www.korskirken.no/",
-"wikidata": "Q2564303",
-"wheelchair": "limited",
-"fromPier": 0.71
-},
-{
-"name": "Salem",
-"group": "sight",
-"kind": "church",
-"lat": 60.39095,
-"lon": 5.32054,
-"website": "https://salem.no",
-"wikidata": "Q19387401",
-"wheelchair": "yes",
-"fromPier": 0.86
-},
-{
 "name": "Bergen skolemuseum",
 "group": "sight",
 "kind": "museum",
@@ -1696,27 +1733,6 @@
 "lon": 5.32484,
 "wikidata": "Q19382057",
 "fromPier": 0.9
-},
-{
-"name": "Sandvikskirken",
-"group": "sight",
-"kind": "church",
-"lat": 60.40539,
-"lon": 5.32546,
-"wikidata": "Q17195037",
-"fromPier": 0.9
-},
-{
-"name": "Bergen domkirke",
-"group": "sight",
-"kind": "church",
-"lat": 60.39381,
-"lon": 5.33087,
-"hours": "Tu,Th-Fr 12:00-14:00",
-"website": "http://bergendomkirke.no",
-"wikidata": "Q819531",
-"wheelchair": "yes",
-"fromPier": 0.92
 },
 {
 "name": "Stenersen",
@@ -1754,38 +1770,6 @@
 "fee": "yes",
 "wheelchair": "limited",
 "fromPier": 1.1
-},
-{
-"name": "St. Paul kirke",
-"group": "sight",
-"kind": "church",
-"lat": 60.38905,
-"lon": 5.32356,
-"website": "https://bergen.katolsk.no/",
-"wikidata": "Q3376300",
-"fromPier": 1.11
-},
-{
-"name": "St. John's Church",
-"group": "sight",
-"kind": "church",
-"lat": 60.38859,
-"lon": 5.31942,
-"local": "Johanneskirken",
-"website": "https://bergendomkirke.no",
-"wikidata": "Q1778619",
-"fromPier": 1.11
-},
-{
-"name": "Pinsekirken Tabernaklet",
-"group": "sight",
-"kind": "church",
-"lat": 60.39104,
-"lon": 5.33111,
-"website": "https://ptb.no",
-"wikidata": "Q11995734",
-"wheelchair": "yes",
-"fromPier": 1.14
 },
 {
 "name": "Rasmus Meyers samlinger",
@@ -3813,15 +3797,6 @@
 "fromPier": 0.06
 },
 {
-"name": "Kirche Jesu Christi der Heiligen der Letzten Tage",
-"group": "sight",
-"kind": "church",
-"lat": 47.56534,
-"lon": 7.58178,
-"wikidata": "Q55382629",
-"fromPier": 0.08
-},
-{
 "name": "Anatomisches Museum",
 "group": "sight",
 "kind": "museum",
@@ -3835,23 +3810,23 @@
 "fromPier": 0.19
 },
 {
-"name": "Johanneskirche",
+"name": "Ackermannshof",
 "group": "sight",
-"kind": "church",
-"lat": 47.5655,
-"lon": 7.57505,
-"wikidata": "Q1686663",
-"wheelchair": "yes",
-"fromPier": 0.49
+"kind": "museum",
+"lat": 47.56316,
+"lon": 7.5846,
+"fromPier": 0.39
 },
 {
-"name": "Predigerkirche",
+"name": "Novartis Pavillon",
 "group": "sight",
-"kind": "church",
-"lat": 47.56143,
-"lon": 7.58559,
-"wikidata": "Q1340020",
-"fromPier": 0.59
+"kind": "museum",
+"lat": 47.57157,
+"lon": 7.58281,
+"hours": "We-Su 10:00-18:00",
+"website": "https://www.campus.novartis.com/novartis-pavillon",
+"fee": "yes",
+"fromPier": 0.63
 },
 {
 "name": "Skulpturhalle",
@@ -3865,15 +3840,6 @@
 "fee": "no",
 "wheelchair": "yes",
 "fromPier": 0.65
-},
-{
-"name": "Antoniuskirche",
-"group": "sight",
-"kind": "church",
-"lat": 47.56387,
-"lon": 7.57297,
-"wikidata": "Q606984",
-"fromPier": 0.68
 },
 {
 "name": "Museum Kleines Klingental",
@@ -3913,26 +3879,6 @@
 "fromPier": 0.77
 },
 {
-"name": "Peterskirche",
-"group": "sight",
-"kind": "church",
-"lat": 47.5593,
-"lon": 7.58517,
-"website": "https://www.erk-bs.ch/kg/baselwest/st-peter",
-"wikidata": "Q2079668",
-"fromPier": 0.79
-},
-{
-"name": "St. Joseph",
-"group": "sight",
-"kind": "church",
-"lat": 47.56977,
-"lon": 7.59063,
-"wikidata": "Q1708435",
-"wheelchair": "yes",
-"fromPier": 0.8
-},
-{
 "name": "Rappaz Museum",
 "group": "sight",
 "kind": "museum",
@@ -3943,15 +3889,6 @@
 "wikidata": "Q20616466",
 "fee": "no",
 "fromPier": 0.82
-},
-{
-"name": "Matthäuskirche",
-"group": "sight",
-"kind": "church",
-"lat": 47.56716,
-"lon": 7.59305,
-"wikidata": "Q1910573",
-"fromPier": 0.88
 },
 {
 "name": "Spalentor",
@@ -3978,6 +3915,24 @@
 "fromPier": 0.9
 },
 {
+"name": "Käppelijoch",
+"group": "sight",
+"kind": "attraction",
+"lat": 47.56006,
+"lon": 7.58982,
+"wheelchair": "no",
+"description": "A little chapel in the centre of the Mittlere Brücke. Originally used as a toll station it also served as a weighdown for the bridge's pillar. Later it served as a public penitentiary, where people wh",
+"fromPier": 0.91
+},
+{
+"name": "Wohn- und Wehrturm Schneidergasse",
+"group": "sight",
+"kind": "historic",
+"lat": 47.55835,
+"lon": 7.58664,
+"fromPier": 0.93
+},
+{
 "name": "Jüdisches Museum der Schweiz",
 "group": "sight",
 "kind": "museum",
@@ -3989,6 +3944,16 @@
 "fee": "yes",
 "wheelchair": "limited",
 "phone": "+41 61 261 95 14",
+"fromPier": 0.94
+},
+{
+"name": "Andreaskapelle",
+"group": "sight",
+"kind": "historic",
+"lat": 47.55817,
+"lon": 7.58638,
+"website": "https://www.bs.ch/pd/kultur/museen-und-andere-dienststellen/archaeologie/vermittlung/infostellen/andreaskapelle",
+"description": "Die Umrisse der einstigen Kapelle sind auf dem Andreasplatz durch rote Pflastersteine markiert.",
 "fromPier": 0.94
 },
 {
@@ -4051,6 +4016,26 @@
 "website": "https://www.carzaniga.ch/",
 "wikidata": "Q131937401",
 "fromPier": 1.14
+},
+{
+"name": "Museum of the Chemical Industry Basel",
+"group": "sight",
+"kind": "museum",
+"lat": 47.57513,
+"lon": 7.58857,
+"local": "Chemiemuseum Basel",
+"hours": "We 14:00-17:00; Sa[1] 10:00-17:00",
+"website": "https://www.chemiemuseum.ch/",
+"description": "Arbeitswelt Chemie Ausstellung über die chemischen Werke Basel 1950 - 1996.",
+"fromPier": 1.15
+},
+{
+"name": "Stadtmauerkeller Leonhardsgraben 43",
+"group": "sight",
+"kind": "historic",
+"lat": 47.55603,
+"lon": 7.5861,
+"fromPier": 1.16
 },
 {
 "name": "Museum der Kulturen",
@@ -4750,89 +4735,90 @@
 "fromPier": 17.26
 },
 {
-"name": "Église Saint-Antoine",
+"name": "Petite Venice",
 "group": "sight",
-"kind": "church",
-"lat": 48.07868,
-"lon": 7.36922,
-"wikidata": "Q38419749",
-"fromPier": 16.26
-},
-{
-"name": "Chapelle Saint-Antoine",
-"group": "sight",
-"kind": "church",
-"lat": 48.07915,
-"lon": 7.36909,
-"wikidata": "Q60365054",
-"fromPier": 16.28
-},
-{
-"name": "Église Évangélique Méthodiste",
-"group": "sight",
-"kind": "church",
-"lat": 48.07851,
-"lon": 7.36458,
-"wikidata": "Q38387622",
-"fromPier": 16.58
-},
-{
-"name": "Synagogue",
-"group": "sight",
-"kind": "church",
-"lat": 48.07698,
-"lon": 7.36248,
-"wikidata": "Q2375013",
-"fromPier": 16.67
-},
-{
-"name": "Église Saint-Matthieu",
-"group": "sight",
-"kind": "church",
-"lat": 48.07698,
-"lon": 7.36102,
-"website": "http://www.paroisse-protestante-colmar.org/",
-"wikidata": "Q27921564",
-"fromPier": 16.78
-},
-{
-"name": "Église de Dieu",
-"group": "sight",
-"kind": "church",
-"lat": 48.08782,
-"lon": 7.36558,
-"wikidata": "Q38397289",
-"fromPier": 16.87
-},
-{
-"name": "St Martin's Church",
-"group": "sight",
-"kind": "church",
-"lat": 48.07733,
-"lon": 7.35815,
-"local": "Collégiale Saint-Martin",
-"wikidata": "Q1581390",
+"kind": "viewpoint",
+"lat": 48.07462,
+"lon": 7.36033,
+"local": "La petite Venise",
 "wheelchair": "yes",
-"fromPier": 16.99
+"fromPier": 16.75
 },
 {
-"name": "Église Saint-Léon",
+"name": "Musée d'Histoire Naturelle et d'Éthnographie",
 "group": "sight",
-"kind": "church",
-"lat": 48.08786,
-"lon": 7.36274,
-"wikidata": "Q60387318",
-"fromPier": 17.06
+"kind": "museum",
+"lat": 48.07365,
+"lon": 7.35879,
+"hours": "Tu-Fr 09:00-12:00, 14:00-17:00; Sa-Su 10:00-12:00, 14:00-18:00",
+"website": "https://www.museumcolmar.org/",
+"fee": "yes",
+"phone": "+33 3 89 23 84 15",
+"fromPier": 16.83
 },
 {
-"name": "Chapelle Saint-Pierre",
+"name": "Maison des Arcades",
 "group": "sight",
-"kind": "church",
-"lat": 48.07354,
-"lon": 7.35528,
-"wikidata": "Q60385182",
+"kind": "attraction",
+"lat": 48.07682,
+"lon": 7.35999,
+"fromPier": 16.84
+},
+{
+"name": "Choco Story",
+"group": "sight",
+"kind": "museum",
+"lat": 48.07695,
+"lon": 7.35855,
+"hours": "Feb-Dec 10:00-18:00",
+"website": "https://www.choco-story-colmar.fr/",
+"fee": "yes",
+"phone": "+33 9 88 99 44 30",
+"fromPier": 16.95
+},
+{
+"name": "Théophile Conrad Pfeffel",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.07554,
+"lon": 7.35776,
+"fromPier": 16.96
+},
+{
+"name": "Espace d'Art Contemporain André Malraux",
+"group": "sight",
+"kind": "museum",
+"lat": 48.07923,
+"lon": 7.35933,
+"website": "https://eacam.eu",
+"fee": "no",
 "wheelchair": "limited",
-"fromPier": 17.07
+"phone": "+33 3 89 20 67 59",
+"fromPier": 16.97
+},
+{
+"name": "Maison Zum Kragen",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.07677,
+"lon": 7.35803,
+"fromPier": 16.98
+},
+{
+"name": "Maison Adolph",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.07684,
+"lon": 7.3581,
+"fromPier": 16.98
+},
+{
+"name": "Ancien corps de garde",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.0769,
+"lon": 7.35775,
+"fromPier": 17.01
 }
 ],
 "practical": [
@@ -5074,6 +5060,28 @@
 "fromPier": 0.0
 },
 {
+"name": "Plateforme de la Cathédrale de Strasbourg",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 48.58167,
+"lon": 7.75049,
+"wheelchair": "no",
+"fromPier": 0.03
+},
+{
+"name": "Batorama shop",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.58204,
+"lon": 7.75014,
+"local": "Batorama Boutique",
+"hours": "Mo-Su 09:30-21:00",
+"website": "https://www.batorama.com/fr",
+"wheelchair": "yes",
+"description": "Boutique de souvenirs et de billets pour les croisières touristiques Batorama",
+"fromPier": 0.06
+},
+{
 "name": "Cabinet des Estampes et des Dessins",
 "group": "sight",
 "kind": "museum",
@@ -5093,6 +5101,16 @@
 "website": "https://www.musees.strasbourg.eu/web/musees/musee-de-l-oeuvre-notre-dame",
 "wikidata": "Q847007",
 "fee": "yes",
+"fromPier": 0.11
+},
+{
+"name": "Cathedral view",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 48.58134,
+"lon": 7.74957,
+"local": "Vue sur Cathédrale de Strasbourg",
+"wheelchair": "yes",
 "fromPier": 0.11
 },
 {
@@ -5144,6 +5162,17 @@
 "fromPier": 0.16
 },
 {
+"name": "BATORAMA, Boat tours",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.58022,
+"lon": 7.752,
+"local": "BATORAMA, Bateaux-promenades",
+"website": "https://www.batorama.com/fr",
+"description": "Point de départ des croisières touristiques Batorama",
+"fromPier": 0.19
+},
+{
 "name": "Musée Historique",
 "group": "sight",
 "kind": "museum",
@@ -5156,16 +5185,6 @@
 "wheelchair": "yes",
 "phone": "+33 3 68 98 51 60",
 "fromPier": 0.21
-},
-{
-"name": "Temple Neuf",
-"group": "sight",
-"kind": "church",
-"lat": 48.58335,
-"lon": 7.74845,
-"wikidata": "Q584771",
-"wheelchair": "no",
-"fromPier": 0.25
 },
 {
 "name": "Musée Alsacien",
@@ -5182,15 +5201,6 @@
 "fromPier": 0.3
 },
 {
-"name": "Église catholique Sainte-Madeleine",
-"group": "sight",
-"kind": "church",
-"lat": 48.58004,
-"lon": 7.75485,
-"wikidata": "Q692407",
-"fromPier": 0.35
-},
-{
 "name": "Palais du Gouverneur",
 "group": "sight",
 "kind": "historic",
@@ -5200,12 +5210,19 @@
 "fromPier": 0.37
 },
 {
-"name": "Église Saint-Étienne",
+"name": "Porte des Remparts",
 "group": "sight",
-"kind": "church",
-"lat": 48.58344,
-"lon": 7.75589,
-"wikidata": "Q649614",
+"kind": "historic",
+"lat": 48.57957,
+"lon": 7.75522,
+"fromPier": 0.4
+},
+{
+"name": "Statue de Kellermann",
+"group": "sight",
+"kind": "historic",
+"lat": 48.58552,
+"lon": 7.75065,
 "fromPier": 0.41
 },
 {
@@ -5241,26 +5258,12 @@
 "fromPier": 0.42
 },
 {
-"name": "Saint-Nicolas' Church",
+"name": "Général Leclerc",
 "group": "sight",
-"kind": "church",
-"lat": 48.57835,
-"lon": 7.74856,
-"local": "Église Saint-Nicolas",
-"wikidata": "Q571330",
-"wheelchair": "limited",
+"kind": "historic",
+"lat": 48.58552,
+"lon": 7.75143,
 "fromPier": 0.42
-},
-{
-"name": "Église protestante Saint-Thomas",
-"group": "sight",
-"kind": "church",
-"lat": 48.57969,
-"lon": 7.74559,
-"hours": "Mo-Sa 10:00-17:00; Su 13:30-17:00",
-"wikidata": "Q1785858",
-"wheelchair": "yes",
-"fromPier": 0.46
 },
 {
 "name": "Monument Lezay-Marnésia",
@@ -5270,45 +5273,6 @@
 "lon": 7.75337,
 "wikidata": "Q62082054",
 "fromPier": 0.49
-},
-{
-"name": "Église Réformée",
-"group": "sight",
-"kind": "church",
-"lat": 48.58066,
-"lon": 7.74434,
-"wikidata": "Q3586133",
-"fromPier": 0.5
-},
-{
-"name": "Église évangélique luthérienne libre",
-"group": "sight",
-"kind": "church",
-"lat": 48.57806,
-"lon": 7.75456,
-"wikidata": "Q68778155",
-"wheelchair": "limited",
-"fromPier": 0.5
-},
-{
-"name": "Église Saint-Guillaume",
-"group": "sight",
-"kind": "church",
-"lat": 48.58204,
-"lon": 7.75777,
-"wikidata": "Q740045",
-"wheelchair": "no",
-"fromPier": 0.51
-},
-{
-"name": "Église protestante Saint-Pierre-le-Jeune",
-"group": "sight",
-"kind": "church",
-"lat": 48.58555,
-"lon": 7.74666,
-"hours": "Mo-Su 12:00-18:00",
-"wikidata": "Q1534869",
-"fromPier": 0.52
 },
 {
 "name": "Musée Tomi Ungerer Centre International de l'Illustration",
@@ -5324,33 +5288,13 @@
 "fromPier": 0.53
 },
 {
-"name": "Chapelle Saint-Erhard",
+"name": "Vue sur St. Paul",
 "group": "sight",
-"kind": "church",
-"lat": 48.57717,
-"lon": 7.7493,
-"wikidata": "Q18379998",
-"wheelchair": "no",
-"fromPier": 0.53
-},
-{
-"name": "Église catholique Saint-Louis",
-"group": "sight",
-"kind": "church",
-"lat": 48.57829,
-"lon": 7.74578,
-"wikidata": "Q1101504",
-"fromPier": 0.54
-},
-{
-"name": "Église Méthodiste de Sion",
-"group": "sight",
-"kind": "church",
-"lat": 48.58139,
-"lon": 7.74253,
-"wikidata": "Q17500494",
+"kind": "viewpoint",
+"lat": 48.58442,
+"lon": 7.75852,
 "wheelchair": "yes",
-"fromPier": 0.62
+"fromPier": 0.63
 },
 {
 "name": "Little France",
@@ -5364,16 +5308,6 @@
 "fromPier": 0.64
 },
 {
-"name": "Communauté des sœurs de Marie Réparatrice",
-"group": "sight",
-"kind": "church",
-"lat": 48.57731,
-"lon": 7.7453,
-"wikidata": "Q23305609",
-"wheelchair": "yes",
-"fromPier": 0.65
-},
-{
 "name": "Palace of the Rhine",
 "group": "sight",
 "kind": "historic",
@@ -5381,16 +5315,6 @@
 "lon": 7.75253,
 "local": "Palais du Rhin",
 "wikidata": "Q643186",
-"fromPier": 0.66
-},
-{
-"name": "Église catholique de l'hôpital civil",
-"group": "sight",
-"kind": "church",
-"lat": 48.5765,
-"lon": 7.74692,
-"wikidata": "Q18380191",
-"wheelchair": "no",
 "fromPier": 0.66
 },
 {
@@ -5412,45 +5336,12 @@
 "fromPier": 0.71
 },
 {
-"name": "Les Diocénesse",
+"name": "Charles de Foucauld",
 "group": "sight",
-"kind": "church",
-"lat": 48.57705,
-"lon": 7.74411,
-"wikidata": "Q18379997",
-"fromPier": 0.73
-},
-{
-"name": "Église catholique Saint-Pierre-le-Jeune",
-"group": "sight",
-"kind": "church",
-"lat": 48.58842,
-"lon": 7.74887,
-"hours": "Mo-Fr 08:30-19:30; Sa 09:00-20:00; Su 09:00-13:00",
-"wikidata": "Q2212718",
-"fromPier": 0.75
-},
-{
-"name": "Église catholique Saint-Pierre le-vieux",
-"group": "sight",
-"kind": "church",
-"lat": 48.58287,
-"lon": 7.74002,
-"hours": "Mo-Su 09:00-18:00",
-"wikidata": "Q2212725",
-"wheelchair": "limited",
-"fromPier": 0.81
-},
-{
-"name": "Chapelle Notre-Dame du Très-Saint-Rosaire",
-"group": "sight",
-"kind": "church",
-"lat": 48.58848,
-"lon": 7.74592,
-"website": "https://laportelatine.org/lieux/urmatt/strasbourg",
-"wikidata": "Q64995634",
-"phone": "+33 9 60 40 01 77",
-"fromPier": 0.83
+"kind": "historic",
+"lat": 48.58802,
+"lon": 7.7487,
+"fromPier": 0.71
 },
 {
 "name": "Musée de Minéralogie",
@@ -5485,6 +5376,14 @@
 "fromPier": 0.98
 },
 {
+"name": "Porte Koeberlé",
+"group": "sight",
+"kind": "historic",
+"lat": 48.57551,
+"lon": 7.73959,
+"fromPier": 1.09
+},
+{
 "name": "Musée de Sismologie et de Magnétisme Terrestre",
 "group": "sight",
 "kind": "museum",
@@ -5511,6 +5410,48 @@
 "fromPier": 1.12
 },
 {
+"name": "Association Touristique des Cheminots (Routes du Monde)",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.58616,
+"lon": 7.73664,
+"website": "http://atcstrasbourg.comoj.com",
+"description": "Association Voyages Loisirs ouverte à tous",
+"phone": "+33 3 88 75 39 23",
+"fromPier": 1.16
+},
+{
+"name": "Toit du Parking Wodli",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 48.58731,
+"lon": 7.73696,
+"wheelchair": "yes",
+"description": "Une jolie vue sur Strasbourg, la Gare, mais aussi la Cathédrale",
+"fromPier": 1.19
+},
+{
+"name": "Institut de Botanique",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.58398,
+"lon": 7.76688,
+"description": "Serre tropicale",
+"fromPier": 1.2
+},
+{
+"name": "Jardin Botanique",
+"group": "sight",
+"kind": "attraction",
+"lat": 48.58354,
+"lon": 7.76708,
+"hours": "Mar-Apr,Sep-Oct 14:00-18:00; May 02-Aug 31 14:00-19:00; Nov 02-10 14:00-16:00; Nov 12-Dec 24 Mo-Su 14:00-16:00",
+"website": "https://jardin-botanique.unistra.fr/",
+"fee": "no",
+"wheelchair": "designated",
+"fromPier": 1.21
+},
+{
 "name": "Statue de Jeanne d'Arc",
 "group": "sight",
 "kind": "historic",
@@ -5520,6 +5461,35 @@
 "fromPier": 1.46
 },
 {
+"name": "Kriegstor",
+"group": "sight",
+"kind": "historic",
+"lat": 48.58748,
+"lon": 7.73104,
+"description": "Élément du système de fortification allemande de Strasbourg datant du 19e siècle",
+"fromPier": 1.59
+},
+{
+"name": "Mémorial des Résistants FFI",
+"group": "sight",
+"kind": "historic",
+"lat": 48.59517,
+"lon": 7.75934,
+"fromPier": 1.61
+},
+{
+"name": "Château Vodou",
+"group": "sight",
+"kind": "museum",
+"lat": 48.58038,
+"lon": 7.72875,
+"hours": "Tu-Su 14:00-18:00",
+"website": "https://www.chateau-vodou.com",
+"fee": "yes",
+"phone": "+33 3 88 36 15 03",
+"fromPier": 1.64
+},
+{
 "name": "Chapelle Notre-Dame du Wacken",
 "group": "sight",
 "kind": "historic",
@@ -5527,6 +5497,14 @@
 "lon": 7.76377,
 "wikidata": "Q19276297",
 "fromPier": 1.75
+},
+{
+"name": "Mémorial pour les \"Malgré-Nous\"",
+"group": "sight",
+"kind": "historic",
+"lat": 48.59189,
+"lon": 7.73222,
+"fromPier": 1.77
 },
 {
 "name": "Le Vaisseau",
@@ -5776,25 +5754,16 @@
 "karlsruhe": {
 "sights": [
 {
-"name": "Evangelische Stadtkirche",
+"name": "Museum beim Markt",
 "group": "sight",
-"kind": "church",
-"lat": 49.00853,
-"lon": 8.40432,
-"website": "https://www.stadtkirche-karlsruhe.de",
-"wikidata": "Q1381130",
-"wheelchair": "limited",
-"fromPier": 0.1
-},
-{
-"name": "Kleine Kirche",
-"group": "sight",
-"kind": "church",
-"lat": 49.00926,
-"lon": 8.4053,
-"wikidata": "Q11722115",
-"wheelchair": "no",
-"fromPier": 0.12
+"kind": "museum",
+"lat": 49.00995,
+"lon": 8.40385,
+"hours": "Tu-Su,PH 11:00-17:00",
+"website": "https://www.landesmuseum.de/",
+"fee": "no",
+"wheelchair": "yes",
+"fromPier": 0.07
 },
 {
 "name": "Großherzog-Karl-Friedrich-Denkmal",
@@ -5808,16 +5777,6 @@
 "fromPier": 0.19
 },
 {
-"name": "St. Stephan",
-"group": "sight",
-"kind": "church",
-"lat": 49.00862,
-"lon": 8.39941,
-"wikidata": "Q2323225",
-"wheelchair": "yes",
-"fromPier": 0.32
-},
-{
 "name": "Staatliches Museum für Naturkunde",
 "group": "sight",
 "kind": "museum",
@@ -5829,6 +5788,36 @@
 "fee": "yes",
 "wheelchair": "yes",
 "fromPier": 0.35
+},
+{
+"name": "Karl Drais Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 49.00669,
+"lon": 8.4072,
+"website": "https://www.danke-karl-drais.de/",
+"fee": "no",
+"fromPier": 0.39
+},
+{
+"name": "Portal der ehemaligen Lidellschule",
+"group": "sight",
+"kind": "historic",
+"lat": 49.00774,
+"lon": 8.40848,
+"fromPier": 0.39
+},
+{
+"name": "Stadtarchiv",
+"group": "sight",
+"kind": "museum",
+"lat": 49.00733,
+"lon": 8.40908,
+"hours": "Tu,We 08:30-15:30; Th 08:30-18:00",
+"website": "https://www.karlsruhe.de/b1/stadtgeschichte/stadtarchiv.de",
+"fee": "no",
+"phone": "+49 721 1334223",
+"fromPier": 0.45
 },
 {
 "name": "Karlsruhe Palace",
@@ -5866,6 +5855,18 @@
 "wheelchair": "limited",
 "phone": "+49 721 9266514",
 "fromPier": 0.48
+},
+{
+"name": "Rechtshistorisches Museum",
+"group": "sight",
+"kind": "museum",
+"lat": 49.00708,
+"lon": 8.39764,
+"hours": "Tu 10:00-12:00",
+"website": "https://www.rechtshistorisches-museum.de/",
+"fee": "no",
+"phone": "+49 721 29353",
+"fromPier": 0.51
 },
 {
 "name": "Schlossturm",
@@ -5952,14 +5953,15 @@
 "fromPier": 0.69
 },
 {
-"name": "Simeonkirche",
+"name": "Stiftung Forum Recht",
 "group": "sight",
-"kind": "church",
-"lat": 49.00698,
-"lon": 8.41394,
-"wikidata": "Q107509112",
-"wheelchair": "no",
-"fromPier": 0.79
+"kind": "museum",
+"lat": 49.00648,
+"lon": 8.39492,
+"hours": "Th,Fr 15:00-19:00; Su 14:00-18:00; PH off",
+"fee": "no",
+"website": "https://stiftung-forum-recht.de/",
+"fromPier": 0.71
 },
 {
 "name": "Fasanenschlösschen",
@@ -5970,6 +5972,22 @@
 "wikidata": "Q1397280",
 "wheelchair": "limited",
 "fromPier": 0.81
+},
+{
+"name": "Chinesische Teehäuschen des Fasanenschlösschens",
+"group": "sight",
+"kind": "historic",
+"lat": 49.01381,
+"lon": 8.41273,
+"fromPier": 0.83
+},
+{
+"name": "Verkehrstechnisches Institut",
+"group": "sight",
+"kind": "historic",
+"lat": 49.00964,
+"lon": 8.41548,
+"fromPier": 0.86
 },
 {
 "name": "Weinbrenner-Tempel",
@@ -6019,17 +6037,6 @@
 "fromPier": 1.09
 },
 {
-"name": "Bernharduskirche",
-"group": "sight",
-"kind": "church",
-"lat": 49.00889,
-"lon": 8.41996,
-"wikidata": "Q19823649",
-"wheelchair": "yes",
-"website": "http://www.st-raphael-ka.de/",
-"fromPier": 1.19
-},
-{
 "name": "Gusseiserne Wetterstation",
 "group": "sight",
 "kind": "historic",
@@ -6042,28 +6049,6 @@
 "fromPier": 1.22
 },
 {
-"name": "Unsere Liebe Frau",
-"group": "sight",
-"kind": "church",
-"lat": 48.99869,
-"lon": 8.40867,
-"website": "https://ka.stadtwiki.net/Unsere_Liebe_Frau",
-"wikidata": "Q107509129",
-"wheelchair": "yes",
-"fromPier": 1.23
-},
-{
-"name": "Christuskirche",
-"group": "sight",
-"kind": "church",
-"lat": 49.0113,
-"lon": 8.387,
-"website": "https://www.christuskirche-karlsruhe.de/",
-"wikidata": "Q127426",
-"wheelchair": "yes",
-"fromPier": 1.24
-},
-{
 "name": "Leibdragonerdenkmal",
 "group": "sight",
 "kind": "historic",
@@ -6072,16 +6057,6 @@
 "wikidata": "Q1246685",
 "wheelchair": "yes",
 "fromPier": 1.27
-},
-{
-"name": "Lutherkirche",
-"group": "sight",
-"kind": "church",
-"lat": 49.00818,
-"lon": 8.4235,
-"wikidata": "Q1877945",
-"wheelchair": "yes",
-"fromPier": 1.45
 },
 {
 "name": "ZKM Lichthof 1+2",
@@ -7583,15 +7558,17 @@
 "fromPier": 0.17
 },
 {
-"name": "St. Burkard",
+"name": "Lügenstein Museum",
 "group": "sight",
-"kind": "church",
-"lat": 49.78994,
-"lon": 9.92471,
-"wikidata": "Q2317714",
+"kind": "museum",
+"lat": 49.78824,
+"lon": 9.92967,
+"hours": "Mo-Su 10:00-19:00",
+"website": "https://www.luegensteinmuseum-wuerzburg.com/",
+"fee": "yes",
 "wheelchair": "yes",
-"website": "https://gottesdienste-suchen.de/index.php/anzeige-pfarrei?ID=378",
-"fromPier": 0.25
+"phone": "+49 931 12353",
+"fromPier": 0.23
 },
 {
 "name": "Gartenpavillon des ehemaligen Augustinerklosters",
@@ -7605,14 +7582,29 @@
 "fromPier": 0.28
 },
 {
-"name": "Karmelitenkirche",
+"name": "Charlott-Terrassen",
 "group": "sight",
-"kind": "church",
-"lat": 49.78828,
-"lon": 9.93044,
-"website": "https://wuerzburgwiki.de/wiki/Karmelitenkirche",
-"wikidata": "Q29567456",
-"fromPier": 0.28
+"kind": "historic",
+"lat": 49.78617,
+"lon": 9.92359,
+"website": "https://wuerzburgwiki.de/wiki/Charlott-Terrassen",
+"fromPier": 0.29
+},
+{
+"name": "Bastion St. Johann Baptist",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 49.78897,
+"lon": 9.92252,
+"fromPier": 0.31
+},
+{
+"name": "Fürstengarten",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 49.78981,
+"lon": 9.92221,
+"fromPier": 0.37
 },
 {
 "name": "Fürstenbaumuseum",
@@ -7627,14 +7619,13 @@
 "fromPier": 0.41
 },
 {
-"name": "Marienkirche",
+"name": "Bastion St. Johann Nepomuk",
 "group": "sight",
-"kind": "church",
-"lat": 49.78985,
-"lon": 9.92125,
-"website": "https://wuerzburgwiki.de/wiki/Marienkirche",
-"wikidata": "Q17490426",
-"fromPier": 0.43
+"kind": "viewpoint",
+"lat": 49.79084,
+"lon": 9.9228,
+"wheelchair": "limited",
+"fromPier": 0.41
 },
 {
 "name": "Schwanentor",
@@ -7647,34 +7638,13 @@
 "fromPier": 0.44
 },
 {
-"name": "Sankt Peter und Paul",
+"name": "Bastion St. Carl",
 "group": "sight",
-"kind": "church",
-"lat": 49.78914,
-"lon": 9.93292,
-"wikidata": "Q1191343",
-"wheelchair": "yes",
-"fromPier": 0.48
-},
-{
-"name": "Franziskanerkirche Hl. Kreuz",
-"group": "sight",
-"kind": "church",
-"lat": 49.7913,
-"lon": 9.93088,
-"wikidata": "Q47530787",
-"wheelchair": "yes",
-"fromPier": 0.48
-},
-{
-"name": "Neubaukirche",
-"group": "sight",
-"kind": "church",
-"lat": 49.79047,
-"lon": 9.9324,
-"wikidata": "Q17127801",
-"wheelchair": "yes",
-"fromPier": 0.5
+"kind": "viewpoint",
+"lat": 49.79159,
+"lon": 9.92338,
+"wheelchair": "limited",
+"fromPier": 0.46
 },
 {
 "name": "Käppele",
@@ -7687,6 +7657,15 @@
 "wikidata": "Q1795397",
 "wheelchair": "no",
 "fromPier": 0.52
+},
+{
+"name": "Hoch3 Skylounge",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 49.79284,
+"lon": 9.92739,
+"wheelchair": "limited",
+"fromPier": 0.54
 },
 {
 "name": "Pferdeschwemme",
@@ -7730,18 +7709,6 @@
 "website": "https://wuerzburgwiki.de/wiki/Zobels%C3%A4ulen",
 "wikidata": "Q98485423",
 "fromPier": 0.57
-},
-{
-"name": "Sankt Stephan",
-"group": "sight",
-"kind": "church",
-"lat": 49.78953,
-"lon": 9.93497,
-"hours": "09:00-17:00",
-"wikidata": "Q2323252",
-"description": "St. Stephan, gegründet 1014 als Chorherrenstift, war Abteikirche des Benediktinerklosters St. Stephan und wurde 1803 evangelisch. Heute ist sie die Dekanatskirche des Evang.-Luth. Dekanats Würzburg. w",
-"phone": "+49 931 3541240",
-"fromPier": 0.63
 },
 {
 "name": "Museum für Franken & Staatliches Museum für Kunst- und Kulturgeschichte",
@@ -8404,6 +8371,16 @@
 "fromPier": 0.12
 },
 {
+"name": "Museum Kutz Kommunikationstechnik und –geschichte",
+"group": "sight",
+"kind": "museum",
+"lat": 49.89314,
+"lon": 10.88675,
+"hours": "\"bis auf weiteres geschlossen\"",
+"wheelchair": "no",
+"fromPier": 0.18
+},
+{
 "name": "Museum für frühislamische Kunst",
 "group": "sight",
 "kind": "museum",
@@ -8415,6 +8392,15 @@
 "wheelchair": "no",
 "website": "https://www.the-bumiller-collection.com/",
 "fromPier": 0.19
+},
+{
+"name": "Ausblick auf Klein Venedig",
+"group": "sight",
+"kind": "viewpoint",
+"lat": 49.89302,
+"lon": 10.8844,
+"wheelchair": "limited",
+"fromPier": 0.24
 },
 {
 "name": "Nonnengraben Canal Harbor",
@@ -8450,6 +8436,14 @@
 "fromPier": 0.26
 },
 {
+"name": "Lagerhaus Klosterbräu - Fürstbischöfliches Zehnthaus",
+"group": "sight",
+"kind": "attraction",
+"lat": 49.88917,
+"lon": 10.88677,
+"fromPier": 0.26
+},
+{
 "name": "Sankt Martin",
 "group": "sight",
 "kind": "church",
@@ -8473,6 +8467,14 @@
 "wheelchair": "yes",
 "website": "http://www.dioezesanmuseum-bamberg.de/index.html",
 "fromPier": 0.27
+},
+{
+"name": "Alte Bonbonkocherei - Krippenmuseum",
+"group": "sight",
+"kind": "museum",
+"lat": 49.89227,
+"lon": 10.88296,
+"fromPier": 0.28
 },
 {
 "name": "St. Elisabeth",
@@ -8534,6 +8536,14 @@
 "fromPier": 0.32
 },
 {
+"name": "Apfelweibla",
+"group": "sight",
+"kind": "attraction",
+"lat": 49.88865,
+"lon": 10.88542,
+"fromPier": 0.33
+},
+{
 "name": "Neue Residenz",
 "group": "sight",
 "kind": "museum",
@@ -8554,6 +8564,16 @@
 "wikidata": "Q1539491",
 "fee": "yes",
 "wheelchair": "limited",
+"fromPier": 0.34
+},
+{
+"name": "Dokumentationszentrum Mikwe",
+"group": "sight",
+"kind": "museum",
+"lat": 49.89294,
+"lon": 10.89086,
+"hours": "Su 14:00-17:00",
+"website": "https://museum.bamberg.de/news/dokumentationszentrum-zur-mikwe/",
 "fromPier": 0.34
 },
 {
@@ -8643,45 +8663,21 @@
 "fromPier": 0.51
 },
 {
-"name": "Karmelitenkirche St. Theodor",
+"name": "Kreuz am Michelsberg",
 "group": "sight",
-"kind": "church",
-"lat": 49.88854,
-"lon": 10.88118,
-"hours": "Mo-Su 06:00-17:00",
-"wikidata": "Q41426866",
+"kind": "viewpoint",
+"lat": 49.89352,
+"lon": 10.87914,
 "wheelchair": "yes",
-"website": "http://www.karmeliten.de/orte/bamberg/",
-"fromPier": 0.51
+"fromPier": 0.59
 },
 {
-"name": "St. Michael",
+"name": "Labyrinth",
 "group": "sight",
-"kind": "church",
-"lat": 49.89354,
-"lon": 10.87762,
-"hours": "Mo-Su 09:00-18:00",
-"wikidata": "Q41427103",
-"fromPier": 0.69
-},
-{
-"name": "Sankt Jakob",
-"group": "sight",
-"kind": "church",
-"lat": 49.89092,
-"lon": 10.87692,
-"hours": "Mo-Su 08:00-18:00",
-"wikidata": "Q2318858",
-"fromPier": 0.7
-},
-{
-"name": "Laurenzikapelle",
-"group": "sight",
-"kind": "church",
-"lat": 49.88499,
-"lon": 10.88269,
-"wikidata": "Q120513917",
-"fromPier": 0.78
+"kind": "attraction",
+"lat": 49.89473,
+"lon": 10.89654,
+"fromPier": 0.79
 },
 {
 "name": "Fränkisches Brauereimuseum",
@@ -8697,28 +8693,17 @@
 "fromPier": 0.81
 },
 {
-"name": "Erlöserkirche",
+"name": "Kunstraum Kesselhaus",
 "group": "sight",
-"kind": "church",
-"lat": 49.89477,
-"lon": 10.89697,
-"hours": "Mo-Su 08:00-20:00",
-"wikidata": "Q1355710",
-"wheelchair": "yes",
-"website": "http://www.erloeserkirche-bamberg.de/",
-"fromPier": 0.82
-},
-{
-"name": "Sankt Gangolf",
-"group": "sight",
-"kind": "church",
-"lat": 49.89729,
-"lon": 10.89663,
-"hours": "Mo-Su 08:00-17:00",
-"wikidata": "Q373728",
-"wheelchair": "yes",
-"website": "http://www.st-gangolf.de/",
-"fromPier": 0.96
+"kind": "museum",
+"lat": 49.89647,
+"lon": 10.87688,
+"hours": "Fr, PH 15:00-18:00; Sa, Su 11:00-18:00",
+"fee": "no",
+"wheelchair": "limited",
+"description": "Ausstellungsort für zeitgenössische Kunst, meist regionaler Künstler",
+"website": "http://kunstraum-jetzt.de",
+"fromPier": 0.89
 },
 {
 "name": "Gärtner- und Häckermuseum",
@@ -8734,71 +8719,65 @@
 "fromPier": 0.99
 },
 {
-"name": "Sankt Getreu",
+"name": "Villa Remeis",
 "group": "sight",
-"kind": "church",
-"lat": 49.89317,
-"lon": 10.87309,
-"wikidata": "Q2318664",
-"fromPier": 0.99
+"kind": "viewpoint",
+"lat": 49.89145,
+"lon": 10.87118,
+"fromPier": 1.11
 },
 {
-"name": "Sankt Otto",
+"name": "Lavendellabyrinth",
 "group": "sight",
-"kind": "church",
-"lat": 49.90132,
-"lon": 10.88813,
-"wikidata": "Q41427361",
-"wheelchair": "yes",
-"website": "https://st-otto-bamberg.de/",
-"fromPier": 1.1
+"kind": "attraction",
+"lat": 49.8943,
+"lon": 10.87173,
+"fee": "no",
+"fromPier": 1.12
 },
 {
-"name": "Ottobrunnen",
+"name": "Aussichtsplatform Gärtnerstadt",
 "group": "sight",
-"kind": "church",
-"lat": 49.89446,
-"lon": 10.871,
-"wikidata": "Q41427129",
+"kind": "viewpoint",
+"lat": 49.90164,
+"lon": 10.89103,
 "fromPier": 1.17
 },
 {
-"name": "Heilig-Grab-Kirche",
+"name": "Feuerwehrmuseum",
 "group": "sight",
-"kind": "church",
-"lat": 49.90104,
-"lon": 10.89531,
-"wikidata": "Q120513906",
+"kind": "museum",
+"lat": 49.90222,
+"lon": 10.88748,
+"hours": "May-Oct Su[1] 10:00-12:00; May-Oct SH Su 10:00-12:00 || \"by appointment\"",
+"website": "https://www.feuerwehr-bamberg.de/verein/museum",
+"fee": "no",
 "wheelchair": "yes",
-"fromPier": 1.23
+"fromPier": 1.19
 },
 {
-"name": "Sankt Maria",
+"name": "Knoten Bamberg Infopunkt",
 "group": "sight",
-"kind": "church",
-"lat": 49.90299,
-"lon": 10.88828,
-"wikidata": "Q222367",
-"fromPier": 1.28
+"kind": "museum",
+"lat": 49.90109,
+"lon": 10.89858,
+"hours": "Tu-We 14:00-18:00 \"nach Vereinbarung\"",
+"website": "https://www.bahnausbau-nuernberg-bamberg.de/die-projekte/knoten-bamberg.html",
+"fee": "no",
+"description": "Informationszentrum des Projekts VDE 8",
+"fromPier": 1.36
 },
 {
-"name": "Sankt Sebastian",
+"name": "Zeiten & Wunder, Schleusenwärterhaus \"102\"",
 "group": "sight",
-"kind": "church",
-"lat": 49.90382,
-"lon": 10.88763,
-"wikidata": "Q41427368",
-"fromPier": 1.37
-},
-{
-"name": "Maria Hilf",
-"group": "sight",
-"kind": "church",
-"lat": 49.89008,
-"lon": 10.90581,
-"wikidata": "Q41427231",
-"wheelchair": "limited",
-"fromPier": 1.38
+"kind": "attraction",
+"lat": 49.90386,
+"lon": 10.87186,
+"hours": "Mo-Su 10:00-18:00; Tu off; May-Sep: Fr,Sa 10:00-20:00",
+"website": "https://www.zeitenundwunder.de/startseite/",
+"wheelchair": "no",
+"description": "ehemals Schleusenwärterhaus, Ludwig-Donau-Main-Kanal, umgangssprachlich Schleuse \"102\"",
+"fromPier": 1.74
 },
 {
 "name": "Altenburg Castle",
@@ -8809,26 +8788,6 @@
 "local": "Burg Altenburg",
 "wikidata": "Q314855",
 "fromPier": 1.75
-},
-{
-"name": "St. Urban",
-"group": "sight",
-"kind": "church",
-"lat": 49.87616,
-"lon": 10.87759,
-"wikidata": "Q120514023",
-"wheelchair": "yes",
-"fromPier": 1.83
-},
-{
-"name": "Sankt Wolfgang",
-"group": "sight",
-"kind": "church",
-"lat": 49.88606,
-"lon": 10.91179,
-"wikidata": "Q120514195",
-"wheelchair": "limited",
-"fromPier": 1.9
 }
 ],
 "practical": [

@@ -60,20 +60,34 @@
   function dowOf(dateStr) { const [Y, M, D] = dateStr.split("-").map(Number); return new Date(Date.UTC(Y, M - 1, D)).getUTCDay(); }
 
   // The ship's time in port: arrive, depart, and all aboard (30 minutes before sailing unless the program says otherwise).
+  // River voyages list days without times; then arrive/depart are null and only the dates are known.
   function portCall(port) {
     const first = port.days[0], last = port.days[port.days.length - 1];
-    const arrive = portDate(first.date, first.from, port.tz);
+    const timed = !!(first.from || last.to);
+    const arrive = first.from ? portDate(first.date, first.from, port.tz) : null;
     const depart = last.to ? portDate(last.date, last.to, port.tz) : null;
-    return { arrive, depart, allAboard: depart ? new Date(depart.getTime() - 30 * 60e3) : null, overnight: port.days.length > 1, disembark: !depart };
+    return { arrive, depart, timed,
+      start: arrive || portDate(first.date, "00:00", port.tz),
+      end: depart || portDate(last.date, "23:59", port.tz),
+      allAboard: depart ? new Date(depart.getTime() - 30 * 60e3) : null,
+      overnight: port.days.length > 1, disembark: !!port.disembark || (timed && !depart) };
   }
   // Which port to show: the one we're in, else the next one, else the last.
   function currentPort(ports, now) {
     for (const p of ports) {
       const c = portCall(p);
-      const end = c.depart || new Date(c.arrive.getTime() + 18 * 3600e3);
-      if (now < end) return { port: p, state: now >= c.arrive ? "in" : "next" };
+      if (now < c.end) return { port: p, state: now >= c.start ? "in" : "next" };
     }
     return { port: ports[ports.length - 1], state: "past" };
+  }
+  // Which voyage to open: the first one that hasn't finished yet.
+  function currentVoyage(voyages, now) {
+    for (const v of voyages) if (now < portCall(v.ports[v.ports.length - 1]).end) return v;
+    return voyages[voyages.length - 1];
+  }
+  // Shops closed that day? → { sunday, holiday } (holiday = its name or null)
+  function closedDay(country, dateStr) {
+    return { sunday: dowOf(dateStr) === 0, holiday: (country.holidays || {})[dateStr] || null };
   }
 
   // ---- Sun --------------------------------------------------------------------------------------------------
@@ -204,12 +218,15 @@
     return to === "USD" ? usd : usd * rates[to];
   }
   function fmtMoney(v, cur) {
+    const n = x => (x < 100 ? x.toFixed(2) : Math.round(x).toLocaleString("en-US"));
+    if (cur === "EUR") return "€" + n(v);
+    if (cur === "CHF") return "CHF " + n(v);
     if (cur === "USD") return "$" + (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString("en-US"));
     if (cur === "GBP") return "£" + (v < 100 ? v.toFixed(2) : Math.round(v).toLocaleString("en-US"));
     return (v < 100 ? v.toFixed(0 + (v < 10 ? 1 : 0)) : Math.round(v).toLocaleString("en-US")) + " kr";
   }
 
   const api = { km, walk, fmtMi, fmtMin, mapsLink, portDate, localParts, fmtClock, fmt12, dayLabel, dowOf, portCall, currentPort,
-    sunEvents, daylightMinutes, hoursOn, fmtRanges, openWhileAshore, fOf, fmtTemp, convert, fmtMoney, DOW };
+    currentVoyage, closedDay, sunEvents, daylightMinutes, hoursOn, fmtRanges, openWhileAshore, fOf, fmtTemp, convert, fmtMoney, DOW };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.Port = api;
 })(this);

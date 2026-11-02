@@ -6,7 +6,9 @@ const P = require("../port-guide/port.js");
 const FACTS = JSON.parse(fs.readFileSync(path.join(__dirname, "../port-guide/data/ports.json"), "utf8"));
 const placesFile = path.join(__dirname, "../port-guide/data/places.json");
 const PLACES = fs.existsSync(placesFile) ? JSON.parse(fs.readFileSync(placesFile, "utf8")) : null;
-const port = id => FACTS.ports.find(p => p.id === id);
+const ALL = FACTS.voyages.flatMap(v => v.ports);
+const NORWAY = FACTS.voyages.find(v => v.id === "norway").ports, RHINE = FACTS.voyages.find(v => v.id === "rhine").ports;
+const port = id => ALL.find(p => p.id === id);
 let n = 0;
 function test(name, fn) { fn(); n++; console.log("ok -", name); }
 
@@ -23,16 +25,16 @@ test("port calls match Viking's itinerary times", () => {
 });
 
 test("today's port: before the trip, in port, between ports, after", () => {
-  assert.strictEqual(P.currentPort(FACTS.ports, new Date("2026-11-01")).port.id, "tromso");
-  const nk = P.currentPort(FACTS.ports, new Date("2027-02-04T10:00+01:00"));
+  assert.strictEqual(P.currentPort(NORWAY, new Date("2026-11-01")).port.id, "tromso");
+  const nk = P.currentPort(NORWAY, new Date("2027-02-04T10:00+01:00"));
   assert.deepStrictEqual([nk.port.id, nk.state], ["narvik", "in"]);
-  const sea = P.currentPort(FACTS.ports, new Date("2027-02-05T12:00+01:00"));
+  const sea = P.currentPort(NORWAY, new Date("2027-02-05T12:00+01:00"));
   assert.deepStrictEqual([sea.port.id, sea.state], ["bergen", "next"]);
-  assert.strictEqual(P.currentPort(FACTS.ports, new Date("2027-03-01")).state, "past");
+  assert.strictEqual(P.currentPort(NORWAY, new Date("2027-03-01")).state, "past");
 });
 
 test("the two Sunday port days are flagged", () => {
-  const sundays = FACTS.ports.flatMap(p => p.days.filter(d => P.dowOf(d.date) === 0).map(d => p.id + " " + d.date));
+  const sundays = NORWAY.flatMap(p => p.days.filter(d => P.dowOf(d.date) === 0).map(d => p.id + " " + d.date));
   assert.deepStrictEqual(sundays, ["tromso 2027-01-31", "bergen 2027-02-07"]);
 });
 
@@ -96,15 +98,16 @@ test("money", () => {
 });
 
 test("every port has sources, a pier and phrases for its country", () => {
-  for (const p of FACTS.ports) {
+  for (const p of ALL) {
+    assert.ok(p.ideas && p.ideas.length >= 3, p.id + " has ideas");
     assert.ok(p.sources.length && p.piers.length && p.piers.some(x => x.primary), p.id);
-    assert.ok(FACTS.countries[p.country].phrases.length >= 6);
+    assert.ok(FACTS.countries[p.country].phrases.length >= 3);
     for (const s of p.sources) assert.ok(/^https:\/\//.test(s.url));
   }
 });
 
 if (PLACES) test("port data file: sights, hours, weather and rates for every port", () => {
-  for (const p of FACTS.ports) {
+  for (const p of ALL) {
     const d = PLACES.ports[p.id];
     assert.ok(d && d.sights.length >= 5, p.id + " has sights: " + (d && d.sights.length));
     assert.ok(d.practical.length >= 3, p.id + " has practical places");
@@ -114,7 +117,33 @@ if (PLACES) test("port data file: sights, hours, weather and rates for every por
   assert.ok(PLACES.climate.tromso.hi < PLACES.climate.london.hi, "London is milder than Tromsø");
   const names = PLACES.ports.bergen.sights.map(s => s.name + " " + (s.local || "")).join("|");
   assert.ok(/Bryggen|Bergenhus|Fløyen|Fløibanen|Rosenkrantz|Håkon/i.test(names), "Bergen landmarks present");
-  assert.ok(PLACES.rates && PLACES.rates.NOK > 5 && PLACES.rates.GBP < 1.5, "saved rates");
+  assert.ok(PLACES.rates && PLACES.rates.NOK > 5 && PLACES.rates.GBP < 1.5 && PLACES.rates.EUR < 1.5 && PLACES.rates.CHF < 1.5, "saved rates");
+  assert.ok(PLACES.climate.basel.hi > 12 && PLACES.climate.basel.hi < 25, "Basel in May is mild");
+  const nb = PLACES.ports.nuremberg.sights.map(s => s.name + " " + (s.local || "")).join("|");
+  assert.ok(/Kaiserburg|Imperial Castle|Nuremberg Castle|Dürer/i.test(nb), "Nuremberg landmarks present");
+});
+
+test("river voyage: dates, untimed days, holidays and which voyage to open", () => {
+  assert.deepStrictEqual(RHINE.map(p => p.id), ["basel", "breisach", "strasbourg", "karlsruhe", "frankfurt", "marktheidenfeld", "wurzburg", "bamberg", "nuremberg"]);
+  assert.strictEqual(RHINE[0].days[0].date, "2027-05-04");
+  assert.strictEqual(RHINE[RHINE.length - 1].days.slice(-1)[0].date, "2027-05-14");
+  const b = P.portCall(port("basel"));
+  assert.ok(!b.timed && b.allAboard === null && !b.disembark);
+  assert.ok(P.portCall(port("nuremberg")).disembark);
+  assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-09T12:00+02:00")).port.id, "frankfurt");
+  assert.strictEqual(P.currentPort(RHINE, new Date("2027-05-05T23:00+02:00")).port.id, "breisach");
+  assert.strictEqual(P.currentVoyage(FACTS.voyages, new Date("2026-11-01")).id, "norway");
+  assert.strictEqual(P.currentVoyage(FACTS.voyages, new Date("2027-02-12")).id, "rhine");
+  const C = FACTS.countries;
+  assert.strictEqual(P.closedDay(C.DE, "2027-05-06").holiday.startsWith("Ascension"), true, "Breisach day is Ascension");
+  assert.ok(P.closedDay(C.DE, "2027-05-09").sunday, "Frankfurt day is a Sunday");
+  assert.strictEqual(P.closedDay(C.DE, "2027-05-11").holiday, null);
+  // Walkable vs coach ports
+  const walk = id => { const p = port(id), pr = p.piers[0]; return P.km(pr.lat, pr.lon, p.center.lat, p.center.lon); };
+  assert.ok(walk("frankfurt") < 0.5 && walk("breisach") < 1 && walk("basel") < 1.5);
+  assert.ok(walk("nuremberg") > 4 && walk("karlsruhe") > 5 && walk("strasbourg") > 2);
+  for (const k of ["CH", "DE", "FR"]) assert.ok(C[k].phrases.length >= 3 && C[k].currencyPlural);
+  assert.strictEqual(P.fmtMoney(12.5, "EUR"), "€12.50");
 });
 
 console.log(`\n${n} test groups passed`);

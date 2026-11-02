@@ -105,7 +105,7 @@ final class GuideController: UIViewController, WKScriptMessageHandler, WKNavigat
         try? AVAudioSession.sharedInstance().setCategory(.playback, options: [.duckOthers])
         voice.stopSpeaking(at: .immediate)
         let u = AVSpeechUtterance(string: text)
-        u.voice = AVSpeechSynthesisVoice(language: lang) ?? AVSpeechSynthesisVoice(language: "nb-NO")
+        u.voice = AVSpeechSynthesisVoice(language: lang) ?? AVSpeechSynthesisVoice(language: String(lang.prefix(2)))
         u.rate = AVSpeechUtteranceDefaultSpeechRate * 0.85
         voice.speak(u)
     }

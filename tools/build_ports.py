@@ -90,6 +90,7 @@ def near_pier(p):
     if not pier or pier.get("walkFromPier") is False: return p["center"]   # out-of-town terminal: measure from the city
     return pier
 
+berth_report = []
 out = {"generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"), "ports": {}}
 for p in PORTS:
     items = found[p["id"]]
@@ -101,6 +102,9 @@ for p in PORTS:
         match = [c for c in cands if pr["osm"].lower() in c[1].lower()]
         best = match[0] if match else (cands[0] if cands else None)
         if best: note(f"{p['name']} · {pr['name']}: nearest OSM berth “{best[1]}” {best[0]:.2f} km from the listed position")
+        berth_report.append({"port": p["id"], "pier": pr["id"], "nearest": best[1] if best else None, "km": round(best[0], 2) if best else None,
+                             "named": [{"name": b["name"], "lat": b["lat"], "lon": b["lon"], "km": round(km(pr["lat"], pr["lon"], b["lat"], b["lon"]), 2)}
+                                       for b in items if b["group"] == "berth" and km(pr["lat"], pr["lon"], b["lat"], b["lon"]) < 1.5][:12]})
         if match:
             b = next(b for b in items if b["group"] == "berth" and b["name"] == match[0][1])
             note(f"   → {match[0][1]} at {b['lat']:.4f}, {b['lon']:.4f}")
@@ -108,9 +112,15 @@ for p in PORTS:
     for i in sorted((i for i in items if i["group"] == "sight"), key=lambda i: i["fromPier"]):
         if i["name"].lower() in names: continue     # one entry per name (several outlines of the same place)
         names.add(i["name"].lower()); sights.append(i)
-    # Prefer well-known places (with a Wikidata entry), museums and sights over churches and memorials, then the nearest.
-    sights.sort(key=lambda i: ((0 if i.get("wikidata") else 2) + (1 if i["kind"] == "church" else 0), i["fromPier"]))
-    sights = sorted(sights[:45], key=lambda i: i["fromPier"])
+    # Prefer well-known places (with a Wikidata entry), museums and sights over galleries and churches, then the nearest.
+    rank = lambda i: ((0 if i.get("wikidata") else 3) + {"church": 2, "gallery": 1}.get(i["kind"], 0), i["fromPier"])
+    extra = p.get("extraSights", [])
+    def in_extra(i): return any(km(i["lat"], i["lon"], a["lat"], a["lon"]) <= a["r"] for a in extra)
+    main_s = sorted((i for i in sights if not in_extra(i)), key=rank)[:45 - 15 * len(extra)]
+    extra_s = []
+    for a in extra:   # excursion towns (Baden-Baden, Colmar) get their own share
+        extra_s += sorted((i for i in sights if km(i["lat"], i["lon"], a["lat"], a["lon"]) <= a["r"]), key=rank)[:15]
+    sights = sorted(main_s, key=lambda i: i["fromPier"]) + extra_s
     practical = []
     for kind in ("tourist info", "pharmacy", "cash", "groceries", "toilets", "shopping centre", "outdoor gear", "train station", "taxi"):
         ks = sorted((i for i in items if i["kind"] == kind), key=lambda i: i["fromPier"])
@@ -127,8 +137,12 @@ def get_json(url):
     req = urllib.request.Request(url, headers={"User-Agent": "PortPocketGuide/1.0 (github.com/dfwilley/Cruise-Apps)"})
     with urllib.request.urlopen(req, timeout=120) as r: return json.load(r)
 
+try: previous = json.loads((ROOT / "port-guide/data/places.json").read_text()).get("climate", {})
+except Exception: previous = {}
+import time
 climate = {}
 for p in PORTS:
+    time.sleep(6)   # the free archive API rate-limits bursts
     c = p["center"]
     d = None
     for attempt in range(3):
@@ -138,7 +152,10 @@ for p in PORTS:
         break
       except Exception as e:
         warn(f"Weather history for {p['name']} failed (try {attempt + 1}): {e}")
-    if d is None: continue
+        time.sleep(65 if "429" in str(e) else 10)
+    if d is None:
+        if p["id"] in previous: climate[p["id"]] = previous[p["id"]]; note(f"{p['name']}: kept the previous typical weather")
+        continue
     day = datetime.date.fromisoformat(p["days"][0]["date"])
     idx = []
     for i, s in enumerate(d["time"]):
@@ -160,6 +177,7 @@ for p in PORTS:
     }
     note(f"{p['name']} typical: high {climate[p['id']]['hi']}°C, low {climate[p['id']]['lo']}°C, wet {climate[p['id']]['wetPct']}% of days, snow {climate[p['id']]['snowPct']}%")
 out["climate"] = climate
+out["berthCheck"] = berth_report
 
 rates = None
 for url in ("https://api.frankfurter.dev/v1/latest?base=USD&symbols=NOK,GBP,EUR,CHF", "https://api.frankfurter.app/latest?from=USD&to=NOK,GBP,EUR,CHF"):

@@ -124,3 +124,20 @@ footer summary { font-weight: 600; color: var(--navy); }
 footer ul { padding-left: 18px; }
 #toast { position: fixed; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 16px); background: var(--navy); color: #fff; border-radius: 12px; padding: 12px 14px; opacity: 0; transform: translateY(20px); transition: .25s; pointer-events: none; z-index: 10; }
 #toast.show { opacity: 1; transform: none; }
+
+/* Voyage switcher */
+#voyages { display: flex; gap: 6px; margin: 0 16px 10px; background: rgba(255,255,255,.08); border-radius: 12px; padding: 4px; }
+#voyages button { flex: 1; border: 0; background: transparent; color: #fff; border-radius: 9px; padding: 6px 8px; font-weight: 600; font-size: .86rem; text-align: center; }
+#voyages button span { display: block; font-weight: 400; font-size: .7rem; opacity: .75; }
+#voyages button[aria-selected="true"] { background: var(--paper); color: var(--navy); }
+.times b.small { font-size: .95rem; }
+#tabs button { font-size: .8rem; }
+
+/* Near me */
+.clock { font-size: 1rem; margin: 14px 0 4px; }
+.ideas { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.idea { display: flex; gap: 10px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.idea > div { flex: 1; min-width: 0; }
+.idea p { font-size: .9rem; color: var(--ink); margin: 3px 0; }
+.tag { display: inline-block; font-size: .72rem; background: #efe6d3; color: var(--navy); border-radius: 6px; padding: 1px 6px; vertical-align: 1px; }
+.sub4 { margin: 12px 0 6px; color: var(--muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; }

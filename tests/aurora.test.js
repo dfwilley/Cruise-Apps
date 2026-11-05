@@ -1,6 +1,6 @@
 // node tests/arctic.test.js — checks the Arctic Night forecast logic with sample NOAA and Open-Meteo files.
-const A = require("../docs/arctic.js"), fs = require("fs"), path = require("path"), assert = require("assert");
-const F = (n) => fs.readFileSync(path.join(__dirname, "fixtures", n), "utf8");
+const A = require("../aurora-watch/arctic.js"), fs = require("fs"), path = require("path"), assert = require("assert");
+const F = (n) => fs.readFileSync(path.join(__dirname, "aurora-fixtures", n), "utf8");
 let n = 0; const ok = (name, fn) => { fn(); n++; console.log("✓", name); };
 
 ok("reads NOAA Kp forecast in the old (header row) and new (objects) formats the same way", () => {

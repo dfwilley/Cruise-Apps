@@ -15,6 +15,21 @@ Everything works offline: about 10,800 landmarks along the route are built into 
 
 **Data:** © OpenStreetMap contributors (ODbL), from Geofabrik extracts filtered with osmium by the "Landmark data" workflow (`tools/build_landmarks.py`). Light characteristics come from OpenStreetMap sea-mark tags — interesting, but **not for navigation**. The route and port times (`fjord-spotter/data/route.json`) are approximate.
 
+## Arctic Night (Aurora Watch)
+
+Northern lights outlook for the **In Search of Northern Lights** voyage (January 30 – February 11, 2027), and for wherever you are the rest of the year.
+
+- **Web app:** https://dfwilley.github.io/Cruise-Apps/aurora-watch/
+- **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/aurora-watch-latest/Arctic-Night.ipa (install with Sideloadly)
+
+Details in `aurora-watch/README.md`.
+
+## Pocket Sextant
+
+Take a sun sight with the phone's camera and tilt sensor and work out your position, celestial-navigation style.
+
+- **Web app:** https://dfwilley.github.io/Cruise-Apps/pocket-sextant/
+
 ## Port Pocket Guide
 
 A pocket guide to the seven ports of the same voyage: Tromsø, Alta, Harstad, Narvik, Bergen, Edinburgh (Rosyth) and London (Tilbury).
@@ -37,6 +52,8 @@ Cruise tabs: **Pier & walking** (berth options with sources, walking time to the
 - `fjord-spotter/` — the app (web version, also bundled into the iPhone app). `fjord.js` holds the logic.
 - `native/fjord-spotter/` — the iPhone shell: GPS, true-north compass and camera.
 - `tests/fjord.test.js` — `node tests/fjord.test.js`
+- `aurora-watch/`, `native/aurora-watch/`, `tests/aurora.test.js` (sample data in `tests/aurora-fixtures/`) — Arctic Night.
+- `pocket-sextant/` — Pocket Sextant (web only).
 - `port-guide/`, `native/port-guide/`, `tests/port.test.js` — Port Pocket Guide (logic in `port.js`; itinerary import and Near me sorting in `import.js`).
 
 ## The Hour Between
@@ -48,3 +65,7 @@ One-stop free-time planner for both saved voyages. Reuses the shared port and Op
 Distances are straight-line distances multiplied by a user-selected allowance, not routed pedestrian distances. The app does not claim a place is currently open, confirm berths, track the ship, or guarantee a timely return. Verify hours, routes, transport, conditions, and your actual ship/guide instructions. Opening the app online primes its offline cache; saved outings/settings remain in this browser. No Viking booking or account integration.
 
 Tests: `node tests/hour.test.js`. Shared data attribution remains as documented under Port Pocket Guide (OpenStreetMap contributors, ODbL).
+
+## History
+
+Arctic Night and Pocket Sextant used to be separate repositories (Aurora-Watch, Pocket-Sextant); their full commit history was brought over.

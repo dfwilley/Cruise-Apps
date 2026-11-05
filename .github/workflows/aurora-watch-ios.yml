@@ -1,9 +1,9 @@
-name: Build iPhone app
+name: Arctic Night (Aurora Watch) iPhone app
 
 on:
   push:
     branches: [main]
-    paths-ignore: ["README.md", "index.html"]
+    paths: ["aurora-watch/**", "native/aurora-watch/**", "tests/aurora.test.js", "tests/aurora-fixtures/**", ".github/workflows/aurora-watch-ios.yml"]
   workflow_dispatch:
 
 permissions:
@@ -20,15 +20,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Test the forecast logic
-        run: node tests/arctic.test.js
+        run: node tests/aurora.test.js
 
       - name: Install XcodeGen
         run: command -v xcodegen || brew install xcodegen
 
       - name: Create the Xcode project
+        working-directory: native/aurora-watch
         run: xcodegen generate
 
       - name: Run tests and take screenshots on an iPhone simulator
+        working-directory: native/aurora-watch
         run: |
           DEVICE=$(xcrun simctl list devices available | grep -E '^[[:space:]]+iPhone' | head -1 | sed -E 's/^[[:space:]]+//; s/ \(.*//')
           echo "::notice::Simulator: $DEVICE"
@@ -43,8 +45,9 @@ jobs:
             exit 1
           fi
 
-      - name: Publish screenshots to the ci-screenshots branch
+      - name: Publish screenshots to the ci-screenshots-aurora branch
         if: always()
+        working-directory: native/aurora-watch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -53,12 +56,13 @@ jobs:
           xcrun xcresulttool export attachments --path TestResults.xcresult --output-path shots || true
           ls shots | head -40
           cd shots
-          git init -q -b ci-screenshots
+          git init -q -b ci-screenshots-aurora
           git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
           git add -A && git commit -qm "Screenshots from run ${{ github.run_number }}" || exit 0
-          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screenshots
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screenshots-aurora
 
       - name: Build for iPhone (unsigned)
+        working-directory: native/aurora-watch
         run: |
           xcodebuild build \
             -project ArcticNight.xcodeproj -scheme ArcticNight \
@@ -71,18 +75,19 @@ jobs:
           fi
 
       - name: Package the .ipa
+        working-directory: native/aurora-watch
         run: |
           mkdir -p Payload
           cp -R build/Build/Products/Release-iphoneos/ArcticNight.app Payload/
           zip -qry Arctic-Night.ipa Payload
           ls -l Arctic-Night.ipa
 
-      - name: Publish the .ipa as the latest release
+      - name: Publish the .ipa (always at the same download link)
+        working-directory: native/aurora-watch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "build-${{ github.run_number }}" Arctic-Night.ipa \
-            --repo "${{ github.repository }}" \
-            --title "Arctic Night (build ${{ github.run_number }})" \
-            --notes "Download Arctic-Night.ipa below and install it with Sideloadly. Built from commit ${GITHUB_SHA:0:7}." \
-            --latest
+          gh release delete aurora-watch-latest --repo "${{ github.repository }}" --cleanup-tag -y || true
+          gh release create aurora-watch-latest Arctic-Night.ipa --repo "${{ github.repository }}" \
+            --title "Arctic Night (build ${{ github.run_number }})" --latest=false \
+            --notes "Download Arctic-Night.ipa below and install it with Sideloadly. Built from commit ${GITHUB_SHA:0:7}."

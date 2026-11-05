@@ -14,7 +14,7 @@ targets:
     platform: iOS
     sources:
       - path: ArcticNight
-      - path: docs
+      - path: ../../aurora-watch
         type: folder
         buildPhase: resources
     info:

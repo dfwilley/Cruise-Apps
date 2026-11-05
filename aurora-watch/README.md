@@ -2,8 +2,8 @@
 
 Northern lights outlook for Viking's **In Search of Northern Lights** voyage (Viking Libra, Tromsø to London (Tilbury), January 30 – February 11, 2027), and for wherever you are the rest of the year.
 
-- **Web app:** https://dfwilley.github.io/Aurora-Watch/ (open in Safari; Share › Add to Home Screen)
-- **iPhone app:** https://github.com/dfwilley/Aurora-Watch/releases/latest/download/Arctic-Night.ipa (install with Sideloadly)
+- **Web app:** https://dfwilley.github.io/Cruise-Apps/aurora-watch/ (open in Safari; Share › Add to Home Screen)
+- **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/aurora-watch-latest/Arctic-Night.ipa (install with Sideloadly)
 
 ## What it shows
 
@@ -19,10 +19,10 @@ The iPhone app adds **alerts scheduled on the phone** before each promising nigh
 - Aurora: NOAA Space Weather Prediction Center — 3-day Kp forecast, 27-day outlook, OVATION live aurora map, solar wind. Reads both NOAA's older JSON layout and the 2026 layout.
 - Clouds: Open-Meteo (16-day hourly forecast along the ship's route).
 - Sun and moon: calculated on the phone.
-- Port times come from a published itinerary and are approximate; Viking's daily program on board governs. Edit `VOYAGE` in `docs/arctic.js` to change them.
+- Port times come from a published itinerary and are approximate; Viking's daily program on board governs. Edit `VOYAGE` in `arctic.js` to change them.
 
 ## Layout
 
-- `docs/` — the app (web version, also bundled inside the iPhone app). `docs/arctic.js` holds all forecast logic.
-- `ArcticNight/` — the native iPhone shell: alerts, GPS, background check.
-- `tests/` — `node tests/arctic.test.js` checks the forecast logic with sample NOAA and Open-Meteo files.
+- `aurora-watch/` (this folder) — the app (web version, also bundled inside the iPhone app). `arctic.js` holds all forecast logic.
+- `native/aurora-watch/` — the native iPhone shell: alerts, GPS, background check.
+- `tests/aurora.test.js` — `node tests/aurora.test.js` checks the forecast logic with sample NOAA and Open-Meteo files (in `tests/aurora-fixtures/`).

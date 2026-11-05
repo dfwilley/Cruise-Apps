@@ -20,7 +20,7 @@ struct WebContainer: UIViewRepresentable {
         web.scrollView.contentInsetAdjustmentBehavior = .never
         web.accessibilityIdentifier = "arcticWeb"
         context.coordinator.web = web
-        if let dir = Bundle.main.url(forResource: "docs", withExtension: nil) {
+        if let dir = Bundle.main.url(forResource: "aurora-watch", withExtension: nil) {
             var index = dir.appendingPathComponent("index.html")
             if let p = previewNow, var comps = URLComponents(url: index, resolvingAgainstBaseURL: false) {
                 comps.queryItems = [URLQueryItem(name: "now", value: p)]; index = comps.url ?? index

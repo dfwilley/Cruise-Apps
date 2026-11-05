@@ -1,0 +1,35 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CB833DA5-BA4E-42BE-B82D-C1E0C39A3C02",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "5EC6CCB6-A9AB-4EAE-B5AC-E206503EA71B.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "3-near-me_0_47D03216-4C0E-4742-857B-791F43ECFEF3.png",
+        "timestamp" : 1793902117.662
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CB833DA5-BA4E-42BE-B82D-C1E0C39A3C02",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "969FA965-7466-46D5-8E2F-CF3E3F6CB3B5.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "2-add-cruise_0_24973A74-C3E4-41A4-A5C4-C78A27FB0734.png",
+        "timestamp" : 1793902110.959
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "CB833DA5-BA4E-42BE-B82D-C1E0C39A3C02",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "9BB1CA1D-D20F-4465-AE84-0BBB0BA1FDF1.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "1-welcome_0_78671619-FF7E-4A4C-B28C-8A08C5982C6E.png",
+        "timestamp" : 1793902084.72
+      }
+    ],
+    "testIdentifier" : "ScreenshotTests/testFirstRunAndAddCruise()",
+    "testIdentifierURL" : "test://com.apple.xcode/PortGuide/PortGuideUITests/ScreenshotTests/testFirstRunAndAddCruise"
+  }
+]

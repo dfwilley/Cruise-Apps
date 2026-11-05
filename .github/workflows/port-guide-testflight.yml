@@ -1,0 +1,104 @@
+name: Port Pocket Guide - TestFlight
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'New integer build number, greater than any previous upload for version 1.0'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: port-guide-testflight
+  cancel-in-progress: false
+
+jobs:
+  testflight:
+    runs-on: macos-26
+    timeout-minutes: 45
+    environment: testflight
+    defaults:
+      run:
+        shell: bash
+    env:
+      BUILD_NUMBER: ${{ inputs.build_number }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+      IOS_DISTRIBUTION_P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+      IOS_DISTRIBUTION_P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+      PORT_GUIDE_PROFILE_BASE64: ${{ secrets.PORT_GUIDE_PROFILE_BASE64 }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check configuration and toolchain
+        run: |
+          set -euo pipefail
+          [[ "$BUILD_NUMBER" =~ ^[1-9][0-9]{0,8}$ ]] || { echo '::error::Enter a positive integer build number (at most 9 digits).'; exit 1; }
+          for key in APPLE_TEAM_ID ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8 IOS_DISTRIBUTION_P12_BASE64 IOS_DISTRIBUTION_P12_PASSWORD PORT_GUIDE_PROFILE_BASE64; do
+            [[ -n "${!key}" ]] || { echo "::error::Missing secret: $key"; exit 1; }
+          done
+          xcodebuild -version
+          major=$(xcodebuild -version | head -1 | awk '{print $2}' | cut -d. -f1)
+          [[ "$major" -ge 26 ]] || { echo '::error::Xcode 26 or later is required.'; exit 1; }
+      - name: Test web logic
+        run: node tests/port.test.js
+      - name: Generate Xcode project
+        working-directory: native/port-guide
+        run: |
+          command -v xcodegen >/dev/null || brew install xcodegen
+          xcodegen generate
+      - name: Test on iPhone simulator
+        working-directory: native/port-guide
+        run: |
+          set -euo pipefail
+          DEVICE=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for runtime,items in d["devices"].items() if "iOS" in runtime for x in items if x.get("isAvailable") and x["name"].startswith("iPhone")))')
+          xcodebuild test -project PortGuide.xcodeproj -scheme PortGuide \
+            -destination "platform=iOS Simulator,id=$DEVICE" \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Prepare signing files
+        run: python3 .github/scripts/port-guide-signing.py
+      - name: Install distribution certificate
+        run: |
+          set -euo pipefail
+          KC="$RUNNER_TEMP/port-guide.keychain-db"
+          KC_PASSWORD=$(openssl rand -hex 24)
+          echo "::add-mask::$KC_PASSWORD"
+          security create-keychain -p "$KC_PASSWORD" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KC_PASSWORD" "$KC"
+          security import "$RUNNER_TEMP/port-guide-signing/certificate.p12" -k "$KC" \
+            -P "$IOS_DISTRIBUTION_P12_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KC_PASSWORD" "$KC" >/dev/null
+          security list-keychains -d user -s "$KC" "$HOME/Library/Keychains/login.keychain-db"
+      - name: Archive signed app
+        working-directory: native/port-guide
+        run: |
+          set -euo pipefail
+          xcodebuild archive -project PortGuide.xcodeproj -scheme PortGuide \
+            -configuration Release -destination 'generic/platform=iOS' \
+            -archivePath build/PortGuide.xcarchive \
+            CURRENT_PROJECT_VERSION="$BUILD_NUMBER" DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY='Apple Distribution' \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_UUID" \
+            OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/port-guide.keychain-db"
+      - name: Export and upload to App Store Connect
+        working-directory: native/port-guide
+        run: |
+          set -euo pipefail
+          xcodebuild -exportArchive -archivePath build/PortGuide.xcarchive \
+            -exportOptionsPlist "$RUNNER_TEMP/port-guide-signing/ExportOptions.plist" \
+            -exportPath build/export
+          IPA=build/export/PortGuide.ipa
+          test -s "$IPA"
+          API_PRIVATE_KEYS_DIR="$RUNNER_TEMP/port-guide-signing" xcrun altool \
+            --upload-app -f "$IPA" -t ios --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          echo 'Upload completed. Check Apple processing, compliance questions and testing groups in App Store Connect.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Clean signing material
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/port-guide.keychain-db" 2>/dev/null || true
+          python3 .github/scripts/port-guide-signing.py --cleanup

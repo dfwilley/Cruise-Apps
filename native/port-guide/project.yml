@@ -26,6 +26,7 @@ targets:
         LSRequiresIPhoneOS: true
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
         NSLocationWhenInUseUsageDescription: Port Guide uses your location while you use Near me or tap Use my location, to find places of interest around you and the walk back to the ship.
     settings:
       base:

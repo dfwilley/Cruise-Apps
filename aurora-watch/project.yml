@@ -1,0 +1,66 @@
+name: ArcticNight
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  ArcticNight:
+    type: application
+    platform: iOS
+    sources:
+      - path: ArcticNight
+      - path: docs
+        type: folder
+        buildPhase: resources
+    info:
+      path: ArcticNight/Info.plist
+      properties:
+        CFBundleDisplayName: Arctic Night
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSLocationWhenInUseUsageDescription: Arctic Night uses your location to forecast the northern lights where you are when you're not on the cruise.
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [com.dfwilley.arcticnight.live]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.arcticnight
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  ArcticNightTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [ArcticNightTests]
+    dependencies:
+      - target: ArcticNight
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  ArcticNightUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [ArcticNightUITests]
+    dependencies:
+      - target: ArcticNight
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  ArcticNight:
+    build:
+      targets:
+        ArcticNight: all
+    test:
+      targets:
+        - ArcticNightTests
+        - ArcticNightUITests

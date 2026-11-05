@@ -1,0 +1,23 @@
+:Product: 27-day Space Weather Outlook Table 27DO.txt
+#  UTC      Radio Flux   Planetary   Largest
+#   Date       10.7 cm    A Index    Kp Index
+2027 Jan 28     150          8          2
+2027 Jan 29     151          9          3
+2027 Jan 30     152          10          4
+2027 Jan 31     153          11          3
+2027 Feb 01     154          12          5
+2027 Feb 02     155          8          2
+2027 Feb 03     156          9          3
+2027 Feb 04     157          10          2
+2027 Feb 05     158          11          3
+2027 Feb 06     159          12          4
+2027 Feb 07     160          8          3
+2027 Feb 08     161          9          5
+2027 Feb 09     162          10          2
+2027 Feb 10     163          11          3
+2027 Feb 11     164          12          2
+2027 Feb 12     165          8          3
+2027 Feb 13     166          9          4
+2027 Feb 14     167          10          3
+2027 Feb 15     168          11          5
+2027 Feb 16     169          12          2

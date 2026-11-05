@@ -26,6 +26,7 @@ targets:
         LSRequiresIPhoneOS: true
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
         NSLocationWhenInUseUsageDescription: Arctic Night uses your location to forecast the northern lights where you are when you're not on the cruise.
         UIBackgroundModes: [fetch]
         BGTaskSchedulerPermittedIdentifiers: [com.dfwilley.arcticnight.live]

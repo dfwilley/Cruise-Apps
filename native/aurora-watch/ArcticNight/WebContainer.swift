@@ -57,8 +57,8 @@ struct WebContainer: UIViewRepresentable {
                 locWaiters.append(id)
                 if loc.authorizationStatus == .notDetermined { loc.requestWhenInUseAuthorization() } else { loc.requestLocation() }
             case "schedule":
-                let alerts = (try? JSONSerialization.data(withJSONObject: m["alerts"] ?? [])).flatMap { try? JSONDecoder().decode([Notifier.Planned].self, from: $0) } ?? []
-                if let live = m["live"], let d = try? JSONSerialization.data(withJSONObject: live),
+                let alerts = Bridge.jsonData(m["alerts"] ?? []).flatMap { try? JSONDecoder().decode([Notifier.Planned].self, from: $0) } ?? []
+                if let live = m["live"], let d = Bridge.jsonData(live),
                    let cfg = try? JSONDecoder().decode(LiveCheck.Config.self, from: d) {
                     LiveCheck.save(cfg)
                     if cfg.enabled { Notifier.scheduleLiveRefresh() }
@@ -77,6 +77,13 @@ struct WebContainer: UIViewRepresentable {
             default:
                 reply(id, false, "unknown command")
             }
+        }
+
+        /// JSON for a value sent from the screens, or nil if it can't be written as JSON.
+        /// JSONSerialization crashes the app (rather than throwing) on values like NaN, so check first.
+        nonisolated static func jsonData(_ value: Any) -> Data? {
+            guard JSONSerialization.isValidJSONObject(value) else { return nil }
+            return try? JSONSerialization.data(withJSONObject: value)
         }
 
         private func reply(_ id: Int, _ ok: Bool, _ payload: String) {
@@ -98,7 +105,7 @@ struct WebContainer: UIViewRepresentable {
         private func flushLocation(_ l: CLLocation?) {
             let ids = locWaiters; locWaiters.removeAll()
             for id in ids {
-                if let l { reply(id, true, "{\"lat\":\(l.coordinate.latitude),\"lon\":\(l.coordinate.longitude)}") }
+                if let l, CLLocationCoordinate2DIsValid(l.coordinate) { reply(id, true,"{\"lat\":\(l.coordinate.latitude),\"lon\":\(l.coordinate.longitude)}") }
                 else { reply(id, false, "location unavailable") }
             }
         }

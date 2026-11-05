@@ -82,4 +82,12 @@ ok("times show in ship time", () => {
   assert.equal(A.fmtTime(Date.parse("2027-02-09T21:30Z"), 0), "9:30 PM");
   assert.equal(A.fmtDate("2027-01-30"), "Sat, Jan 30");
 });
+ok("your location: reads the iPhone app's text reply and rejects bad positions", () => {
+  assert.deepEqual(A.validHere('{"lat":32.2217,"lon":-110.9265}'), { lat: 32.2217, lon: -110.9265 });
+  assert.deepEqual(A.validHere({ lat: 69.65, lon: 18.96 }), { lat: 69.65, lon: 18.96 });
+  assert.equal(A.validHere({ lat: NaN, lon: NaN }), null, "the old bug's not-a-number position");
+  assert.equal(A.validHere({ lat: null, lon: null }), null, "a bad position as saved on the phone");
+  assert.equal(A.validHere("location unavailable"), null);
+  assert.equal(A.validHere(null), null); assert.equal(A.validHere({ lat: 95, lon: 0 }), null);
+});
 console.log(`\nAll ${n} test groups passed.`);

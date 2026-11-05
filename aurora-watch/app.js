@@ -20,6 +20,9 @@ const native = (cmd, args = {}) => new Promise((res, rej) => { const id = ++reqI
 const SKEY = "arctic-settings-v1";
 const S = Object.assign({ mode: "auto", red: "auto", alerts: true, minLevel: "Good", liveAlerts: true, liveMin: 30, quiet: false, here: null }, JSON.parse(localStorage.getItem(SKEY) || "{}"));
 const save = () => { try { localStorage.setItem(SKEY, JSON.stringify(S)); } catch {} };
+const validHere = A.validHere;
+// Clear a bad saved position left by the earlier bug.
+if (S.here && !validHere(S.here)) { S.here = null; save(); }
 
 /* ---------- Data, cached so it still works with spotty ship Wi-Fi ---------- */
 async function getText(url, maxAgeMin) {
@@ -68,8 +71,10 @@ function forecastWhere() {
 }
 async function locate() {
   try {
-    const p = isNative ? await native("location") : await new Promise((res, rej) => navigator.geolocation.getCurrentPosition((g) => res({ lat: g.coords.latitude, lon: g.coords.longitude }), rej, { timeout: 15000, maximumAge: 600000 }));
-    S.here = { lat: +p.lat, lon: +p.lon, t: Date.now() }; save(); return true;
+    const raw = isNative ? await native("location") : await new Promise((res, rej) => navigator.geolocation.getCurrentPosition((g) => res({ lat: g.coords.latitude, lon: g.coords.longitude }), rej, { timeout: 15000, maximumAge: 600000 }));
+    const here = validHere(raw); // the iPhone app replies with JSON text; the browser gives an object
+    if (!here) throw new Error("bad position");
+    S.here = { ...here, t: Date.now() }; save(); return true;
   } catch { toast("Couldn't get your location. Check that location is allowed for this app."); return false; }
 }
 

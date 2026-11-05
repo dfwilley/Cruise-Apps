@@ -286,6 +286,15 @@ function plannedAlerts(nights, opts, now) {
     }).filter((a) => a && a.at > now);
 }
 
+/* ================= Your position ================= */
+/** A usable position {lat, lon}, or null. Accepts an object or the iPhone app's JSON text; rejects missing or not-a-number coordinates. */
+function validHere(p) {
+  if (typeof p === "string") { try { p = JSON.parse(p); } catch { return null; } }
+  if (!p || p.lat == null || p.lon == null) return null;
+  const lat = Number(p.lat), lon = Number(p.lon);
+  return Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180 ? { lat, lon } : null;
+}
+
 /* ================= Formatting ================= */
 function fmtTime(t, tz) {
   const d = new Date(t + tz * HOUR); let h = d.getUTCHours(); const m = d.getUTCMinutes();
@@ -297,6 +306,6 @@ function fmtDate(dateLocal) {
   return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
 }
 
-const api = { VOYAGE, shipAt, sunAltitude, moonAltitude, moonIllumination, geomagLat, kpNeeded, parseKpForecast, parse27Day, parseOvation, parseBz, parseClouds, cloudURL, SOURCES, kpAt, cloudBlock, scoreHour, scoreNight, voyageNights, voyageCloudPoints, liveCheck, plannedAlerts, levelOf, fmtTime, fmtDate, HOUR, DAY };
+const api = { VOYAGE, shipAt, sunAltitude, moonAltitude, moonIllumination, geomagLat, kpNeeded, parseKpForecast, parse27Day, parseOvation, parseBz, parseClouds, cloudURL, SOURCES, kpAt, cloudBlock, scoreHour, scoreNight, voyageNights, voyageCloudPoints, liveCheck, plannedAlerts, validHere, levelOf, fmtTime, fmtDate, HOUR, DAY };
 if (typeof module !== "undefined" && module.exports) module.exports = api; else root.Arctic = api;
 })(typeof window !== "undefined" ? window : globalThis);

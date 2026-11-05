@@ -44,4 +44,10 @@ final class ArcticNightTests: XCTestCase {
             XCTAssertTrue(FileManager.default.fileExists(atPath: dir!.appendingPathComponent(f).path), f)
         }
     }
+
+    /// Selecting "Use my location" used to send a not-a-number position, and writing it as JSON crashed the app.
+    func testBadNumbersFromTheScreensDontCrash() {
+        XCTAssertNil(WebContainer.Bridge.jsonData(["here": ["lat": Double.nan, "lon": Double.nan]]))
+        XCTAssertNotNil(WebContainer.Bridge.jsonData(["here": ["lat": 32.2, "lon": -110.9]]))
+    }
 }

@@ -17,8 +17,9 @@ final class ScreenshotTests: XCTestCase {
         if confirm.waitForExistence(timeout: 5) { for _ in 0..<6 where !confirm.isHittable { web.swipeUp() }; if confirm.isHittable { confirm.tap() } }
         let start = web.buttons["Start this quest"].firstMatch
         if start.waitForExistence(timeout: 8) {
-            start.swipeUp(); sleep(1); snap(app, "2-quests")
-            start.tap(); sleep(1); snap(app, "3-active-quest")
+            for _ in 0..<8 where !start.isHittable { web.swipeUp() }
+            sleep(1); snap(app, "2-quests")
+            if start.isHittable { start.tap(); sleep(1); snap(app, "3-active-quest") }
         }
         let journal = web.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Journal")).firstMatch
         if journal.waitForExistence(timeout: 5) { journal.tap(); sleep(1); snap(app, "4-journal") }

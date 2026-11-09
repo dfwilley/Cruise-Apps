@@ -72,7 +72,11 @@ def classify(t):
     if hist in ("technical_monument", "industrial", "railway", "locomotive", "aircraft"): return "mechanism", "technical monument", True
     if tour == "museum" and TECHNICAL.search(g("name", "") + " " + g("museum", "")): return "mechanism", "technical museum", True
     if man == "water_well" and hist: return "mechanism", "historic well", True
-    # Uncover a hidden story
+    # Uncover a hidden story. Memorials to individual victims (Stolpersteine and similar) are left out:
+    # they deserve respect, not a playful quest.
+    if hist == "memorial" and (g("memorial") in ("stolperstein", "stele", "war_memorial", "ghost_bike", "grave")
+                               or g("memorial:type") == "stolperstein" or "stolperstein" in (g("name", "") + g("description", "")).lower()):
+        return None
     if hist == "memorial" and g("memorial") == "plaque" and g("inscription"): return "story", "plaque", False
     if hist in ("building", "house", "manor", "city_gate", "citywalls", "tower", "castle", "fort", "ruins", "archaeological_site",
                 "monument", "palace", "church", "monastery", "boundary_stone", "milestone", "pillory"):
@@ -90,7 +94,9 @@ def score(it):
     s = 0 if it.get("wikidata") else 2
     if it.get("inscription") or it.get("description"): s -= 1
     if it["kind"] in ("café", "ice cream", "butcher"): s += 2
-    if it["kind"] in ("quay", "marina"): s += 1
+    if it["kind"] in ("quay", "marina", "slipway"): s += 1
+    if it["kind"] in ("historic well",): s += 2
+    if it["name"].lower() == it["kind"].lower(): s += 1      # unnamed things after named ones
     return (s, it["fromPier"])
 
 def main(paths):

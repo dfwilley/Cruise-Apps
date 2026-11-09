@@ -90,10 +90,14 @@ final class BundleSchemeHandler: NSObject, WKURLSchemeHandler {
     private let root = Bundle.main.resourceURL!.standardizedFileURL
 
     static func file(for url: URL, in root: URL) -> URL? {
-        var path = url.path
-        if path.isEmpty || path.hasSuffix("/") { path += "index.html" }
-        let file = root.appendingPathComponent(String(path.drop(while: { $0 == "/" }))).standardizedFileURL
+        var rel = String(url.path.drop(while: { $0 == "/" }))   // note: URL.path drops a trailing "/"
+        if rel.isEmpty { rel = "index.html" }
+        var file = root.appendingPathComponent(rel).standardizedFileURL
         guard file.path.hasPrefix(root.path + "/") else { return nil }   // no ../ escapes
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: file.path, isDirectory: &isDir) && isDir.boolValue {
+            file = file.appendingPathComponent("index.html")
+        }
         return file
     }
 

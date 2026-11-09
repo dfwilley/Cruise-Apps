@@ -8,9 +8,22 @@ const facts = load('port-guide/data/ports.js').PORT_FACTS;
 const guide = load('port-guide/data/places.js').PORT_PLACES;
 
 // Itinerary times -> time ashore (30 min after arrival, 30 min before departure)
-assert.deepStrictEqual(Q.suggestedWindow({ from: '08:00', to: '13:00' }), { ready: '08:30', back: '12:30', overnight: false });
-assert.deepStrictEqual(Q.suggestedWindow({ from: '12:00', to: null }), { ready: '12:30', back: null, overnight: false });
+const w1 = Q.suggestedWindow({ from: '08:00', to: '13:00' });
+assert.deepStrictEqual([w1.ready, w1.back, w1.overnight, w1.guessReady, w1.guessBack], ['08:30', '12:30', false, false, false]);
+const w2 = Q.suggestedWindow({ from: '18:00', to: null });          // Bergen arrival evening
+assert.deepStrictEqual([w2.ready, w2.back, w2.overnight, w2.guessBack], ['18:30', '21:30', false, true]);
+const w3 = Q.suggestedWindow({ from: null, to: '23:00' });
+assert.deepStrictEqual([w3.ready, w3.back, w3.guessReady], ['09:00', '22:30', true]);
+const w4 = Q.suggestedWindow({ from: null, to: '06:00' });
+assert(P.budget(w4.ready, w4.back, w4.overnight) > 0, 'early departure still gives a valid window');
+const w5 = Q.suggestedWindow({});
+assert.deepStrictEqual([w5.ready, w5.back], ['09:00', '17:00']);
 assert.strictEqual(Q.suggestedWindow({ from: '20:00', to: '06:00' }).overnight, true);
+// Every day of every real itinerary gives a positive time ashore
+for (const v of facts.voyages) for (const p of v.ports) for (const d of p.days) {
+  const w = Q.suggestedWindow(d), t = P.budget(w.ready, w.back, w.overnight);
+  assert(t > 0 && t <= 1440, `${p.id} ${d.date}: ${w.ready}-${w.back}`);
+}
 assert.strictEqual(Q.toTime(-30), '23:30');
 
 // A tiny made-up port: one place next to the pier, one 5 km away

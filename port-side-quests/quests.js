@@ -65,15 +65,17 @@
   const toTime = n => { n = ((Math.round(n) % 1440) + 1440) % 1440; return pad(Math.floor(n / 60)) + ':' + pad(n % 60); };
 
   /** Suggested time ashore for an itinerary day: ready 30 min after arrival, back 30 min before departure.
-      These are assumptions to confirm with the ship; null fields mean the itinerary has no time. */
+      When the itinerary lacks a time, a placeholder is filled in (flagged by guessReady/guessBack) so the
+      window always makes sense; travelers must confirm with the ship. */
   function suggestedWindow(day) {
-    if (!day) return { ready: null, back: null, overnight: false };
-    const a = toMin(day.from), d = toMin(day.to);
-    return {
-      ready: Number.isFinite(a) ? toTime(a + 30) : null,
-      back: Number.isFinite(d) ? toTime(d - 30) : null,
-      overnight: Number.isFinite(a) && Number.isFinite(d) && d - 30 < a + 30
-    };
+    const a = toMin(day && day.from), d = toMin(day && day.to);
+    let ready = Number.isFinite(a) ? a + 30 : NaN, back = Number.isFinite(d) ? d - 30 : NaN;
+    const guessReady = !Number.isFinite(ready), guessBack = !Number.isFinite(back);
+    if (guessReady && guessBack) { ready = 9 * 60; back = 17 * 60; }
+    else if (guessBack) back = Math.min(ready + 180, 23 * 60 + 30);           // arrival only: about 3 hours
+    else if (guessReady) ready = back - 9 * 60 >= 60 ? 9 * 60 : Math.max(0, back - 180);   // departure only
+    const overnight = back <= ready;
+    return { ready: toTime(ready), back: toTime(back), overnight, guessReady, guessBack };
   }
 
   function taskFor(theme, kind) {

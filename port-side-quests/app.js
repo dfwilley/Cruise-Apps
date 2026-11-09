@@ -52,16 +52,16 @@
     const day = port.days[+$('day').value], w = Q.suggestedWindow(day);
     if (saved && saved.ready) { $('ready').value = saved.ready; $('back').value = saved.back; $('overnight').checked = !!saved.overnight; $('confirmed').checked = !!saved.confirmed; }
     else {
-      $('ready').value = w.ready || '09:00';   // placeholders when the itinerary has no time
-      $('back').value = w.back || '17:00';
+      $('ready').value = w.ready;
+      $('back').value = w.back;
       $('overnight').checked = w.overnight;
       $('confirmed').checked = false;
     }
     const parts = [];
     if (day && (day.from || day.to)) parts.push(`Itinerary: ${day.from ? 'ship arrives ' + day.from : ''}${day.from && day.to ? ', ' : ''}${day.to ? 'leaves ' + day.to : ''} (local time).`);
-    if (w.ready && w.back) parts.push('Times above assume you can go ashore 30 minutes after arrival and must be back 30 minutes before departure. Change them to match the ship’s daily program.');
-    else if (w.ready || w.back) parts.push('Only one time is listed; the other (' + (w.ready ? 'back at 17:00' : 'ashore at 09:00') + ') is a placeholder. Enter the real times from the ship’s daily program.');
-    else parts.push('The itinerary has no times for this day, so 09:00 to 17:00 is only a placeholder. Enter the real times from the ship’s daily program.');
+    if (!w.guessReady && !w.guessBack) parts.push('Times above assume you can go ashore 30 minutes after arrival and must be back 30 minutes before departure. Change them to match the ship’s daily program.');
+    else if (w.guessReady && w.guessBack) parts.push('The itinerary has no times for this day, so ' + w.ready + ' to ' + w.back + ' is only a placeholder. Enter the real times from the ship’s daily program.');
+    else parts.push('The ' + (w.guessBack ? 'return' : 'going-ashore') + ' time (' + (w.guessBack ? w.back : w.ready) + ') is only a placeholder; the itinerary doesn’t list it. Enter the real time from the ship’s daily program.');
     $('timeSource').textContent = parts.join(' ');
     $('pierNote').textContent = (port.piers[+$('pier').value] || {}).note || '';
     renderQuests();

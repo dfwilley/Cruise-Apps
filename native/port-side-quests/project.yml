@@ -14,7 +14,9 @@ targets:
     platform: iOS
     sources:
       - path: PortSideQuests
-      # The web screens and the shared port data, bundled so quests work ashore with no signal
+      # The web screens and the shared port data, bundled so quests work ashore with no signal.
+      # Quest places (port-side-quests/data/quests.js) come from the "Quest data" workflow; after it
+      # updates them, push any change here (or run the TestFlight workflow by hand) to ship them.
       - path: ../../port-side-quests
         type: folder
         buildPhase: resources

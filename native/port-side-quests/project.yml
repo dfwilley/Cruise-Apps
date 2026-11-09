@@ -1,0 +1,73 @@
+name: PortSideQuests
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  PortSideQuests:
+    type: application
+    platform: iOS
+    sources:
+      - path: PortSideQuests
+      # The web screens and the shared port data, bundled so quests work ashore with no signal
+      - path: ../../port-side-quests
+        type: folder
+        buildPhase: resources
+      - path: ../../port-guide
+        type: folder
+        buildPhase: resources
+      - path: ../../hour-between
+        type: folder
+        buildPhase: resources
+    info:
+      path: PortSideQuests/Info.plist
+      properties:
+        CFBundleDisplayName: Side Quests
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+        NSCameraUsageDescription: Port Side Quests lets you take photos of your discoveries for your quest journal.
+        NSPhotoLibraryUsageDescription: Port Side Quests lets you add photos of your discoveries to your quest journal.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.portsidequests
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  PortSideQuestsTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [PortSideQuestsTests]
+    dependencies:
+      - target: PortSideQuests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  PortSideQuestsUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [PortSideQuestsUITests]
+    dependencies:
+      - target: PortSideQuests
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  PortSideQuests:
+    build:
+      targets:
+        PortSideQuests: all
+    test:
+      targets:
+        - PortSideQuestsTests
+        - PortSideQuestsUITests

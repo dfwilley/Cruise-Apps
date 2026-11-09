@@ -1,0 +1,66 @@
+name: Quest data
+
+# Builds port-side-quests/data/quests.js (boatyards, snacks, mechanisms, hidden stories near each port)
+# from OpenStreetMap extracts. Runs when the builder changes, or by hand from the Actions tab.
+on:
+  push:
+    branches: [main]
+    paths: ["tools/build_quests.py", "port-guide/data/ports.json", ".github/workflows/quest-data.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install osmium
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - name: Download OpenStreetMap extracts (Geofabrik)
+        run: |
+          mkdir -p osm && cd osm
+          get() {
+            n=$1; shift
+            for r in "$@"; do
+              if curl -fsSL --retry 2 -o "$n-latest.osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"; then
+                echo "::notice::Downloaded $r ($(du -h "$n-latest.osm.pbf" | cut -f1))"; return 0; fi
+            done
+            rm -f "$n-latest.osm.pbf"; echo "::warning::Couldn't download $n; skipping it"
+          }
+          get norway europe/norway
+          get scotland europe/united-kingdom/scotland europe/great-britain/scotland
+          get london europe/united-kingdom/england/greater-london europe/great-britain/england/greater-london
+          get essex europe/united-kingdom/england/essex europe/great-britain/england/essex
+          get switzerland europe/switzerland
+          get alsace europe/france/alsace europe/france/grand-est
+          get freiburg europe/germany/baden-wuerttemberg/freiburg-regbez
+          get karlsruhe europe/germany/baden-wuerttemberg/karlsruhe-regbez
+          get hessen europe/germany/hessen
+          get unterfranken europe/germany/bayern/unterfranken
+          get oberfranken europe/germany/bayern/oberfranken
+          get mittelfranken europe/germany/bayern/mittelfranken
+      - name: Keep only quest places
+        run: |
+          cd osm
+          for f in *-latest.osm.pbf; do
+            b=${f%-latest.osm.pbf}
+            osmium tags-filter "$f" nwr/craft=boatbuilder nwr/industrial=shipyard nwr/landuse=shipyard nwr/waterway=boatyard,lock_gate \
+              nwr/historic nwr/man_made=lighthouse,pier,quay,slipway,watermill,water_wheel,windmill,crane,tower,bridge,water_well \
+              nwr/leisure=marina,slipway nwr/harbour nwr/seamark:type=harbour nwr/tourism=museum \
+              nwr/shop=bakery,pastry,confectionery,chocolate,cheese,deli,seafood,butcher,farm,ice_cream \
+              nwr/amenity=marketplace,ice_cream,cafe,clock nwr/lock=yes nwr/railway=funicular nwr/aerialway=station \
+              nwr/bridge:movable nwr/heritage nwr/watermill nwr/tower:type=clock \
+              -o "$b-q.pbf" --overwrite
+            osmium export "$b-q.pbf" -f geojsonseq -o "$b.geojsonseq" --overwrite
+            echo "$b: $(wc -l < $b.geojsonseq) features"
+          done
+      - name: Build the quest data file
+        run: python3 tools/build_quests.py osm/*.geojsonseq
+      - name: Save it to the repository
+        run: |
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add port-side-quests/data/quests.js
+          git commit -m "Update Port Side Quests places from OpenStreetMap" || echo "No change"
+          git pull --rebase origin main && git push origin HEAD:main

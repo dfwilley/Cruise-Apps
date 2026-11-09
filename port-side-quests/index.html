@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123b47">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Port Side Quests</title>
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <a class="back" href="../" id="backLink">← Cruise Apps</a>
+  <div class="brand"><img src="icon.png" alt="" width="52" height="52"><div><h1>Port Side Quests</h1>
+  <p>Small adventures ashore. One curious discovery, plenty of time to get back.</p></div></div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" id="tabQuests" aria-selected="true" aria-controls="questsView">Quests</button>
+  <button role="tab" id="tabJournal" aria-selected="false" aria-controls="journalView">Journal <span class="count" id="journalCount">0</span></button>
+  <button role="tab" id="tabShared" aria-selected="false" aria-controls="sharedView">Shared trip <span class="dot" id="sharedDot" hidden></span></button>
+</nav>
+
+<div id="activeBar" class="active-bar" hidden role="status">
+  <div><b id="activeTitle"></b><span id="activeTime"></span></div>
+  <div class="row"><button id="activeRecord">Record discovery</button><button id="activeClear" class="soft">Finish</button></div>
+</div>
+
+<main>
+<!-- QUESTS -->
+<section id="questsView" role="tabpanel" aria-labelledby="tabQuests">
+  <div class="card">
+    <h2><span class="step">1</span> Your port stop</h2>
+    <div class="grid2">
+      <div><label for="voyage">Voyage</label><select id="voyage"></select></div>
+      <div><label for="port">Port</label><select id="port"></select></div>
+    </div>
+    <label for="day">Day</label><select id="day"></select>
+    <div class="grid2">
+      <div><label for="ready">Ready to go ashore</label><input id="ready" type="time" value="10:00"></div>
+      <div><label for="back">Back at the ship by</label><input id="back" type="time" value="13:00"></div>
+    </div>
+    <label class="check"><input type="checkbox" id="overnight"> The ship stays overnight; I'm back the next day</label>
+    <p class="hint" id="timeSource"></p>
+    <label for="pier">Where the ship is docked</label><select id="pier"></select>
+    <p class="hint" id="pierNote"></p>
+    <label for="origin">Starting from</label>
+    <select id="origin"><option value="pier">The ship</option><option value="center">The town centre</option></select>
+    <details class="settings"><summary>Walking pace and safety margins</summary>
+      <div class="grid2">
+        <div><label for="buffer">Safety buffer at the ship (min)</label><input id="buffer" type="number" min="15" max="180" value="30"></div>
+        <div><label for="extra">Extra slack (min)</label><input id="extra" type="number" min="0" max="120" value="15"></div>
+        <div><label for="speed">Walking pace</label><select id="speed"><option value="2.5">Relaxed (2.5 km/h, 1.6 mph)</option><option value="3.5" selected>Easy (3.5 km/h, 2.2 mph)</option><option value="4.5">Brisk (4.5 km/h, 2.8 mph)</option></select></div>
+        <div><label for="factor">Street detours</label><select id="factor"><option value="1.4">Straight streets (1.4 ×)</option><option value="1.7" selected>Normal old town (1.7 ×)</option><option value="2">Winding or hilly (2 ×)</option></select></div>
+      </div>
+      <p class="hint">Walking times are worked out from straight-line distance multiplied by the detour factor, not from a street route. Tenders, shuttles, stairs, weather and crowds can all add time.</p>
+    </details>
+    <label class="check confirm"><input type="checkbox" id="confirmed"> I checked the all-aboard time and where the ship is docked with the ship's daily program or the crew</label>
+  </div>
+
+  <div class="card">
+    <h2><span class="step">2</span> Choose a side quest</h2>
+    <div class="chips" id="themes" role="group" aria-label="Quest types"></div>
+    <p id="questStatus" class="status" role="status"></p>
+    <div id="picks"></div>
+    <div class="row center" id="surpriseRow" hidden><button id="surprise" class="soft">🎲 Surprise me with different quests</button></div>
+    <details id="moreBox" hidden><summary id="moreSummary">More quests nearby</summary><div id="more"></div></details>
+  </div>
+  <p class="foot">Quests use real places from OpenStreetMap (© OpenStreetMap contributors, ODbL). Opening hours, access and work in boatyards change, so check on the day, stay out of work areas, and ask before photographing people. Not affiliated with Viking.</p>
+</section>
+
+<!-- JOURNAL -->
+<section id="journalView" role="tabpanel" aria-labelledby="tabJournal" hidden>
+  <div class="card">
+    <h2>Quest badges</h2>
+    <div class="badges" id="badges"></div>
+    <p class="hint">Complete three quests of a kind to earn its badge.</p>
+  </div>
+  <div class="card">
+    <div class="row between"><h2>Discovery journal</h2><button id="addFree" class="soft small">+ Add a discovery</button></div>
+    <p class="hint" id="journalWhere"></p>
+    <label for="journalPort">Show</label><select id="journalPort"><option value="">All ports</option></select>
+    <div id="entries"></div>
+    <details class="settings"><summary>Backup</summary>
+      <p class="hint">Save the journal on this phone (photos included) as one file, or load a file saved earlier. Loading adds entries; it never removes any.</p>
+      <div class="row"><button id="exportBtn" class="soft">Save backup file</button><label class="btn soft" for="importFile">Load backup file</label><input id="importFile" type="file" accept="application/json,.json" hidden></div>
+    </details>
+  </div>
+</section>
+
+<!-- SHARED TRIP -->
+<section id="sharedView" role="tabpanel" aria-labelledby="tabShared" hidden>
+  <div class="card">
+    <h2>Shared trip journal</h2>
+    <p>Two (or more) travelers each sign in with their own email. Everyone in the trip can add discoveries and photos, and sees everyone else's.</p>
+    <p id="syncStatus" class="status" role="status"></p>
+    <p id="notConfigured" class="notice" hidden>Sharing isn't switched on yet: it needs a free Supabase project set up by the app's owner (see SETUP.md in the Cruise-Apps repository). Your journal on this phone works either way.</p>
+
+    <div id="signedOut" hidden>
+      <label for="email">Your email</label><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com">
+      <button id="sendCode">Email me a sign-in code</button>
+      <div id="codeBox" hidden>
+        <label for="code">Code from the email</label><input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="123456">
+        <button id="verifyCode">Sign in</button>
+        <p class="hint">On a computer you can also click the link in the email instead.</p>
+      </div>
+    </div>
+
+    <div id="signedIn" hidden>
+      <p class="row between"><span>Signed in as <b id="whoami"></b></span><button id="signOut" class="soft small">Sign out</button></p>
+      <label for="myName">Your name in the journal</label><input id="myName" maxlength="40" placeholder="e.g. Dale">
+      <label for="tripSelect">Trip</label><select id="tripSelect"></select>
+      <div id="tripBox" hidden>
+        <div id="inviteBox" class="invite" hidden>
+          <b>Invitation</b><p class="hint" id="inviteInfo"></p>
+          <input id="inviteCode" readonly aria-label="Invitation code">
+          <div class="row"><button id="shareInvite">Send invitation…</button><button id="copyInvite" class="soft">Copy</button></div>
+        </div>
+        <h3>People in this trip</h3>
+        <ul id="memberList" class="members"></ul>
+        <div class="row" id="ownerActions" hidden>
+          <button id="newInvite" class="soft">New invitation</button>
+          <button id="stopInvite" class="soft">Turn off invitations</button>
+          <button id="deleteTrip" class="danger">Delete trip</button>
+        </div>
+        <div class="row" id="memberActions" hidden><button id="leaveTrip" class="danger">Leave trip</button></div>
+        <div class="row"><button id="refreshShared" class="soft">Refresh now</button><button id="uploadPending" class="soft">Share my earlier discoveries</button></div>
+        <p class="hint">New discoveries are shared automatically while you're signed in and online. Without a signal they wait on this phone and go up when you're back online.</p>
+      </div>
+      <details class="settings" id="newTripBox"><summary>Start a new trip</summary>
+        <label for="tripName">Trip name</label><input id="tripName" maxlength="100" placeholder="Rhine & Main 2027">
+        <button id="createTrip">Create trip</button>
+      </details>
+      <details class="settings" id="joinBox"><summary>Join a trip with an invitation</summary>
+        <label for="joinCode">Invitation code</label><input id="joinCode" placeholder="Paste the 64-character code">
+        <button id="joinTrip">Join trip</button>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+
+<dialog id="recordDialog" aria-labelledby="recordTitle">
+  <form method="dialog" class="dialog">
+    <p class="eyebrow" id="recordTheme"></p>
+    <h2 id="recordTitle">Record a discovery</h2>
+    <div id="freeFields" hidden>
+      <label for="freeTitle">What or where</label><input id="freeTitle" maxlength="200">
+      <label for="freeTheme">Kind of quest</label><select id="freeTheme"></select>
+    </div>
+    <p class="hint" id="recordTask"></p>
+    <label for="note">What did you discover?</label>
+    <textarea id="note" maxlength="5000" rows="6"></textarea>
+    <label for="photos">Photos (up to 3)</label>
+    <input id="photos" type="file" accept="image/*" multiple>
+    <div class="thumbs" id="thumbs"></div>
+    <p class="hint" id="recordShare"></p>
+    <div class="row"><button type="button" id="saveRecord">Save discovery</button><button type="button" class="soft" id="cancelRecord">Cancel</button></div>
+  </form>
+</dialog>
+
+<dialog id="editDialog" aria-labelledby="editTitle">
+  <form method="dialog" class="dialog">
+    <h2 id="editTitle">Edit note</h2>
+    <textarea id="editNote" maxlength="5000" rows="7"></textarea>
+    <div class="row"><button type="button" id="saveEdit">Save</button><button type="button" class="soft" id="cancelEdit">Cancel</button></div>
+  </form>
+</dialog>
+
+<script src="../port-guide/data/ports.js"></script>
+<script src="../port-guide/data/places.js"></script>
+<script src="data/quests.js" onerror="window.QUEST_PLACES=null"></script>
+<script src="../hour-between/planner.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="sync-config.js"></script>
+<script src="quests.js"></script>
+<script src="store.js"></script>
+<script src="sync.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

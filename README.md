@@ -15,6 +15,16 @@ Everything works offline: about 10,800 landmarks along the route are built into 
 
 **Data:** © OpenStreetMap contributors (ODbL), from Geofabrik extracts filtered with osmium by the "Landmark data" workflow (`tools/build_landmarks.py`). Light characteristics come from OpenStreetMap sea-mark tags — interesting, but **not for navigation**. The route and port times (`fjord-spotter/data/route.json`) are approximate.
 
+## Port Side Quests
+
+Turns a port stop into a small adventure: pick your port and time ashore, choose a quest (find the working waterfront, taste something unexpected, discover an ingenious mechanism, uncover a hidden story), go find it, and record the discovery with notes and photos in a journal you can share with your travel partner. Every quest shows when to head back, keeping a safety buffer before all-aboard.
+
+- **Web app:** https://dfwilley.github.io/Cruise-Apps/port-side-quests/
+- **iPhone app:** TestFlight (workflow "Port Side Quests - upload to TestFlight"), or https://github.com/dfwilley/Cruise-Apps/releases/download/port-side-quests-latest/Port-Side-Quests.ipa (install with Sideloadly)
+- **Shared journal:** needs a free Supabase project; see `port-side-quests/SETUP.md`.
+
+**Data:** quest places © OpenStreetMap contributors (ODbL), built by the "Quest data" workflow (`tools/build_quests.py`); ports, piers and times from Port Pocket Guide; walking times from The Hour Between.
+
 ## Arctic Night (Aurora Watch)
 
 Northern lights outlook for the **In Search of Northern Lights** voyage (January 30 – February 11, 2027), and for wherever you are the rest of the year.

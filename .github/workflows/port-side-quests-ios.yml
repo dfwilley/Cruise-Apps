@@ -1,0 +1,86 @@
+name: Port Side Quests iPhone app
+
+on:
+  push:
+    branches: [main]
+    paths: ["port-side-quests/**", "port-guide/data/**", "hour-between/**", "native/port-side-quests/**", "tests/quests.test.js", ".github/workflows/port-side-quests-ios.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test the quest logic
+        run: node tests/quests.test.js && node tests/hour.test.js
+
+      - name: Install XcodeGen
+        run: command -v xcodegen || brew install xcodegen
+
+      - name: Create the Xcode project
+        working-directory: native/port-side-quests
+        run: xcodegen generate
+
+      - name: Run tests and take screenshots on an iPhone simulator
+        working-directory: native/port-side-quests
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -E '^[[:space:]]+iPhone' | head -1 | sed -E 's/^[[:space:]]+//; s/ \(.*//')
+          echo "::notice::Simulator: $DEVICE"
+          xcodebuild test -project PortSideQuests.xcodeproj -scheme PortSideQuests \
+            -destination "platform=iOS Simulator,name=$DEVICE" -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO 2>&1 | tee test.log | grep -E "error:|Test Case .*(passed|failed)|Executed|\*\* TEST" || true
+          grep -E "Executed [0-9]+ test" test.log | sort -u | while IFS= read -r l; do echo "::notice::$l"; done
+          if ! grep -q "\*\* TEST SUCCEEDED \*\*" test.log; then
+            grep -E "error:|: error|failed|xcodebuild: error" test.log | sort -u | head -10 | while IFS= read -r l; do echo "::error::${l:0:900}"; done
+            exit 1
+          fi
+
+      - name: Publish screenshots to the ci-screenshots-side-quests branch
+        if: always()
+        working-directory: native/port-side-quests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -d TestResults.xcresult ] || exit 0
+          mkdir -p shots
+          xcrun xcresulttool export attachments --path TestResults.xcresult --output-path shots || true
+          cd shots
+          git init -q -b ci-screenshots-side-quests
+          git config user.name "github-actions"; git config user.email "github-actions@users.noreply.github.com"
+          git add -A && git commit -qm "Screenshots from run ${{ github.run_number }}" || exit 0
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screenshots-side-quests
+
+      - name: Build for iPhone (unsigned)
+        working-directory: native/port-side-quests
+        run: |
+          xcodebuild build -project PortSideQuests.xcodeproj -scheme PortSideQuests \
+            -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" 2>&1 | tee build.log | grep -E "error:|\*\* BUILD" || true
+          if ! grep -q "\*\* BUILD SUCCEEDED \*\*" build.log; then
+            grep -E "error:" build.log | sort -u | head -10 | while IFS= read -r l; do echo "::error::${l:0:900}"; done
+            exit 1
+          fi
+
+      - name: Package the .ipa
+        working-directory: native/port-side-quests
+        run: |
+          mkdir -p Payload && cp -R build/Build/Products/Release-iphoneos/PortSideQuests.app Payload/
+          zip -qry Port-Side-Quests.ipa Payload && ls -l Port-Side-Quests.ipa
+
+      - name: Publish the .ipa (always at the same download link)
+        working-directory: native/port-side-quests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete port-side-quests-latest --repo "${{ github.repository }}" --cleanup-tag -y || true
+          gh release create port-side-quests-latest Port-Side-Quests.ipa --repo "${{ github.repository }}" \
+            --title "Port Side Quests (build ${{ github.run_number }})" --latest=false \
+            --notes "Download Port-Side-Quests.ipa below and install it with Sideloadly. Built from commit ${GITHUB_SHA:0:7}."

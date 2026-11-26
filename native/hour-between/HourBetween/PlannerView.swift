@@ -41,7 +41,9 @@ final class PlannerController: UIViewController, WKNavigationDelegate, WKUIDeleg
     static func outsideURL(for url: URL) -> URL? {
         if url.scheme == "about" || url.scheme == "blob" || url.scheme == "data" { return nil }
         guard url.scheme == scheme else { return url }
-        let path = String(url.path.drop(while: { $0 == "/" }))
+        // URL.path drops a trailing "/", which would turn a folder link into a file link; the raw path keeps it.
+        let raw = URLComponents(url: url, resolvingAgainstBaseURL: false)?.percentEncodedPath ?? url.path
+        let path = String(raw.drop(while: { $0 == "/" }))
         if path.hasPrefix("hour-between/") || path == "hour-between" { return nil }
         return URL(string: webHome + path)
     }

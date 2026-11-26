@@ -1,0 +1,53 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "74B8FD42-513F-4094-9D2B-D99023E54CC8.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "5-shared-trip_0_64CF307E-24F3-4E08-A368-06D26A95B8B5.png",
+        "timestamp" : 1795699537.327
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "D225B423-1474-42A4-B350-524862FE9A6E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "4-journal_0_C2265340-AB99-4575-BF3A-56C4B7328169.png",
+        "timestamp" : 1795699533.77
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "F417C873-21E7-45E2-83DA-8AFEE88C4CA1.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "3-active-quest_0_811361E2-4D88-4C67-BE6D-B6631D0F82D0.png",
+        "timestamp" : 1795699529.883
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "3E01BB45-7940-4EF5-B289-9C76DA5BDBA0.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "2-quests_0_1F8DA14F-C0A2-4F02-9320-EA428E9FCA4A.png",
+        "timestamp" : 1795699526.851
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "8CD4A029-EFCE-4143-B2AB-23B6760E2BE6.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "1-port-stop_0_577CBA4D-DC69-4C31-960B-76CF3DFB97B4.png",
+        "timestamp" : 1795699494.992
+      }
+    ],
+    "testIdentifier" : "ScreenshotTests/testScreens()",
+    "testIdentifierURL" : "test://com.apple.xcode/PortSideQuests/PortSideQuestsUITests/ScreenshotTests/testScreens"
+  }
+]

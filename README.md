@@ -64,11 +64,14 @@ Cruise tabs: **Pier & walking** (berth options with sources, walking time to the
 - `tests/fjord.test.js` — `node tests/fjord.test.js`
 - `aurora-watch/`, `native/aurora-watch/`, `tests/aurora.test.js` (sample data in `tests/aurora-fixtures/`) — Arctic Night.
 - `pocket-sextant/` — Pocket Sextant (web only).
+- `hour-between/`, `native/hour-between/`, `tests/hour.test.js` — The Hour Between (logic in `planner.js`; screens in `app.js`). Port Side Quests also bundles it.
 - `port-guide/`, `native/port-guide/`, `tests/port.test.js` — Port Pocket Guide (logic in `port.js`; itinerary import and Near me sorting in `import.js`).
 
 ## The Hour Between
 
 Web app: https://dfwilley.github.io/Cruise-Apps/hour-between/
+
+- **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/hour-between-latest/Hour-Between.ipa (install with Sideloadly)
 
 One-stop free-time planner for both saved voyages. Reuses the shared port and OpenStreetMap place records. Enter your own ready/return times, confirm the return dock, choose a walking pace, visit duration, contingency, and protected return buffer. Results show estimated out/visit/back timing and a saved device-local outing card. Optional manually verified travel-time overrides are available.
 

@@ -1,0 +1,68 @@
+name: HourBetween
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  HourBetween:
+    type: application
+    platform: iOS
+    sources:
+      - path: HourBetween
+      # The web screens and the shared port and place data, bundled so planning works with no signal.
+      - path: ../../hour-between
+        type: folder
+        buildPhase: resources
+      - path: ../../port-guide
+        type: folder
+        buildPhase: resources
+    info:
+      path: HourBetween/Info.plist
+      properties:
+        CFBundleDisplayName: Hour Between
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.hourbetween
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  HourBetweenTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [HourBetweenTests]
+    dependencies:
+      - target: HourBetween
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  HourBetweenUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [HourBetweenUITests]
+    dependencies:
+      - target: HourBetween
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  HourBetween:
+    build:
+      targets:
+        HourBetween: all
+    test:
+      targets:
+        - HourBetweenTests
+        - HourBetweenUITests

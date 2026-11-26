@@ -25,12 +25,12 @@ Each app is a plain web app in its own top-level folder: HTML, CSS and JavaScrip
 | `aurora-watch/` | Arctic Night, also called Aurora Watch (logic in `arctic.js`) | `native/aurora-watch/` (TestFlight) |
 | `port-guide/` | Port Pocket Guide (logic in `port.js`, `import.js`) | `native/port-guide/` (TestFlight) |
 | `port-side-quests/` | Port Side Quests | `native/port-side-quests/` (TestFlight) |
-| `hour-between/` | The Hour Between | none |
+| `hour-between/` | The Hour Between (logic in `planner.js`) | `native/hour-between/` |
 | `pocket-sextant/` | Pocket Sextant | none |
 
 Other folders: `tools/` (data-building scripts), `viking-catalog/` (generated data), `tests/`.
 
-All four iPhone apps are **shells**: each `native/<app>/project.yml` bundles the web folder as-is and shows it in a web view, adding native extras (GPS, compass, camera, alerts, Apple Maps). A change to a web folder changes the iPhone app too. Port Side Quests also bundles `port-guide/` and `hour-between/`, so changes to those two can affect it.
+All five iPhone apps are **shells**: each `native/<app>/project.yml` bundles the web folder as-is and shows it in a web view, adding native extras (GPS, compass, camera, alerts, Apple Maps). A change to a web folder changes the iPhone app too. Port Side Quests also bundles `port-guide/` and `hour-between/`, so changes to those two can affect it.
 
 Each native app is defined by a `project.yml` that XcodeGen turns into an Xcode project during the cloud build. Generated projects and `Info.plist` files are not checked in.
 

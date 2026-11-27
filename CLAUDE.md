@@ -44,9 +44,10 @@ node tests/fjord.test.js
 node tests/hour.test.js
 node tests/port.test.js
 node tests/quests.test.js
+node tests/sextant.test.js
 ```
 
-All five passed on November 12, 2026. Pocket Sextant has no automated tests. The Swift unit tests and screenshot tests under `native/*/` need a Mac, so they run only in GitHub Actions.
+All six passed on November 27, 2026 (Pocket Sextant's were added then). The Swift unit tests and screenshot tests under `native/*/` need a Mac, so they run only in GitHub Actions.
 
 ## How a change reaches the phone
 

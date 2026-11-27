@@ -40,6 +40,8 @@ Take a sun sight with the phone's camera and tilt sensor and work out your posit
 
 - **Web app:** https://dfwilley.github.io/Cruise-Apps/pocket-sextant/
 
+Details in `pocket-sextant/README.md`. Tests: `node tests/sextant.test.js`.
+
 ## Port Pocket Guide
 
 A pocket guide to the seven ports of the same voyage: Tromsø, Alta, Harstad, Narvik, Bergen, Edinburgh (Rosyth) and London (Tilbury).
@@ -63,7 +65,7 @@ Cruise tabs: **Pier & walking** (berth options with sources, walking time to the
 - `native/fjord-spotter/` — the iPhone shell: GPS, true-north compass and camera.
 - `tests/fjord.test.js` — `node tests/fjord.test.js`
 - `aurora-watch/`, `native/aurora-watch/`, `tests/aurora.test.js` (sample data in `tests/aurora-fixtures/`) — Arctic Night.
-- `pocket-sextant/` — Pocket Sextant (web only).
+- `pocket-sextant/`, `tests/sextant.test.js` — Pocket Sextant (web only; math in `sextant-core.js`, details in `pocket-sextant/README.md`).
 - `hour-between/`, `native/hour-between/`, `tests/hour.test.js` — The Hour Between (logic in `planner.js`; screens in `app.js`). Port Side Quests also bundles it.
 - `port-guide/`, `native/port-guide/`, `tests/port.test.js` — Port Pocket Guide (logic in `port.js`; itinerary import and Near me sorting in `import.js`).
 

@@ -1,0 +1,62 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "D75B1918-52D3-4169-9E14-6AB0679CB414.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "6-help_0_D01FEAC7-21DF-4D75-8E50-A1B49D17D915.png",
+        "timestamp" : 1795786933.411
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "60B7C8C0-83FA-4E45-9238-2F6A0C2D34CD.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "5-setup_0_7D933351-6212-426A-81F9-843479FA431F.png",
+        "timestamp" : 1795786931.43
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "AE782AD3-54A3-4CA2-91B8-4D5E4FD72542.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "4-almanac_0_CC644943-D209-49C5-B30C-BB20FC111164.png",
+        "timestamp" : 1795786928.113
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "3EE89B63-8812-4FC2-850D-F7DF547E1CDA.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "3-fix_0_43AFC547-8976-4930-8A6A-D2E9212C5756.png",
+        "timestamp" : 1795786925.089
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "9C2CB1E1-9062-49C2-BC29-1EB56BFB8512.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "2-log_0_C179DAB7-E901-4A3C-AE78-93EDBD46D09E.png",
+        "timestamp" : 1795786911.141
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "7E7A621B-1D27-402C-8395-9E86FC5A14FA",
+        "deviceName" : "iPhone 16 Pro",
+        "exportedFileName" : "4C8CD6C0-916F-45F9-9F63-F1ED7694259A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "1-shoot_0_3FD18BD7-89B6-46AC-BA9C-D63FA54B5B61.png",
+        "timestamp" : 1795786898.593
+      }
+    ],
+    "testIdentifier" : "ScreenshotTests/testScreens()",
+    "testIdentifierURL" : "test://com.apple.xcode/PocketSextant/PocketSextantUITests/ScreenshotTests/testScreens"
+  }
+]

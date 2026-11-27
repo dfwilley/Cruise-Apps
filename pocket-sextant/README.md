@@ -5,7 +5,8 @@ Take a sun sight with the phone's camera and tilt sensor and work out where you 
 **For fun and practice, not for actual navigation.**
 
 - **Web app:** https://dfwilley.github.io/Cruise-Apps/pocket-sextant/ (open in Safari; Share › Add to Home Screen)
-- Works offline once it has been opened with a connection. All sights and settings stay on the phone.
+- **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/pocket-sextant-latest/Pocket-Sextant.ipa (install with Sideloadly). The same app with everything built in, so it works offline from the first launch and keeps your sights between launches. It asks once for the camera, the motion sensor and, when you tap Use my GPS, your location.
+- The web version works offline once it has been opened with a connection. All sights and settings stay on the phone.
 
 ## The tabs
 
@@ -33,4 +34,4 @@ One arcminute (1/60 of a degree) of error moves the position by one nautical mil
 - `sw.js` — keeps the app working offline. Raise the cache name (`pocket-sextant-v1`) when files change.
 - `tests/sextant.test.js` — run `node tests/sextant.test.js` from the repository root. It checks the sun against published almanac values, the corrections, and that perfect sights taken at a known spot (Tromsø in February, and a ship under way) give that spot back.
 
-There is no iPhone app version; the web app is used from the Home Screen.
+- `native/pocket-sextant/` — the iPhone app: a thin wrapper that shows this folder, built on GitHub's cloud Macs by the "Pocket Sextant iPhone app" workflow, which publishes `Pocket-Sextant.ipa` to the `pocket-sextant-latest` release.

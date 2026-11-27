@@ -39,6 +39,7 @@ Details in `aurora-watch/README.md`.
 Take a sun sight with the phone's camera and tilt sensor and work out your position, celestial-navigation style.
 
 - **Web app:** https://dfwilley.github.io/Cruise-Apps/pocket-sextant/
+- **iPhone app:** https://github.com/dfwilley/Cruise-Apps/releases/download/pocket-sextant-latest/Pocket-Sextant.ipa (install with Sideloadly)
 
 Details in `pocket-sextant/README.md`. Tests: `node tests/sextant.test.js`.
 
@@ -65,7 +66,7 @@ Cruise tabs: **Pier & walking** (berth options with sources, walking time to the
 - `native/fjord-spotter/` — the iPhone shell: GPS, true-north compass and camera.
 - `tests/fjord.test.js` — `node tests/fjord.test.js`
 - `aurora-watch/`, `native/aurora-watch/`, `tests/aurora.test.js` (sample data in `tests/aurora-fixtures/`) — Arctic Night.
-- `pocket-sextant/`, `tests/sextant.test.js` — Pocket Sextant (web only; math in `sextant-core.js`, details in `pocket-sextant/README.md`).
+- `pocket-sextant/`, `native/pocket-sextant/`, `tests/sextant.test.js` — Pocket Sextant (math in `sextant-core.js`, details in `pocket-sextant/README.md`).
 - `hour-between/`, `native/hour-between/`, `tests/hour.test.js` — The Hour Between (logic in `planner.js`; screens in `app.js`). Port Side Quests also bundles it.
 - `port-guide/`, `native/port-guide/`, `tests/port.test.js` — Port Pocket Guide (logic in `port.js`; itinerary import and Near me sorting in `import.js`).
 

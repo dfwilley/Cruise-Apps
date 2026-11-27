@@ -1,0 +1,69 @@
+name: PocketSextant
+options:
+  bundleIdPrefix: com.dfwilley
+  deploymentTarget:
+    iOS: "16.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  PocketSextant:
+    type: application
+    platform: iOS
+    sources:
+      - path: PocketSextant
+      # The web app, bundled as-is so it works at sea with no signal.
+      - path: ../../pocket-sextant
+        type: folder
+        buildPhase: resources
+    info:
+      path: PocketSextant/Info.plist
+      properties:
+        CFBundleDisplayName: Sextant
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        ITSAppUsesNonExemptEncryption: false
+        NSCameraUsageDescription: Pocket Sextant shows the camera view so you can put the sun in the ring.
+        NSMotionUsageDescription: Pocket Sextant reads the phone's tilt to measure how high the sun is.
+        NSLocationWhenInUseUsageDescription: Pocket Sextant uses GPS only when you ask, to calibrate and to check your fix.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dfwilley.pocketsextant
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  PocketSextantTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [PocketSextantTests]
+    dependencies:
+      - target: PocketSextant
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+  PocketSextantUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [PocketSextantUITests]
+    dependencies:
+      - target: PocketSextant
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+schemes:
+  PocketSextant:
+    build:
+      targets:
+        PocketSextant: all
+    test:
+      targets:
+        - PocketSextantTests
+        - PocketSextantUITests

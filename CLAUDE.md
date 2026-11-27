@@ -21,7 +21,7 @@ Each app is a plain web app in its own top-level folder: HTML, CSS and JavaScrip
 
 | Folder | App | iPhone version |
 |---|---|---|
-| `fjord-spotter/` | Fjord Spotter (logic in `fjord.js`) | `native/fjord-spotter/` |
+| `fjord-spotter/` | Fjord Spotter (logic in `fjord.js`) | `native/fjord-spotter/` (Sideloadly only) |
 | `aurora-watch/` | Arctic Night, also called Aurora Watch (logic in `arctic.js`) | `native/aurora-watch/` (TestFlight) |
 | `port-guide/` | Port Pocket Guide (logic in `port.js`, `import.js`) | `native/port-guide/` (TestFlight) |
 | `port-side-quests/` | Port Side Quests | `native/port-side-quests/` (TestFlight) |
@@ -54,7 +54,7 @@ All five passed on November 12, 2026. Pocket Sextant has no automated tests. The
 
 - The web apps go live on GitHub Pages as soon as they are pushed.
 - Each `...-ios.yml` workflow runs when its app's files change: it runs the tests, builds an unsigned `.ipa`, and replaces the `<app>-latest` release (for Sideloadly).
-- Arctic Night, Port Pocket Guide and Port Side Quests also have `...-testflight.yml` workflows that sign and upload to TestFlight on every push that touches them. These **do not run the tests**, so a change with failing tests can still be uploaded. Check the test run before calling work finished.
+- Arctic Night, Port Pocket Guide and Port Side Quests also have `...-testflight.yml` workflows that sign and upload to TestFlight on every push that touches them. Fjord Spotter is Sideloadly only by the owner's choice (November 27, 2026); don't add TestFlight to it unless he asks. The TestFlight workflows **do not run the tests**, so a change with failing tests can still be uploaded. Check the test run before calling work finished.
 - Signing uses four repository secrets: `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8`, `APPLE_TEAM_ID`. Never print or log them. The shared helper scripts are in `.github/scripts/`.
 
 For anything larger than a small fix, work on a branch and merge to `main` only when it is ready.
